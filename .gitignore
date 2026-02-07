@@ -1,0 +1,6 @@
+# Python virtual env
+.venv/
+# PyCharm project files
+.idea/
+# MacOS junk
+.DS_Store
