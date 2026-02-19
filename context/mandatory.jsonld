@@ -1,0 +1,107 @@
+{
+  "@context": {
+    "class": "https://schema.datacite.org/linked-data/class/",
+    "property": "https://schema.datacite.org/linked-data/property/",
+    "vocab": "https://schema.datacite.org/linked-data/vocab/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "xml": "http://www.w3.org/XML/1998/namespace",
+
+    "Identifier": "class:Identifier",
+    "Creator": "class:Creator",
+    "Title": "class:Title",
+    "Publisher": "class:Publisher",
+    "ResourceType": "class:ResourceType",
+
+    "identifier": {
+      "@id": "property:identifier",
+      "@type": "xsd:string"
+    },
+    "identifierType": {
+      "@id": "property:identifierType",
+      "@type": "@id"
+    },
+
+    "creators": "property:creators",
+    "creator": "property:creator",
+
+    "creatorName": {
+      "@id": "property:creatorName",
+      "@type": "xsd:string"
+    },
+    "nameType": {
+      "@id": "property:nameType",
+      "@type": "@id"
+    },
+    "givenName": {
+      "@id": "property:givenName",
+      "@type": "xsd:string"
+    },
+    "familyName": {
+      "@id": "property:familyName",
+      "@type": "xsd:string"
+    },
+
+    "nameIdentifier": {
+      "@id": "property:nameIdentifier",
+      "@type": "@id"
+    },
+    "nameIdentifierScheme": {
+      "@id": "property:nameIdentifierScheme",
+      "@type": "@id"
+    },
+    "schemeURI": {
+      "@id": "property:schemeURI",
+      "@type": "@id"
+    },
+
+    "affiliation": "property:affiliation",
+    "affiliationIdentifier": {
+      "@id": "property:affiliationIdentifier",
+      "@type": "xsd:string"
+    },
+    "affiliationIdentifierScheme": {
+      "@id": "property:affiliationIdentifierScheme",
+      "@type": "xsd:string"
+    },
+
+    "titles": "property:titles",
+    "title": {
+      "@id": "property:title",
+      "@type": "xsd:string"
+    },
+    "titleType": {
+      "@id": "property:titleType",
+      "@type": "@id"
+    },
+
+    "publisher": {
+      "@id": "property:publisher",
+      "@type": "xsd:string"
+    },
+    "publisherIdentifier": {
+      "@id": "property:publisherIdentifier",
+      "@type": "xsd:string"
+    },
+    "publisherIdentifierScheme": {
+      "@id": "property:publisherIdentifierScheme",
+      "@type": "xsd:string"
+    },
+
+    "publicationYear": {
+      "@id": "property:publicationYear",
+      "@type": "xsd:gYear"
+    },
+
+    "resourceType": {
+      "@id": "property:resourceType",
+      "@type": "xsd:string"
+    },
+    "resourceTypeGeneral": {
+      "@id": "property:resourceTypeGeneral",
+      "@type": "@id"
+    },
+
+    "xml:lang": "xml:lang",
+    "lang": "xml:lang"
+  }
+}
