@@ -1,6 +1,4 @@
-{
-  "$comment": "bolognese JSON instance generated from datacite-example-full-v4.xml using bolognese.This is used for JSON-LD mapping to create top-level keys and nested objects to DataCite schema IRIs (https://schema.datacite.org/...) or other vocabularies. Purely for Linked-data purposes without XML artefacts taken into the design. ",
-  "$schema": "http://json-schema.org/draft-04/schema#",
+{ "$schema": "http://json-schema.org/draft-04/schema#",
   "description": "",
   "type": "object",
   "properties": {

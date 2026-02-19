@@ -14,3 +14,67 @@
 
 *	**vocab/** – controlled lists (enumerations) referenced by properties.  These are grouped by version (e.g., vocab/datacite-4.6/).  Each file in this folder defines a set of terms with stable IRIs.
 
+-----
+
+1️⃣ XML → Bolognese JSON
+
+    bundle exec bolognese \
+    datacite-example-full-v4.xml \
+    -f datacite \
+    -t datacite_json
+**Output:**
+datacite-example-4.6.json
+
+**This is:**
+* A DataCite JSON profile
+* A semantic, normalized representation
+* Not XML-shaped
+* Not reversible back to identical XML
+
+**Example difference:**
+  
+XML: 
+
+    <identifier identifierType="DOI">10.82433/B09Z-4K37</identifier>
+
+Bolognese JSON:
+
+    "id": "https://doi.org/10.82433/b09z-4k37", 
+    "doi": "10.82433/b09z-4k37"
+
+This is a semantic transformation with flattened structures and expanded DOI to URL. 
+
+----
+2️⃣ XML → xml-js → XML-shaped JSON
+
+    xml-js ... --attributes-key "@attrs" --text-key "@value"
+
+**Output**:
+XML-Shaped-JSON.json
+
+**This is:**
+* Structural
+* Preserves XML shape
+* Preserves attributes
+* Preserves wrapper elements
+* Reversible to XML
+
+**Example difference:**
+
+XML:
+
+    <identifier identifierType="DOI">10.82433/B09Z-4K37</identifier>
+
+JSON:
+
+    "identifier": {
+    "@attrs": { "identifierType": "DOI" },
+    "@value": "10.82433/B09Z-4K37"
+    }
+
+7. 
+
+| Transformation | Purpose | Reversible | XML fidelity |
+| ----- | ----- | ----- | ----- |
+| XML → bolognese JSON | Semantic normalization | ❌ No | ❌ No |
+| XML → xml-js JSON | Structural preservation | ✅ Yes | ✅ Yes |
