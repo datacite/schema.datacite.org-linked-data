@@ -1,0 +1,867 @@
+{
+  "$comment": "bolognese JSON instance generated from datacite-example-full-v4.xml using bolognese.This is used for JSON-LD mapping to create top-level keys and nested objects to DataCite schema IRIs (https://schema.datacite.org/...) or other vocabularies. Purely for Linked-data purposes without XML artefacts taken into the design. ",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "resource": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "doi": {
+          "type": "string",
+          "minLength": 1
+        },
+        "types": {
+          "type": "object",
+          "properties": {
+            "resourceTypeGeneral": {
+              "type": "string",
+              "minLength": 1
+            },
+            "resourceType": {
+              "type": "string",
+              "minLength": 1
+            },
+            "schemaOrg": {
+              "type": "string",
+              "minLength": 1
+            },
+            "citeproc": {
+              "type": "string",
+              "minLength": 1
+            },
+            "bibtex": {
+              "type": "string",
+              "minLength": 1
+            },
+            "ris": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "resourceTypeGeneral",
+            "resourceType",
+            "schemaOrg",
+            "citeproc",
+            "bibtex",
+            "ris"
+          ]
+        },
+        "creators": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "required": [
+              "nameType",
+              "name",
+              "givenName",
+              "familyName"
+            ],
+            "properties": {
+              "nameType": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "givenName": {
+                "type": "string",
+                "minLength": 1
+              },
+              "familyName": {
+                "type": "string",
+                "minLength": 1
+              },
+              "nameIdentifiers": {
+                "type": "array",
+                "uniqueItems": true,
+                "minItems": 1,
+                "items": {
+                  "required": [
+                    "nameIdentifier",
+                    "schemeUri",
+                    "nameIdentifierScheme"
+                  ],
+                  "properties": {
+                    "nameIdentifier": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "schemeUri": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "nameIdentifierScheme": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              },
+              "affiliation": {
+                "type": "array",
+                "uniqueItems": true,
+                "minItems": 1,
+                "items": {
+                  "required": [
+                    "name",
+                    "affiliationIdentifier",
+                    "affiliationIdentifierScheme",
+                    "schemeUri"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "affiliationIdentifier": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "affiliationIdentifierScheme": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "schemeUri": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "titles": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "required": [
+              "title",
+              "titleType",
+              "lang"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "titleType": {
+                "type": "string",
+                "minLength": 1
+              },
+              "lang": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "publisher": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "publisherIdentifier": {
+              "type": "string",
+              "minLength": 1
+            },
+            "publisherIdentifierScheme": {
+              "type": "string",
+              "minLength": 1
+            },
+            "schemeUri": {
+              "type": "string",
+              "minLength": 1
+            },
+            "lang": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "name",
+            "publisherIdentifier",
+            "publisherIdentifierScheme",
+            "schemeUri",
+            "lang"
+          ]
+        },
+        "container": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "minLength": 1
+            },
+            "identifier": {
+              "type": "string",
+              "minLength": 1
+            },
+            "identifierType": {
+              "type": "string",
+              "minLength": 1
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "type",
+            "identifier",
+            "identifierType",
+            "title"
+          ]
+        },
+        "subjects": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "required": [
+              "subject",
+              "subjectScheme",
+              "schemeUri",
+              "valueUri"
+            ],
+            "properties": {
+              "subject": {
+                "type": "string",
+                "minLength": 1
+              },
+              "subjectScheme": {
+                "type": "string",
+                "minLength": 1
+              },
+              "schemeUri": {
+                "type": "string",
+                "minLength": 1
+              },
+              "valueUri": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "contributors": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "required": [
+              "nameType",
+              "name",
+              "givenName",
+              "familyName",
+              "contributorType"
+            ],
+            "properties": {
+              "nameType": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "givenName": {
+                "type": "string",
+                "minLength": 1
+              },
+              "familyName": {
+                "type": "string",
+                "minLength": 1
+              },
+              "nameIdentifiers": {
+                "type": "array",
+                "uniqueItems": true,
+                "minItems": 1,
+                "items": {
+                  "required": [
+                    "nameIdentifier",
+                    "schemeUri",
+                    "nameIdentifierScheme"
+                  ],
+                  "properties": {
+                    "nameIdentifier": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "schemeUri": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "nameIdentifierScheme": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              },
+              "affiliation": {
+                "type": "array",
+                "uniqueItems": true,
+                "minItems": 1,
+                "items": {
+                  "required": [
+                    "name",
+                    "affiliationIdentifier",
+                    "affiliationIdentifierScheme",
+                    "schemeUri"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "affiliationIdentifier": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "affiliationIdentifierScheme": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "schemeUri": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              },
+              "contributorType": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "dates": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "required": [
+              "date",
+              "dateType",
+              "dateInformation"
+            ],
+            "properties": {
+              "date": {
+                "type": "string",
+                "minLength": 1
+              },
+              "dateType": {
+                "type": "string",
+                "minLength": 1
+              },
+              "dateInformation": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "publicationYear": {
+          "type": "string",
+          "minLength": 1
+        },
+        "language": {
+          "type": "string",
+          "minLength": 1
+        },
+        "identifiers": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "required": [
+              "identifierType",
+              "identifier"
+            ],
+            "properties": {
+              "identifierType": {
+                "type": "string",
+                "minLength": 1
+              },
+              "identifier": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "sizes": {
+          "type": "array",
+          "items": {
+            "required": [],
+            "properties": {}
+          }
+        },
+        "formats": {
+          "type": "array",
+          "items": {
+            "required": [],
+            "properties": {}
+          }
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rightsList": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "required": [
+              "rights",
+              "rightsUri",
+              "rightsIdentifier",
+              "rightsIdentifierScheme",
+              "schemeUri",
+              "lang"
+            ],
+            "properties": {
+              "rights": {
+                "type": "string",
+                "minLength": 1
+              },
+              "rightsUri": {
+                "type": "string",
+                "minLength": 1
+              },
+              "rightsIdentifier": {
+                "type": "string",
+                "minLength": 1
+              },
+              "rightsIdentifierScheme": {
+                "type": "string",
+                "minLength": 1
+              },
+              "schemeUri": {
+                "type": "string",
+                "minLength": 1
+              },
+              "lang": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "descriptions": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "required": [
+              "description",
+              "descriptionType",
+              "lang"
+            ],
+            "properties": {
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "descriptionType": {
+                "type": "string",
+                "minLength": 1
+              },
+              "lang": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "geoLocations": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "required": [
+              "geoLocationPlace"
+            ],
+            "properties": {
+              "geoLocationPoint": {
+                "type": "object",
+                "properties": {
+                  "pointLatitude": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "pointLongitude": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "pointLatitude",
+                  "pointLongitude"
+                ]
+              },
+              "geoLocationBox": {
+                "type": "object",
+                "properties": {
+                  "westBoundLongitude": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "eastBoundLongitude": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "southBoundLatitude": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "northBoundLatitude": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "westBoundLongitude",
+                  "eastBoundLongitude",
+                  "southBoundLatitude",
+                  "northBoundLatitude"
+                ]
+              },
+              "geoLocationPolygon": {
+                "type": "array",
+                "uniqueItems": true,
+                "minItems": 1,
+                "items": {
+                  "required": [],
+                  "properties": {
+                    "polygonPoint": {
+                      "type": "object",
+                      "properties": {
+                        "pointLatitude": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "pointLongitude": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "pointLatitude",
+                        "pointLongitude"
+                      ]
+                    }
+                  }
+                }
+              },
+              "geoLocationPlace": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "fundingReferences": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "required": [
+              "funderName",
+              "funderIdentifier",
+              "funderIdentifierType",
+              "awardNumber",
+              "awardUri",
+              "awardTitle"
+            ],
+            "properties": {
+              "funderName": {
+                "type": "string",
+                "minLength": 1
+              },
+              "funderIdentifier": {
+                "type": "string",
+                "minLength": 1
+              },
+              "funderIdentifierType": {
+                "type": "string",
+                "minLength": 1
+              },
+              "awardNumber": {
+                "type": "string",
+                "minLength": 1
+              },
+              "awardUri": {
+                "type": "string",
+                "minLength": 1
+              },
+              "awardTitle": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "relatedIdentifiers": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "required": [
+              "relatedIdentifier",
+              "relatedIdentifierType",
+              "relationType",
+              "resourceTypeGeneral"
+            ],
+            "properties": {
+              "relatedIdentifier": {
+                "type": "string",
+                "minLength": 1
+              },
+              "relatedIdentifierType": {
+                "type": "string",
+                "minLength": 1
+              },
+              "relationType": {
+                "type": "string",
+                "minLength": 1
+              },
+              "resourceTypeGeneral": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "relatedItems": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "required": [
+              "relationType",
+              "relatedItemType",
+              "publicationYear",
+              "volume",
+              "issue",
+              "number",
+              "numberType",
+              "firstPage",
+              "lastPage",
+              "publisher",
+              "edition"
+            ],
+            "properties": {
+              "relationType": {
+                "type": "string",
+                "minLength": 1
+              },
+              "relatedItemType": {
+                "type": "string",
+                "minLength": 1
+              },
+              "relatedItemIdentifier": {
+                "type": "object",
+                "properties": {
+                  "relatedItemIdentifier": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "relatedItemIdentifierType": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "relatedItemIdentifier",
+                  "relatedItemIdentifierType"
+                ]
+              },
+              "creators": {
+                "type": "array",
+                "uniqueItems": true,
+                "minItems": 1,
+                "items": {
+                  "required": [
+                    "nameType",
+                    "name",
+                    "givenName",
+                    "familyName"
+                  ],
+                  "properties": {
+                    "nameType": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "givenName": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "familyName": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              },
+              "titles": {
+                "type": "array",
+                "uniqueItems": true,
+                "minItems": 1,
+                "items": {
+                  "required": [
+                    "title",
+                    "titleType"
+                  ],
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "titleType": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              },
+              "publicationYear": {
+                "type": "string",
+                "minLength": 1
+              },
+              "volume": {
+                "type": "string",
+                "minLength": 1
+              },
+              "issue": {
+                "type": "string",
+                "minLength": 1
+              },
+              "number": {
+                "type": "string",
+                "minLength": 1
+              },
+              "numberType": {
+                "type": "string",
+                "minLength": 1
+              },
+              "firstPage": {
+                "type": "string",
+                "minLength": 1
+              },
+              "lastPage": {
+                "type": "string",
+                "minLength": 1
+              },
+              "publisher": {
+                "type": "string",
+                "minLength": 1
+              },
+              "edition": {
+                "type": "string",
+                "minLength": 1
+              },
+              "contributors": {
+                "type": "array",
+                "uniqueItems": true,
+                "minItems": 1,
+                "items": {
+                  "required": [
+                    "nameType",
+                    "name",
+                    "givenName",
+                    "familyName",
+                    "contributorType"
+                  ],
+                  "properties": {
+                    "nameType": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "givenName": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "familyName": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "contributorType": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "schemaVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "agency": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "doi",
+        "types",
+        "creators",
+        "titles",
+        "publisher",
+        "container",
+        "subjects",
+        "contributors",
+        "dates",
+        "publicationYear",
+        "language",
+        "identifiers",
+        "sizes",
+        "formats",
+        "version",
+        "rightsList",
+        "descriptions",
+        "geoLocations",
+        "fundingReferences",
+        "relatedIdentifiers",
+        "relatedItems",
+        "schemaVersion",
+        "agency",
+        "state"
+      ]
+    }
+  },
+  "required": [
+    "resource"
+  ]
+}

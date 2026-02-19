@@ -1,3 +1,13 @@
+<!-- This XML validates against XSD using:
+1)xmllint - -noout \
+  - -schema "/Users/selgebali/Documents/VSCode/schema.datacite.org-linked-data/Input files/metadata-complete-4.6.xsd" \
+  "/Users/selgebali/Documents/VSCode/schema.datacite.org-linked-data/Input files/datacite-example-full-v4.xml" 
+2) Converted to JSON using bolognese 
+bundle exec bolognese \
+  "/Users/selgebali/Documents/VSCode/schema.datacite.org-linked-data/Input files/datacite-example-full-v4.xml" \
+  -f datacite \
+  -t datacite_json
+-->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://datacite.org/schema/kernel-4" xsi:schemaLocation="http://datacite.org/schema/kernel-4 https://schema.datacite.org/meta/kernel-4/metadata.xsd">
 <identifier identifierType="DOI">10.82433/B09Z-4K37</identifier>
 <creators>
@@ -177,7 +187,7 @@
 </dates>
 <language>en</language>
 <resourceType resourceTypeGeneral="Audiovisual">Example Audiovisual ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Award">Grant</resourceType>
+<!-- <resourceType resourceTypeGeneral="Award">Grant</resourceType>
 <resourceType resourceTypeGeneral="Book">Example Book ResourceType</resourceType>
 <resourceType resourceTypeGeneral="BookChapter">Example BookChapter ResourceType</resourceType>
 <resourceType resourceTypeGeneral="Collection">Example Collection ResourceType</resourceType>
@@ -207,7 +217,7 @@
 <resourceType resourceTypeGeneral="StudyRegistration">Example StudyRegistration ResourceType</resourceType>
 <resourceType resourceTypeGeneral="Text">Example Text ResourceType</resourceType>
 <resourceType resourceTypeGeneral="Workflow">Example Workflow ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Other">Example Other ResourceType</resourceType>
+<resourceType resourceTypeGeneral="Other">Example Other ResourceType</resourceType> -->
 <alternateIdentifiers>
 <alternateIdentifier alternateIdentifierType="Local accession number">12345</alternateIdentifier>
 </alternateIdentifiers>
