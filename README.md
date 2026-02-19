@@ -48,6 +48,17 @@ This is a semantic transformation with flattened structures and expanded DOI to 
 2️⃣ XML → xml-js → XML-shaped JSON
 
     xml-js ... --attributes-key "@attrs" --text-key "@value"
+Command used:
+
+    xml-js "/Users/selgebali/Documents/VSCode/schema.datacite.org-linked-data/Input files/datacite-example-full-v4.xml" \
+    --to-json \
+     --compact true \
+    --spaces 2 \
+    --no-comment \
+    --no-decl \
+    --attributes-key "@attrs" \
+    --text-key "@value" \
+    > "/Users/selgebali/Documents/VSCode/schema.datacite.org-linked-data/Input files/XML-Shaped-JSON.json"
 
 **Output**:
 XML-Shaped-JSON.json

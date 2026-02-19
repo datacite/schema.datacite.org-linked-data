@@ -1,4 +1,4 @@
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://datacite.org/schema/kernel-4" xsi:schemaLocation="http://datacite.org/schema/kernel-4 https://schema.datacite.org/meta/kernel-4/metadata.xsd">
+<resource xmlns="http://datacite.org/schema/kernel-4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://datacite.org/schema/kernel-4 https://schema.datacite.org/meta/kernel-4/metadata.xsd">
 <identifier identifierType="DOI">10.82433/B09Z-4K37</identifier>
 <creators>
 <creator>
@@ -9,7 +9,7 @@
 <affiliation affiliationIdentifier="https://ror.org/04wxnsj81" affiliationIdentifierScheme="ROR" schemeURI="https://ror.org">ExampleAffiliation</affiliation>
 </creator>
 <creator>
-<creatorName xml:lang="en" nameType="Organizational">ExampleOrganization</creatorName>
+<creatorName nameType="Organizational" xml:lang="en">ExampleOrganization</creatorName>
 <nameIdentifier nameIdentifierScheme="ROR" schemeURI="https://ror.org">https://ror.org/04wxnsj81</nameIdentifier>
 </creator>
 </creators>
@@ -20,11 +20,11 @@
 <title titleType="AlternativeTitle" xml:lang="en">Example AlternativeTitle</title>
 <title titleType="Other" xml:lang="en">Example Other Title</title>
 </titles>
-<publisher xml:lang="en" publisherIdentifier="https://ror.org/04z8jg394" publisherIdentifierScheme="ROR" schemeURI="https://ror.org/">Example Publisher</publisher>
+<publisher publisherIdentifier="https://ror.org/04z8jg394" publisherIdentifierScheme="ROR" schemeURI="https://ror.org/" xml:lang="en">Example Publisher</publisher>
 <publicationYear>2026</publicationYear>
 <subjects>
-<subject subjectScheme="Fields of Science and Technology (FOS)" schemeURI="http://www.oecd.org/science/inno" valueURI="http://www.oecd.org/science/inno/38235147.pdf">FOS: Computer and information sciences</subject>
-<subject subjectScheme="Australian and New Zealand Standard Research Classification (ANZSRC), 2020" schemeURI="https://www.abs.gov.au/statistics/classifications/australian-and-new-zealand-standard-research-classification-anzsrc" classificationCode="461001">Digital curation and preservation</subject>
+<subject schemeURI="http://www.oecd.org/science/inno" subjectScheme="Fields of Science and Technology (FOS)" valueURI="http://www.oecd.org/science/inno/38235147.pdf">FOS: Computer and information sciences</subject>
+<subject classificationCode="461001" schemeURI="https://www.abs.gov.au/statistics/classifications/australian-and-new-zealand-standard-research-classification-anzsrc" subjectScheme="Australian and New Zealand Standard Research Classification (ANZSRC), 2020">Digital curation and preservation</subject>
 <subject>Example Subject</subject>
 </subjects>
 <contributors>
@@ -173,7 +173,7 @@
 <date dateType="Updated">2024-01-01</date>
 <date dateType="Valid">2024-01-01</date>
 <date dateType="Withdrawn">2024-01-01</date>
-<date dateType="Other" dateInformation="ExampleDateInformation">2024-01-01</date>
+<date dateInformation="ExampleDateInformation" dateType="Other">2024-01-01</date>
 </dates>
 <language>en</language>
 <resourceType resourceTypeGeneral="Audiovisual">Example Audiovisual ResourceType</resourceType>
@@ -261,15 +261,15 @@
 </formats>
 <version>1</version>
 <rightsList>
-<rights xml:lang="en" schemeURI="https://spdx.org/licenses/" rightsIdentifierScheme="SPDX" rightsIdentifier="CC-BY-4.0" rightsURI="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</rights>
+<rights rightsIdentifier="CC-BY-4.0" rightsIdentifierScheme="SPDX" rightsURI="https://creativecommons.org/licenses/by/4.0/" schemeURI="https://spdx.org/licenses/" xml:lang="en">Creative Commons Attribution 4.0 International</rights>
 </rightsList>
 <descriptions>
-<description xml:lang="en" descriptionType="Abstract">Example Abstract</description>
-<description xml:lang="en" descriptionType="Methods">Example Methods</description>
-<description xml:lang="en" descriptionType="SeriesInformation">Example SeriesInformation</description>
-<description xml:lang="en" descriptionType="TableOfContents">Example TableOfContents</description>
-<description xml:lang="en" descriptionType="TechnicalInfo">Example TechnicalInfo</description>
-<description xml:lang="en" descriptionType="Other">Example Other</description>
+<description descriptionType="Abstract" xml:lang="en">Example Abstract</description>
+<description descriptionType="Methods" xml:lang="en">Example Methods</description>
+<description descriptionType="SeriesInformation" xml:lang="en">Example SeriesInformation</description>
+<description descriptionType="TableOfContents" xml:lang="en">Example TableOfContents</description>
+<description descriptionType="TechnicalInfo" xml:lang="en">Example TechnicalInfo</description>
+<description descriptionType="Other" xml:lang="en">Example Other</description>
 </descriptions>
 <geoLocations>
 <geoLocation>
