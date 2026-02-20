@@ -1,14 +1,16 @@
 {
-  "@context": {
-    "skos": "http://www.w3.org/2004/02/skos/core#",
-    "dcterms": "http://purl.org/dc/terms/"
-  },
-  "@id": "https://schema.stage.datacite.org/linked-data/vocab/nameType/",
-  "@type": "skos:ConceptScheme",
-  "dcterms:title": "Name type",
-  "dcterms:source": "DataCite Metadata Schema 4.6",
-  "skos:hasTopConcept": [
-    { "@id": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/nameType/Personal" },
-    { "@id": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/nameType/Organizational" }
+  "@context": "./context.jsonld",
+  "@graph": [
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/nameType",
+      "type": "ConceptScheme",
+      "title": "DataCite 4.6 nameType",
+      "identifier": "nameType",
+      "created": "2026-02-20",
+      "hasTopConcept": [
+        "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/nameType/Organizational",
+        "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/nameType/Personal"
+      ]
+    }
   ]
 }
