@@ -6,7 +6,7 @@
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "xml": "http://www.w3.org/XML/1998/namespace",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "attrs": "@nest",
+    "attrs": {"@id": "@nest"},
     "value": {
       "@id": "rdf:value"
     },
@@ -23,7 +23,7 @@
         "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/identifierType/"
       }
     },
-    "creators": "@nest",
+    "creators": {"@id": "@nest"},
     "creator": {
       "@id": "property:creator",
       "@type": "@id",
@@ -66,7 +66,7 @@
       "@id": "property:affiliationIdentifierScheme",
       "@type": "xsd:string"
     },
-    "titles": "@nest",
+    "titles": {"@id": "@nest"},
     "title": {
       "@id": "property:title",
       "@container": "@set"
@@ -101,7 +101,7 @@
         "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral/"
       }
     },
-    "subjects": "@nest",
+    "subjects": {"@id": "@nest"},
     "subject": {
       "@id": "property:subject",
       "@container": "@set"
@@ -121,7 +121,7 @@
       "@id": "property:valueURI",
       "@type": "@id"
     },
-    "contributors": "@nest",
+    "contributors": {"@id": "@nest"},
     "contributor": {
       "@id": "property:contributor",
       "@type": "@id",
@@ -137,7 +137,7 @@
         "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/contributionType/"
       }
     },
-    "dates": "@nest",
+    "dates": {"@id": "@nest"},
     "date": {
       "@id": "property:date",
       "@container": "@set"
@@ -162,7 +162,7 @@
         }
       }
     },
-    "alternateIdentifiers": "@nest",
+    "alternateIdentifiers": {"@id": "@nest"},
     "alternateIdentifier": {
       "@id": "property:alternateIdentifier",
       "@container": "@set"
@@ -174,7 +174,7 @@
         "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/alternateIdentifierType/"
       }
     },
-    "relatedIdentifiers": "@nest",
+    "relatedIdentifiers": {"@id": "@nest"},
     "relatedIdentifier": {
       "@id": "property:relatedIdentifier",
       "@container": "@set"
@@ -193,7 +193,7 @@
         "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/relationType/"
       }
     },
-    "sizes": "@nest",
+    "sizes": {"@id": "@nest"},
     "size": {
       "@id": "property:size",
       "@type": "xsd:string",
@@ -203,13 +203,13 @@
       "@id": "property:version",
       "@type": "xsd:string"
     },
-    "formats": "@nest",
+    "formats": {"@id": "@nest"},
     "format": {
       "@id": "property:format",
       "@type": "xsd:string",
       "@container": "@set"
     },
-    "rightsList": "@nest",
+    "rightsList": {"@id": "@nest"},
     "rights": {
       "@id": "property:rights"
     },
@@ -225,7 +225,7 @@
       "@id": "property:rightsURI",
       "@type": "@id"
     },
-    "descriptions": "@nest",
+    "descriptions": {"@id": "@nest"},
     "description": {
       "@id": "property:description",
       "@container": "@set"
@@ -237,7 +237,7 @@
         "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/descriptionType/"
       }
     },
-    "geoLocations": "@nest",
+    "geoLocations": {"@id": "@nest"},
     "geoLocation": "property:geoLocation",
     "geoLocationPlace": {
       "@id": "property:geoLocationPlace"
@@ -304,7 +304,7 @@
       "@type": "@id",
       "@container": "@set"
     },
-    "fundingReferences": "@nest",
+    "fundingReferences": {"@id": "@nest"},
     "fundingReference": "property:fundingReference",
     "funderName": {
       "@id": "property:funderName",
@@ -333,7 +333,7 @@
       "@id": "property:awardTitle",
       "@type": "xsd:string"
     },
-    "relatedItems": "@nest",
+    "relatedItems": {"@id": "@nest"},
     "relatedItem": "property:relatedItem",
     "relatedItemType": {
       "@id": "property:relatedItemType",
@@ -384,7 +384,7 @@
       "@id": "property:edition",
       "@type": "xsd:string"
     },
-    "lang": "@language",
-    "xml:lang": "@language"
+    "lang": "@language"
+    
   }
 }
