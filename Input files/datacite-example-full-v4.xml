@@ -177,37 +177,6 @@
 </dates>
 <language>en</language>
 <resourceType resourceTypeGeneral="Audiovisual">Example Audiovisual ResourceType</resourceType>
-<!-- <resourceType resourceTypeGeneral="Award">Grant</resourceType>
-<resourceType resourceTypeGeneral="Book">Example Book ResourceType</resourceType>
-<resourceType resourceTypeGeneral="BookChapter">Example BookChapter ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Collection">Example Collection ResourceType</resourceType>
-<resourceType resourceTypeGeneral="ComputationalNotebook">Example ComputationalNotebook ResourceType</resourceType>
-<resourceType resourceTypeGeneral="ConferencePaper">Example ConferencePaper ResourceType</resourceType>
-<resourceType resourceTypeGeneral="ConferenceProceeding">Example ConferenceProceeding ResourceType</resourceType>
-<resourceType resourceTypeGeneral="DataPaper">Example DataPaper ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Dataset">Example Dataset ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Dissertation">Example Dissertation ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Event">Example Event ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Image">Example Image ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Instrument">Example Instrument ResourceType</resourceType>
-<resourceType resourceTypeGeneral="InteractiveResource">Example InteractiveResource ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Journal">Example Journal ResourceType</resourceType>
-<resourceType resourceTypeGeneral="JournalArticle">Example JournalArticle ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Model">Example Model ResourceType</resourceType>
-<resourceType resourceTypeGeneral="OutputManagementPlan">Example OutputManagementPlan ResourceType</resourceType>
-<resourceType resourceTypeGeneral="PeerReview">Example PeerReview ResourceType</resourceType>
-<resourceType resourceTypeGeneral="PhysicalObject">Example PhysicalObject ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Preprint">Example Preprint ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Project">Example Project ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Report">Example Report ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Service">Example Service ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Software">Example Software ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Sound">Example Sound ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Standard">Example Standard ResourceType</resourceType>
-<resourceType resourceTypeGeneral="StudyRegistration">Example StudyRegistration ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Text">Example Text ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Workflow">Example Workflow ResourceType</resourceType>
-<resourceType resourceTypeGeneral="Other">Example Other ResourceType</resourceType> -->
 <alternateIdentifiers>
 <alternateIdentifier alternateIdentifierType="Local accession number">12345</alternateIdentifier>
 </alternateIdentifiers>

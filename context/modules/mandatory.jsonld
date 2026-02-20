@@ -18,7 +18,10 @@
     },
     "identifierType": {
       "@id": "property:identifierType",
-      "@type": "@id"
+      "@type": "@vocab",
+      "@context": {
+        "@vocab": "https://schema.datacite.org/linked-data/vocab/identifierType/"
+      }
     },
 
     "creators": "property:creators",
@@ -30,7 +33,10 @@
     },
     "nameType": {
       "@id": "property:nameType",
-      "@type": "@id"
+      "@type": "@vocab",
+      "@context": {
+        "@vocab": "https://schema.datacite.org/linked-data/vocab/nameType/"
+      }
     },
     "givenName": {
       "@id": "property:givenName",
@@ -71,7 +77,10 @@
     },
     "titleType": {
       "@id": "property:titleType",
-      "@type": "@id"
+      "@type": "@vocab",
+      "@context": {
+        "@vocab": "https://schema.datacite.org/linked-data/vocab/titleType/"
+      }
     },
 
     "publisher": {
@@ -89,7 +98,7 @@
 
     "publicationYear": {
       "@id": "property:publicationYear",
-      "@type": "xsd:gYear"
+      "@type": "xsd:string"
     },
 
     "resourceType": {
@@ -98,7 +107,10 @@
     },
     "resourceTypeGeneral": {
       "@id": "property:resourceTypeGeneral",
-      "@type": "@id"
+      "@type": "@vocab",
+      "@context": {
+        "@vocab": "https://schema.datacite.org/linked-data/vocab/resourceTypeGeneral/"
+      }
     },
 
     "xml:lang": "xml:lang",
