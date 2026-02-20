@@ -1,12 +1,12 @@
 {
-  "@context": "./_context.jsonld",
+  "@context": "./context.jsonld",
   "@graph": [
     {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType",
       "type": "ConceptScheme",
       "title": "DataCite 4.6 dateType",
       "identifier": "dateType",
-      "created": "2026-01-18",
+      "created": "2026-02-20",
       "hasTopConcept": [
         "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType/Accepted",
         "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType/Available",
@@ -21,18 +21,6 @@
         "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType/Withdrawn",
         "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType/Other"
       ]
-    },
-    { "id": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType/Accepted", "type": "Concept", "prefLabel": "Accepted", "notation": "Accepted", "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType", "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType" },
-    { "id": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType/Available", "type": "Concept", "prefLabel": "Available", "notation": "Available", "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType", "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType" },
-    { "id": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType/Copyrighted", "type": "Concept", "prefLabel": "Copyrighted", "notation": "Copyrighted", "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType", "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType" },
-    { "id": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType/Collected", "type": "Concept", "prefLabel": "Collected", "notation": "Collected", "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType", "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType" },
-    { "id": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType/Coverage", "type": "Concept", "prefLabel": "Coverage", "notation": "Coverage", "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType", "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType" },
-    { "id": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType/Created", "type": "Concept", "prefLabel": "Created", "notation": "Created", "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType", "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType" },
-    { "id": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType/Issued", "type": "Concept", "prefLabel": "Issued", "notation": "Issued", "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType", "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType" },
-    { "id": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType/Submitted", "type": "Concept", "prefLabel": "Submitted", "notation": "Submitted", "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType", "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType" },
-    { "id": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType/Updated", "type": "Concept", "prefLabel": "Updated", "notation": "Updated", "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType", "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType" },
-    { "id": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType/Valid", "type": "Concept", "prefLabel": "Valid", "notation": "Valid", "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType", "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType" },
-    { "id": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType/Withdrawn", "type": "Concept", "prefLabel": "Withdrawn", "notation": "Withdrawn", "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType", "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType" },
-    { "id": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType/Other", "type": "Concept", "prefLabel": "Other", "notation": "Other", "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType", "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/datacite-4.6/dateType" }
+    }
   ]
 }
