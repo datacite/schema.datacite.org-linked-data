@@ -722,8 +722,6 @@
       DataCite Linked Data Schema (Staging) · <a href="/linked-data/">/linked-data/</a>
     </footer>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
   <script>
     (function () {
       const buttons = Array.from(document.querySelectorAll('[data-tab-target]'));
@@ -735,6 +733,179 @@
       const readmeStatus = document.getElementById('readme-status');
       let readmeLoaded = false;
       let readmeLoading = false;
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function safeHref(url) {
+        const trimmed = String(url || '').trim();
+        if (!trimmed) return '#';
+        if (/^(https?:|mailto:|\/|\.\/|\.\.\/|#)/i.test(trimmed)) return trimmed;
+        return '#';
+      }
+
+      function renderInline(markdown) {
+        const placeholders = [];
+        let text = escapeHtml(markdown);
+
+        text = text.replace(/`([^`]+)`/g, function (_, code) {
+          const token = '%%CODE' + placeholders.length + '%%';
+          placeholders.push('<code>' + escapeHtml(code) + '</code>');
+          return token;
+        });
+
+        text = text.replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)/g, function (_, label, href) {
+          const token = '%%LINK' + placeholders.length + '%%';
+          placeholders.push('<a href="' + escapeHtml(safeHref(href)) + '">' + renderInline(label) + '</a>');
+          return token;
+        });
+
+        text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        text = text.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+
+        for (let i = placeholders.length - 1; i >= 0; i--) {
+          const re = new RegExp('%%(?:CODE|LINK)' + i + '%%', 'g');
+          text = text.replace(re, placeholders[i]);
+        }
+        return text;
+      }
+
+      function splitTableRow(line) {
+        const trimmed = line.trim().replace(/^\|/, '').replace(/\|$/, '');
+        return trimmed.split('|').map(function (cell) { return cell.trim(); });
+      }
+
+      function isTableSeparator(line) {
+        const cells = splitTableRow(line);
+        return cells.length > 1 && cells.every(function (cell) {
+          return /^:?-{3,}:?$/.test(cell.replace(/\s+/g, ''));
+        });
+      }
+
+      function renderMarkdownLocal(markdown) {
+        const lines = String(markdown || '').replace(/\r\n/g, '\n').split('\n');
+        const out = [];
+        let i = 0;
+
+        function isBlank(line) {
+          return /^\s*$/.test(line || '');
+        }
+
+        function renderParagraph(startIndex) {
+          const parts = [];
+          let j = startIndex;
+          while (j < lines.length) {
+            const line = lines[j];
+            if (isBlank(line)) break;
+            if (/^\s*```/.test(line)) break;
+            if (/^\s{0,3}#{1,6}\s+/.test(line)) break;
+            if (/^\s*([-*+])\s+/.test(line)) break;
+            if (/^\s*\d+\.\s+/.test(line)) break;
+            if (/^\s*>\s?/.test(line)) break;
+            if (line.includes('|') && j + 1 < lines.length && isTableSeparator(lines[j + 1])) break;
+            parts.push(line.trim());
+            j++;
+          }
+          out.push('<p>' + renderInline(parts.join(' ')) + '</p>');
+          return j;
+        }
+
+        while (i < lines.length) {
+          const line = lines[i];
+
+          if (isBlank(line)) {
+            i++;
+            continue;
+          }
+
+          if (/^\s*```/.test(line)) {
+            const lang = (line.trim().slice(3).trim() || '').toLowerCase();
+            const codeLines = [];
+            i++;
+            while (i < lines.length && !/^\s*```/.test(lines[i])) {
+              codeLines.push(lines[i]);
+              i++;
+            }
+            if (i < lines.length) i++;
+            out.push(
+              '<pre><code' +
+                (lang ? ' class="language-' + escapeHtml(lang) + '"' : '') +
+                '>' +
+                escapeHtml(codeLines.join('\n')) +
+                '</code></pre>'
+            );
+            continue;
+          }
+
+          const headingMatch = line.match(/^\s{0,3}(#{1,6})\s+(.+?)\s*#*\s*$/);
+          if (headingMatch) {
+            const level = headingMatch[1].length;
+            out.push('<h' + level + '>' + renderInline(headingMatch[2]) + '</h' + level + '>');
+            i++;
+            continue;
+          }
+
+          if (line.includes('|') && i + 1 < lines.length && isTableSeparator(lines[i + 1])) {
+            const headers = splitTableRow(line);
+            i += 2;
+            const rows = [];
+            while (i < lines.length && lines[i].includes('|') && !isBlank(lines[i])) {
+              rows.push(splitTableRow(lines[i]));
+              i++;
+            }
+            out.push(
+              '<table><thead><tr>' +
+                headers.map(function (c) { return '<th>' + renderInline(c) + '</th>'; }).join('') +
+                '</tr></thead><tbody>' +
+                rows.map(function (row) {
+                  return '<tr>' + row.map(function (c) { return '<td>' + renderInline(c) + '</td>'; }).join('') + '</tr>';
+                }).join('') +
+                '</tbody></table>'
+            );
+            continue;
+          }
+
+          if (/^\s*>\s?/.test(line)) {
+            const quoteLines = [];
+            while (i < lines.length && /^\s*>\s?/.test(lines[i])) {
+              quoteLines.push(lines[i].replace(/^\s*>\s?/, ''));
+              i++;
+            }
+            out.push('<blockquote><p>' + renderInline(quoteLines.join(' ')) + '</p></blockquote>');
+            continue;
+          }
+
+          if (/^\s*([-*+])\s+/.test(line)) {
+            const items = [];
+            while (i < lines.length && /^\s*([-*+])\s+/.test(lines[i])) {
+              items.push(lines[i].replace(/^\s*([-*+])\s+/, ''));
+              i++;
+            }
+            out.push('<ul>' + items.map(function (item) { return '<li>' + renderInline(item) + '</li>'; }).join('') + '</ul>');
+            continue;
+          }
+
+          if (/^\s*\d+\.\s+/.test(line)) {
+            const items = [];
+            while (i < lines.length && /^\s*\d+\.\s+/.test(lines[i])) {
+              items.push(lines[i].replace(/^\s*\d+\.\s+/, ''));
+              i++;
+            }
+            out.push('<ol>' + items.map(function (item) { return '<li>' + renderInline(item) + '</li>'; }).join('') + '</ol>');
+            continue;
+          }
+
+          i = renderParagraph(i);
+        }
+
+        return out.join('\n');
+      }
 
       async function loadReadmePreview() {
         if (readmeLoaded || readmeLoading || !readmePreview) return;
@@ -748,20 +919,10 @@
           }
 
           const markdown = await response.text();
-          let rendered = '';
-
-          if (window.marked && typeof window.marked.parse === 'function') {
-            rendered = window.marked.parse(markdown, { gfm: true, breaks: false });
-          } else {
-            throw new Error('Markdown renderer failed to load');
-          }
-
-          if (window.DOMPurify && typeof window.DOMPurify.sanitize === 'function') {
-            rendered = window.DOMPurify.sanitize(rendered);
-          }
+          const rendered = renderMarkdownLocal(markdown);
 
           readmePreview.innerHTML = '<div class="markdown-body">' + rendered + '</div>';
-          if (readmeStatus) readmeStatus.textContent = 'README preview loaded from /linked-data/README.md';
+          if (readmeStatus) readmeStatus.textContent = 'README preview loaded from /linked-data/README.md (local renderer)';
           readmeLoaded = true;
         } catch (error) {
           readmePreview.innerHTML =
