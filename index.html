@@ -305,6 +305,87 @@
       background: var(--panel);
     }
 
+    .readme-preview {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+      padding: 1rem;
+      min-height: 50vh;
+      overflow-x: auto;
+    }
+
+    .readme-status {
+      color: var(--muted);
+      margin: 0 0 0.75rem;
+    }
+
+    .readme-preview .markdown-body h1,
+    .readme-preview .markdown-body h2,
+    .readme-preview .markdown-body h3,
+    .readme-preview .markdown-body h4 {
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .readme-preview .markdown-body p,
+    .readme-preview .markdown-body ul,
+    .readme-preview .markdown-body ol {
+      margin-top: 0.35rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .readme-preview .markdown-body pre {
+      overflow-x: auto;
+      background: color-mix(in srgb, var(--panel-2) 60%, transparent);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.75rem;
+    }
+
+    .readme-preview .markdown-body code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.93em;
+      background: color-mix(in srgb, var(--panel-2) 70%, transparent);
+      padding: 0.05rem 0.25rem;
+      border-radius: 5px;
+      border: 1px solid color-mix(in srgb, var(--line) 75%, transparent);
+    }
+
+    .readme-preview .markdown-body pre code {
+      background: transparent;
+      border: 0;
+      padding: 0;
+    }
+
+    .readme-preview .markdown-body table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.75rem 0;
+      font-size: 0.95rem;
+    }
+
+    .readme-preview .markdown-body th,
+    .readme-preview .markdown-body td {
+      border: 1px solid var(--line);
+      padding: 0.45rem 0.55rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .readme-preview .markdown-body th {
+      background: color-mix(in srgb, var(--panel-2) 65%, transparent);
+    }
+
+    .readme-preview .markdown-body blockquote {
+      margin: 0.75rem 0;
+      padding: 0.1rem 0.9rem;
+      border-left: 4px solid var(--accent-3);
+      background: color-mix(in srgb, var(--dc-teal) 10%, var(--panel));
+      color: var(--muted);
+      border-radius: 6px;
+    }
+
     .muted {
       color: var(--muted);
     }
@@ -624,16 +705,14 @@
       <section aria-labelledby="readme-title">
         <h2 id="readme-title">Repository README</h2>
         <p class="muted">
-          This tab loads the repository README file directly from <code>/linked-data/README.md</code>.
+          This tab loads <code>/linked-data/README.md</code> and renders a Markdown preview in the browser.
         </p>
-        <iframe
-          class="readme-frame"
-          src="/linked-data/README.md"
-          title="Repository README"
-          loading="lazy">
-        </iframe>
+        <p id="readme-status" class="readme-status">README preview not loaded yet.</p>
+        <div id="readme-preview" class="readme-preview" aria-live="polite">
+          <p class="muted">Open the README tab to load the preview.</p>
+        </div>
         <p class="muted">
-          If the embedded view does not load, open the file directly:
+          If the preview does not load, open the file directly:
           <a href="/linked-data/README.md">README.md</a>
         </p>
       </section>
@@ -643,6 +722,8 @@
       DataCite Linked Data Schema (Staging) · <a href="/linked-data/">/linked-data/</a>
     </footer>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
   <script>
     (function () {
       const buttons = Array.from(document.querySelectorAll('[data-tab-target]'));
@@ -650,6 +731,48 @@
         overview: document.getElementById('tab-overview'),
         readme: document.getElementById('tab-readme')
       };
+      const readmePreview = document.getElementById('readme-preview');
+      const readmeStatus = document.getElementById('readme-status');
+      let readmeLoaded = false;
+      let readmeLoading = false;
+
+      async function loadReadmePreview() {
+        if (readmeLoaded || readmeLoading || !readmePreview) return;
+        readmeLoading = true;
+        if (readmeStatus) readmeStatus.textContent = 'Loading README preview...';
+
+        try {
+          const response = await fetch('/linked-data/README.md', { cache: 'no-cache' });
+          if (!response.ok) {
+            throw new Error('HTTP ' + response.status);
+          }
+
+          const markdown = await response.text();
+          let rendered = '';
+
+          if (window.marked && typeof window.marked.parse === 'function') {
+            rendered = window.marked.parse(markdown, { gfm: true, breaks: false });
+          } else {
+            throw new Error('Markdown renderer failed to load');
+          }
+
+          if (window.DOMPurify && typeof window.DOMPurify.sanitize === 'function') {
+            rendered = window.DOMPurify.sanitize(rendered);
+          }
+
+          readmePreview.innerHTML = '<div class="markdown-body">' + rendered + '</div>';
+          if (readmeStatus) readmeStatus.textContent = 'README preview loaded from /linked-data/README.md';
+          readmeLoaded = true;
+        } catch (error) {
+          readmePreview.innerHTML =
+            '<p class="muted">Could not render README preview. Use the direct link below to open <code>README.md</code>.</p>';
+          if (readmeStatus) {
+            readmeStatus.textContent = 'Failed to load README preview (' + (error && error.message ? error.message : 'unknown error') + ')';
+          }
+        } finally {
+          readmeLoading = false;
+        }
+      }
 
       function setTab(name) {
         for (const btn of buttons) {
@@ -659,6 +782,9 @@
         for (const [key, panel] of Object.entries(panels)) {
           if (!panel) continue;
           panel.hidden = key !== name;
+        }
+        if (name === 'readme') {
+          loadReadmePreview();
         }
       }
 
