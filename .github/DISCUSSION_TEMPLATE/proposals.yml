@@ -1,9 +1,6 @@
-name: RFC Proposal
-description: Propose a schema, vocabulary, context, manifest, or process change
 title: "[RFC] "
 labels:
   - rfc
-category: Proposals
 body:
   - type: markdown
     attributes:
@@ -107,4 +104,3 @@ body:
         2. Regenerate manifest
         3. Update docs/examples
         4. Open implementation issue(s)
- 
