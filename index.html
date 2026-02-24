@@ -264,6 +264,47 @@
       gap: 0.8rem;
     }
 
+    .tabs {
+      display: flex;
+      gap: 0.4rem;
+      margin: 0.5rem 0 0.25rem;
+    }
+
+    .tab-btn {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 0.45rem 0.8rem;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .tab-btn[aria-selected="true"] {
+      background: color-mix(in srgb, var(--dc-cyan) 10%, var(--panel));
+      color: var(--text);
+      border-color: color-mix(in srgb, var(--dc-cyan) 35%, var(--line));
+      font-weight: 600;
+    }
+
+    .tab-btn:focus-visible {
+      outline: 2px solid color-mix(in srgb, var(--dc-cyan) 55%, transparent);
+      outline-offset: 2px;
+    }
+
+    .tab-panel[hidden] {
+      display: none;
+    }
+
+    .readme-frame {
+      width: 100%;
+      min-height: 70vh;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+    }
+
     .muted {
       color: var(--muted);
     }
@@ -360,7 +401,15 @@
       </div>
     </section>
 
-    <main>
+    <section aria-labelledby="tab-title">
+      <h2 id="tab-title" class="sr-only" style="position:absolute;left:-9999px;">Page Content Tabs</h2>
+      <div class="tabs" role="tablist" aria-label="Main content tabs">
+        <button type="button" class="tab-btn" role="tab" id="tab-overview-btn" aria-controls="tab-overview" aria-selected="true" data-tab-target="overview">Overview</button>
+        <button type="button" class="tab-btn" role="tab" id="tab-readme-btn" aria-controls="tab-readme" aria-selected="false" data-tab-target="readme">README</button>
+      </div>
+    </section>
+
+    <div id="tab-overview" class="tab-panel" role="tabpanel" aria-labelledby="tab-overview-btn">
       <section id="start" aria-labelledby="start-title">
         <h2 id="start-title">Start Here</h2>
         <p class="muted">Choose the entry point that matches what you need.</p>
@@ -567,11 +616,56 @@
           </div>
         </div>
       </section>
-    </main>
+    </div>
+
+    <div id="tab-readme" class="tab-panel" role="tabpanel" aria-labelledby="tab-readme-btn" hidden>
+      <section aria-labelledby="readme-title">
+        <h2 id="readme-title">Repository README</h2>
+        <p class="muted">
+          This tab loads the repository README file directly from <code>/linked-data/README.md</code>.
+        </p>
+        <iframe
+          class="readme-frame"
+          src="/linked-data/README.md"
+          title="Repository README"
+          loading="lazy">
+        </iframe>
+        <p class="muted">
+          If the embedded view does not load, open the file directly:
+          <a href="/linked-data/README.md">README.md</a>
+        </p>
+      </section>
+    </div>
 
     <footer class="footer">
       DataCite Linked Data Schema (Staging) · <a href="/linked-data/">/linked-data/</a>
     </footer>
   </div>
+  <script>
+    (function () {
+      const buttons = Array.from(document.querySelectorAll('[data-tab-target]'));
+      const panels = {
+        overview: document.getElementById('tab-overview'),
+        readme: document.getElementById('tab-readme')
+      };
+
+      function setTab(name) {
+        for (const btn of buttons) {
+          const active = btn.dataset.tabTarget === name;
+          btn.setAttribute('aria-selected', String(active));
+        }
+        for (const [key, panel] of Object.entries(panels)) {
+          if (!panel) continue;
+          panel.hidden = key !== name;
+        }
+      }
+
+      for (const btn of buttons) {
+        btn.addEventListener('click', function () {
+          setTab(btn.dataset.tabTarget);
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
