@@ -1,0 +1,100 @@
+name: Bug Report
+description: Report a bug in schema artifacts, manifests, contexts, or site/index pages
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug.
+
+        Use this form for defects in published files, generated indexes, manifests, or documentation behavior.
+        For new proposals or schema changes, use **Discussions** (RFCs) instead.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected Area
+      options:
+        - class definitions
+        - property definitions
+        - controlled vocabularies
+        - JSON-LD contexts
+        - manifest files
+        - index pages / docs site
+        - scripts / tooling
+        - other
+    validations:
+      required: true
+
+  - type: input
+    id: url_or_file
+    attributes:
+      label: Affected URL or File
+      description: Link or file path where the bug occurs
+      placeholder: /linked-data/property/identifier.jsonld or manifest/datacite-4.6.json
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Briefly describe the bug
+      placeholder: What is wrong?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps To Reproduce
+      description: Include exact steps, URLs, commands, or inputs
+      placeholder: |
+        1. Open ...
+        2. Run ...
+        3. Observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      placeholder: What should have happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      placeholder: What happened instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence (Optional)
+      description: Error messages, screenshots, diffs, or snippets
+      render: markdown
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment (Optional)
+      description: Browser/tool/runtime if relevant
+      placeholder: Chrome 122, curl 8.x, node 20.x
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I confirmed this is a bug (not a proposal/RFC)
+          required: true
+        - label: I searched existing issues for duplicates
+          required: true
+

@@ -1,0 +1,63 @@
+name: Documentation / Site Improvement
+description: Suggest improvements to README, CONTRIBUTING, landing page, or section index pages
+title: "[Docs] "
+labels:
+  - documentation
+body:
+  - type: dropdown
+    id: docs_area
+    attributes:
+      label: Area
+      options:
+        - README.md
+        - CONTRIBUTING.md
+        - /linked-data/ landing page
+        - class index page
+        - property index page
+        - vocab index page
+        - context index page
+        - manifest index page
+        - other docs
+    validations:
+      required: true
+
+  - type: input
+    id: affected_url_or_file
+    attributes:
+      label: Affected URL or File
+      placeholder: /linked-data/index.html or README.md
+    validations:
+      required: true
+
+  - type: textarea
+    id: current_problem
+    attributes:
+      label: Current Problem
+      description: What is unclear, missing, or incorrect?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_improvement
+    attributes:
+      label: Proposed Improvement
+      description: What should change?
+    validations:
+      required: true
+
+  - type: textarea
+    id: audience
+    attributes:
+      label: Intended Audience (Optional)
+      description: Who would benefit most from this change?
+      placeholder: Newcomers, metadata engineers, implementers, maintainers, etc.
+
+  - type: checkboxes
+    id: docs_checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I checked the current docs/pages before filing this request
+          required: true
+        - label: This request is about documentation/site UX (not a schema RFC)
+          required: true

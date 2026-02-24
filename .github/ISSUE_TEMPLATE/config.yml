@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+contact_links:
+  - name: RFC / Proposal (GitHub Discussions)
+    url: https://github.com/datacite/schema.datacite.org-linked-data/discussions/new?category=proposals
+    about: Use Discussions for schema/vocabulary/context/manifest proposals and RFCs.
+  - name: General Discussions
+    url: https://github.com/datacite/schema.datacite.org-linked-data/discussions
+    about: Ask design questions or gather feedback before opening implementation issues.
+

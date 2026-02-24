@@ -1,0 +1,85 @@
+name: Implementation Task
+description: Track accepted work (schema updates, manifest regeneration, docs/index changes)
+title: "[Task] "
+labels:
+  - task
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for implementation work.
+
+        If the change is still being debated or proposed, open a **Discussion (RFC)** first.
+
+  - type: dropdown
+    id: task_type
+    attributes:
+      label: Task Type
+      options:
+        - schema artifact update
+        - vocabulary update
+        - context update
+        - manifest regeneration
+        - docs / index page update
+        - tooling / script update
+        - release / deployment task
+        - other
+    validations:
+      required: true
+
+  - type: input
+    id: related_discussion
+    attributes:
+      label: Related Discussion / RFC (Optional)
+      description: Link the accepted RFC discussion if applicable
+      placeholder: https://github.com/.../discussions/123
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Task Summary
+      description: What needs to be implemented?
+      placeholder: Describe the work item and intended outcome.
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What files, resources, or areas are expected to change?
+      placeholder: |
+        - class/...
+        - property/...
+        - manifest/datacite-4.6.json
+        - index.html
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      placeholder: |
+        - [ ] Criteria 1
+        - [ ] Criteria 2
+        - [ ] Manifest/index regenerated if needed
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Implementation Notes (Optional)
+      description: Constraints, dependencies, rollout notes, or risks
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: This is implementation work (not a new proposal/RFC)
+          required: true
+        - label: I linked the relevant RFC discussion if one exists
+          required: false
+
