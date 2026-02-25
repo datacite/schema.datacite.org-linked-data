@@ -124,7 +124,7 @@ Two approaches appear in the existing notes:
 
 The key difference is whether you want semantic convenience or exact XML structure preservation.
 
-### Transformation Purpose Table (Preserved)
+### Transformation Purpose Table
 
 | Transformation | Purpose | Reversible | XML fidelity |
 | ----- | ----- | ----- | ----- |
