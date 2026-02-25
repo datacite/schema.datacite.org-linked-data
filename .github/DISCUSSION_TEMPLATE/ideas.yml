@@ -1,0 +1,79 @@
+title: "How could this help your work?"
+labels:
+  - community-feedback
+  - ideas
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We’d love to hear how the DataCite linked-data work could help your real workflows.
+
+        This discussion is for sharing ideas, use cases, and future plans (even early-stage thoughts).
+
+        If you have a concrete schema/vocabulary/context/manifest change proposal, please use the **Proposals** category (RFC form).
+
+  - type: dropdown
+    id: role
+    attributes:
+      label: Your perspective (optional)
+      options:
+        - Repository/platform maintainer
+        - Metadata engineer
+        - Tool / application developer
+        - Research infrastructure provider
+        - Librarian / information professional
+        - Data steward / curation team
+        - Researcher / end user
+        - Other
+
+  - type: textarea
+    id: usefulness
+    attributes:
+      label: How could this be useful for your work?
+      description: Which parts seem most useful (classes, properties, vocabularies, contexts, manifests, docs)?
+      placeholder: Tell us how this could help in your workflows or tooling.
+    validations:
+      required: true
+
+  - type: textarea
+    id: prior_need
+    attributes:
+      label: Is this something you have requested or looked for before?
+      description: If yes, what were you trying to do, and what was missing or difficult?
+      placeholder: Share prior attempts, blockers, or gaps.
+
+  - type: textarea
+    id: plans
+    attributes:
+      label: What do you plan to do with it?
+      description: Any planned use cases, integrations, tools, or experiments?
+      placeholder: Example: mapping workflow, repository integration, validation, UI, API, etc.
+
+  - type: textarea
+    id: new_ideas
+    attributes:
+      label: Does this inspire new ideas or plans?
+      description: Anything that now seems possible (or easier) because of this work?
+      placeholder: New use cases, collaborations, workflows, or experiments.
+
+  - type: textarea
+    id: support_needed
+    attributes:
+      label: How can we support you?
+      description: What would help most next (examples, docs, manifests, vocab coverage, validation guidance, migration help)?
+      placeholder: Tell us what would make adoption easier.
+
+  - type: textarea
+    id: links_examples
+    attributes:
+      label: Links / examples (optional)
+      description: Share relevant tools, workflows, mockups, repos, or examples.
+      placeholder: URLs, screenshots, sample records, etc.
+
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Quick check
+      options:
+        - label: I understand this thread is for ideas / use cases / feedback (not implementation bug reports)
+          required: true
