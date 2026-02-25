@@ -47,8 +47,7 @@ body:
     attributes:
       label: What do you plan to do with it?
       description: Any planned use cases, integrations, tools, or experiments?
-      placeholder: Example: mapping workflow, repository integration, validation, UI, API, etc.
-
+      placeholder: Example; mapping workflow, repository integration, validation, UI, API, etc."
   - type: textarea
     id: new_ideas
     attributes:
