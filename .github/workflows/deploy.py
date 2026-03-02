@@ -100,30 +100,6 @@ def upload_files_to_s3(root_path: Path, bucket: str, s3_client) -> int:
             except s3_client.exceptions.ClientError as error:
                 print(f"ERROR: Client error whilst creating shadow object {shadow_key}: {error}")
 
-        # For index.html files, add a redirect object at the directory path so
-        # URLs like /linked-data/ and /linked-data/class/ work even if the host
-        # does not automatically resolve directory indexes.
-        if path.name.lower() == "index.html":
-            parent_key = PREFIX.joinpath(relative_path.parent)
-            shadow_key = Path(f"{parent_key}/")
-            redirect_target = f"/{key}"
-            try:
-                s3_client.put_object(
-                    Bucket=bucket,
-                    Key=str(shadow_key),
-                    Body=b"",
-                    WebsiteRedirectLocation=redirect_target,
-                )
-                print(f"Created index redirect at {shadow_key} pointing to {key}")
-            except s3_client.exceptions.NoSuchBucket:
-                print(f"ERROR: Bucket {bucket} does not exist")
-            except s3_client.exceptions.NoSuchKey:
-                print(f"ERROR: Key {shadow_key} does not exist")
-            except s3_client.exceptions.AccessDenied:
-                print(f"ERROR: Access Denied to {shadow_key}")
-            except s3_client.exceptions.ClientError as error:
-                print(f"ERROR: Client error whilst creating index redirect {shadow_key}: {error}")
-
     return uploaded_count
 
 
