@@ -16,6 +16,7 @@ This repository organizes DataCite metadata concepts into resolvable JSON-LD fil
 - `vocab/` defines controlled vocabularies (enumerated terms) used by DataCite fields (for example `resourceTypeGeneral`, `relationType`, `nameType`)
 - `context/` contains JSON-LD contexts used to map compact keys to IRIs
 - `manifest/` provides a versioned inventory of classes, properties, and vocabulary schemes/terms
+- `dist/` contains integrated distribution artifacts that bundle the schema as a single JSON-LD graph plus alternate RDF serializations
 - `Input files/` contains example XML, transformed JSON outputs, validation helpers, and notes used during transformation experiments
 
 ## Repository Layout (Plain-English Guide)
@@ -31,7 +32,7 @@ Example:
 Typical structure:
 
 - `@id`: stable IRI of the class
-- `@type`: usually `rdf:Class`
+- `@type`: usually `rdfs:Class`
 - `rdfs:label`: human-readable name
 - `rdfs:comment`: short description
 
@@ -76,6 +77,14 @@ Important files:
 
 This is a useful entry point if you want to programmatically discover what is defined for a given schema version.
 
+### `dist/`
+
+- `dist/datacite-4.6.jsonld` is the integrated JSON-LD bundle for the current staged schema version
+- `dist/datacite-4.6.ttl` is the Turtle serialization of that bundle
+- `dist/datacite-4.6.rdf` is the RDF/XML serialization of that bundle
+
+These files are generated from the manifest-backed source files by `node scripts/build-distribution.js`.
+
 ### `Input files/`
 
 This folder contains working materials and examples used to test conversions and round-tripping:
@@ -102,6 +111,9 @@ This allows metadata fields like `identifier`, `creator`, or `resourceTypeGenera
 - `class/`: 21 JSON-LD files
 - `property/`: 78 JSON-LD files
 - `vocab/`: 170 JSON-LD files
+- `context/`: 2 JSON-LD files
+- `manifest/`: 1 JSON manifest file
+- `dist/`: 3 distribution files (`.jsonld`, `.ttl`, `.rdf`)
 
 ## Example: What a Vocabulary Term File Looks Like
 
@@ -148,10 +160,11 @@ The key difference is whether you want semantic convenience or exact XML structu
 
 If you are exploring this repo for the first time:
 
-1. Read `manifest/datacite-4.6.json` to see the full inventory of defined resources.
-2. Open `context/fullcontext.jsonld` to understand how DataCite-like JSON keys are mapped.
-3. Compare one file each from `class/`, `property/`, and `vocab/` to see the modeling pattern.
-4. Review `Input files/codes&steps.md` and the example files if you are evaluating XML <-> JSON round-tripping.
+1. Open `dist/datacite-4.6.jsonld` if you need a single importable bundle of the staged linked-data set.
+2. Read `manifest/datacite-4.6.json` to see the full inventory of defined resources.
+3. Open `context/fullcontext.jsonld` to understand how DataCite-like JSON keys are mapped.
+4. Compare one file each from `class/`, `property/`, and `vocab/` to see the modeling pattern.
+5. Review `Input files/codes&steps.md` and the example files if you are evaluating XML <-> JSON round-tripping.
 
 ## Notes
 - Some files in `Input files/` are experimental outputs used for validation and comparison, not canonical schema definitions.

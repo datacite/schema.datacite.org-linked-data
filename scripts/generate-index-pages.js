@@ -198,6 +198,7 @@ function pageShell({ title, sectionLabel, lead, bodyHtml, navCurrent }) {
     ["Properties", relUrl("property") + "/"],
     ["Controlled Terms", relUrl("vocab") + "/"],
     ["Contexts", relUrl("context") + "/"],
+    ["Distributions", relUrl("dist") + "/"],
     ["Manifests", relUrl("manifest") + "/"],
   ]
     .map(([label, href]) => {
@@ -492,6 +493,74 @@ function buildContextIndex() {
   });
 }
 
+function buildDistIndex() {
+  const distRoot = path.join(root, "dist");
+  const files = fs.existsSync(distRoot)
+    ? readDirFiles(distRoot).filter((f) => f !== "index.html")
+    : [];
+
+  const labels = {
+    ".jsonld": "Integrated JSON-LD bundle",
+    ".ttl": "Turtle serialization of the integrated bundle",
+    ".rdf": "RDF/XML serialization of the integrated bundle",
+  };
+
+  const rows = files.length
+    ? files
+        .map((file) => {
+          const abs = path.join(distRoot, file);
+          const ext = path.extname(file).toLowerCase();
+          let note = labels[ext] || "Distribution artifact";
+
+          if (ext === ".jsonld") {
+            try {
+              const json = readJson(abs);
+              const nodeCount = Array.isArray(json["@graph"]) ? json["@graph"].length : 0;
+              note = `${note} with ${nodeCount} graph node${nodeCount === 1 ? "" : "s"}`;
+            } catch {
+              note = labels[ext] || note;
+            }
+          }
+
+          return `<li>
+          <div class="row">
+            <div class="name">
+              <a href="${relUrl("dist", file)}">${escapeHtml(file)}</a>
+              <div class="small muted code">${escapeHtml(path.join("dist", file).replace(/\\/g, "/"))}</div>
+            </div>
+            <div class="desc">${escapeHtml(note)}</div>
+            <div class="meta-col">${escapeHtml(fileMtimeLabel(abs))}</div>
+          </div>
+        </li>`;
+        })
+        .join("")
+    : `<li>
+      <div class="row">
+        <div class="name">No distribution artifacts yet</div>
+        <div class="desc">Run <span class="code">node scripts/build-distribution.js</span> to generate the bundled JSON-LD, Turtle, and RDF/XML files.</div>
+        <div class="meta-col">pending</div>
+      </div>
+    </li>`;
+
+  const body = `
+    <section class="panel">
+      <p class="muted">Distribution artifacts package the linked-data set as a single importable bundle and alternate RDF serializations for tools that do not consume JSON-LD directly.</p>
+      <div class="toolbar">
+        <span class="chip">${files.length} artifact${files.length === 1 ? "" : "s"}</span>
+      </div>
+      <ul class="list">${rows}</ul>
+    </section>
+  `;
+
+  return pageShell({
+    title: "Distribution Artifacts",
+    sectionLabel: "Distributions",
+    lead: "Browse the integrated DataCite linked-data bundle in JSON-LD and alternate RDF serializations.",
+    bodyHtml: body,
+    navCurrent: "Distributions",
+  });
+}
+
 function buildManifestIndex() {
   const files = readDirFiles(path.join(root, "manifest")).filter((f) => f.endsWith(".json"));
 
@@ -550,6 +619,7 @@ function main() {
   writeFile(path.join("property", "index.html"), buildPropertyIndex());
   writeFile(path.join("vocab", "index.html"), buildVocabIndex());
   writeFile(path.join("context", "index.html"), buildContextIndex());
+  writeFile(path.join("dist", "index.html"), buildDistIndex());
   writeFile(path.join("manifest", "index.html"), buildManifestIndex());
 }
 

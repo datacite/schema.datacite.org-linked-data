@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>JSON-LD Contexts · DataCite Linked Data (Staging)</title>
-  <meta name="description" content="Browse JSON-LD context files used to map compact DataCite-style keys to linked-data identifiers (IRIs).">
+  <title>Distribution Artifacts · DataCite Linked Data (Staging)</title>
+  <meta name="description" content="Browse the integrated DataCite linked-data bundle in JSON-LD and alternate RDF serializations.">
   <style>
   :root {
     --dc-navy: #243B54;
@@ -153,148 +153,47 @@
   <header class="topbar">
     <div class="wrap">
       <a class="brand" href="/linked-data//">DataCite Linked Data</a>
-      <nav class="nav" aria-label="Section navigation"><a href="/linked-data//">Home</a><a href="/linked-data/class/">Classes</a><a href="/linked-data/property/">Properties</a><a href="/linked-data/vocab/">Controlled Terms</a><a href="/linked-data/context/" aria-current="page">Contexts</a><a href="/linked-data/dist/">Distributions</a><a href="/linked-data/manifest/">Manifests</a></nav>
+      <nav class="nav" aria-label="Section navigation"><a href="/linked-data//">Home</a><a href="/linked-data/class/">Classes</a><a href="/linked-data/property/">Properties</a><a href="/linked-data/vocab/">Controlled Terms</a><a href="/linked-data/context/">Contexts</a><a href="/linked-data/dist/" aria-current="page">Distributions</a><a href="/linked-data/manifest/">Manifests</a></nav>
     </div>
   </header>
   <div class="wrap">
     <main>
       <section class="hero">
-        <span class="eyebrow">Contexts</span>
-        <h1>JSON-LD Contexts</h1>
-        <p class="muted">Browse JSON-LD context files used to map compact DataCite-style keys to linked-data identifiers (IRIs).</p>
+        <span class="eyebrow">Distributions</span>
+        <h1>Distribution Artifacts</h1>
+        <p class="muted">Browse the integrated DataCite linked-data bundle in JSON-LD and alternate RDF serializations.</p>
       </section>
       
     <section class="panel">
-      <h2>Core Contexts</h2>
+      <p class="muted">Distribution artifacts package the linked-data set as a single importable bundle and alternate RDF serializations for tools that do not consume JSON-LD directly.</p>
+      <div class="toolbar">
+        <span class="chip">3 artifacts</span>
+      </div>
       <ul class="list"><li>
           <div class="row">
             <div class="name">
-              <a href="/linked-data/context/fullcontext.jsonld">fullcontext.jsonld</a>
-              <div class="small muted code">context/fullcontext.jsonld</div>
+              <a href="/linked-data/dist/datacite-4.6.jsonld">datacite-4.6.jsonld</a>
+              <div class="small muted code">dist/datacite-4.6.jsonld</div>
             </div>
-            <div class="desc">JSON-LD context with 104 top-level mappings</div>
+            <div class="desc">Integrated JSON-LD bundle with 258 graph nodes</div>
             <div class="meta-col">2026-03-02</div>
           </div>
         </li><li>
           <div class="row">
             <div class="name">
-              <a href="/linked-data/context/runner.jsonld">runner.jsonld</a>
-              <div class="small muted code">context/runner.jsonld</div>
+              <a href="/linked-data/dist/datacite-4.6.rdf">datacite-4.6.rdf</a>
+              <div class="small muted code">dist/datacite-4.6.rdf</div>
             </div>
-            <div class="desc">JSON-LD context with 20 top-level mappings</div>
-            <div class="meta-col">2026-03-02</div>
-          </div>
-        </li></ul>
-    </section>
-    <section class="panel">
-      <h2>Vocabulary Contexts</h2>
-      <p class="muted">Vocabulary-specific contexts plus the top-level <span class="code">vocab/context.jsonld</span>.</p>
-      <ul class="list"><li>
-          <div class="row">
-            <div class="name">
-              <a href="/linked-data/vocab/context.jsonld">context.jsonld</a>
-              <div class="small muted code">vocab/context.jsonld</div>
-            </div>
-            <div class="desc">JSON-LD context with 23 top-level mappings</div>
+            <div class="desc">RDF/XML serialization of the integrated bundle</div>
             <div class="meta-col">2026-03-02</div>
           </div>
         </li><li>
           <div class="row">
             <div class="name">
-              <a href="/linked-data/vocab/contributorType/context.jsonld">context.jsonld</a>
-              <div class="small muted code">vocab/contributorType/context.jsonld</div>
+              <a href="/linked-data/dist/datacite-4.6.ttl">datacite-4.6.ttl</a>
+              <div class="small muted code">dist/datacite-4.6.ttl</div>
             </div>
-            <div class="desc">JSON-LD context with 18 top-level mappings</div>
-            <div class="meta-col">2026-03-02</div>
-          </div>
-        </li><li>
-          <div class="row">
-            <div class="name">
-              <a href="/linked-data/vocab/dateType/context.jsonld">context.jsonld</a>
-              <div class="small muted code">vocab/dateType/context.jsonld</div>
-            </div>
-            <div class="desc">JSON-LD context with 18 top-level mappings</div>
-            <div class="meta-col">2026-03-02</div>
-          </div>
-        </li><li>
-          <div class="row">
-            <div class="name">
-              <a href="/linked-data/vocab/descriptionType/context.jsonld">context.jsonld</a>
-              <div class="small muted code">vocab/descriptionType/context.jsonld</div>
-            </div>
-            <div class="desc">JSON-LD context with 18 top-level mappings</div>
-            <div class="meta-col">2026-03-02</div>
-          </div>
-        </li><li>
-          <div class="row">
-            <div class="name">
-              <a href="/linked-data/vocab/funderIdentifierType/context.jsonld">context.jsonld</a>
-              <div class="small muted code">vocab/funderIdentifierType/context.jsonld</div>
-            </div>
-            <div class="desc">JSON-LD context with 19 top-level mappings</div>
-            <div class="meta-col">2026-03-02</div>
-          </div>
-        </li><li>
-          <div class="row">
-            <div class="name">
-              <a href="/linked-data/vocab/identifierType/context.jsonld">context.jsonld</a>
-              <div class="small muted code">vocab/identifierType/context.jsonld</div>
-            </div>
-            <div class="desc">JSON-LD context with 19 top-level mappings</div>
-            <div class="meta-col">2026-03-02</div>
-          </div>
-        </li><li>
-          <div class="row">
-            <div class="name">
-              <a href="/linked-data/vocab/nameType/context.jsonld">context.jsonld</a>
-              <div class="small muted code">vocab/nameType/context.jsonld</div>
-            </div>
-            <div class="desc">JSON-LD context with 17 top-level mappings</div>
-            <div class="meta-col">2026-03-02</div>
-          </div>
-        </li><li>
-          <div class="row">
-            <div class="name">
-              <a href="/linked-data/vocab/numberType/context.jsonld">context.jsonld</a>
-              <div class="small muted code">vocab/numberType/context.jsonld</div>
-            </div>
-            <div class="desc">JSON-LD context with 19 top-level mappings</div>
-            <div class="meta-col">2026-03-02</div>
-          </div>
-        </li><li>
-          <div class="row">
-            <div class="name">
-              <a href="/linked-data/vocab/relatedIdentifierType/context.jsonld">context.jsonld</a>
-              <div class="small muted code">vocab/relatedIdentifierType/context.jsonld</div>
-            </div>
-            <div class="desc">JSON-LD context with 19 top-level mappings</div>
-            <div class="meta-col">2026-03-02</div>
-          </div>
-        </li><li>
-          <div class="row">
-            <div class="name">
-              <a href="/linked-data/vocab/relationType/context.jsonld">context.jsonld</a>
-              <div class="small muted code">vocab/relationType/context.jsonld</div>
-            </div>
-            <div class="desc">JSON-LD context with 18 top-level mappings</div>
-            <div class="meta-col">2026-03-02</div>
-          </div>
-        </li><li>
-          <div class="row">
-            <div class="name">
-              <a href="/linked-data/vocab/resourceTypeGeneral/context.jsonld">context.jsonld</a>
-              <div class="small muted code">vocab/resourceTypeGeneral/context.jsonld</div>
-            </div>
-            <div class="desc">JSON-LD context with 19 top-level mappings</div>
-            <div class="meta-col">2026-03-02</div>
-          </div>
-        </li><li>
-          <div class="row">
-            <div class="name">
-              <a href="/linked-data/vocab/titleType/context.jsonld">context.jsonld</a>
-              <div class="small muted code">vocab/titleType/context.jsonld</div>
-            </div>
-            <div class="desc">JSON-LD context with 19 top-level mappings</div>
+            <div class="desc">Turtle serialization of the integrated bundle</div>
             <div class="meta-col">2026-03-02</div>
           </div>
         </li></ul>

@@ -472,11 +472,13 @@
         <p class="lead">
           Human-readable entry point for DataCite linked-data schema resources hosted under the
           <code>/linked-data/</code> namespace. This site provides JSON-LD definitions for classes,
-          properties, controlled vocabularies, contexts, and manifests used to describe DataCite metadata.
+          properties, controlled vocabularies, contexts, manifests, and integrated distribution artifacts
+          used to describe DataCite metadata.
         </p>
         <div class="meta" aria-label="Quick facts">
           <span class="chip">Audience: Developers, metadata engineers, tool builders</span>
           <span class="chip">Current staged version: DataCite 4.6</span>
+          <span class="chip">Single-file import: <a href="/linked-data/dist/datacite-4.6.jsonld">bundle</a></span>
           <span class="chip">Machine entry point: <a href="/linked-data/manifest/datacite-4.6.json">manifest</a></span>
         </div>
       </div>
@@ -495,6 +497,12 @@
         <h2 id="start-title">Start Here</h2>
         <p class="muted">Choose the entry point that matches what you need.</p>
         <div class="grid">
+          <article class="card span-6">
+            <h3>I need a single importable bundle (v4.6)</h3>
+            <p>Open the integrated distribution if you want one file with classes, properties, vocabularies, and metadata together.</p>
+            <a href="/linked-data/dist/datacite-4.6.jsonld">Open v4.6 bundle</a>
+            <div class="path"><code>/linked-data/dist/datacite-4.6.jsonld</code></div>
+          </article>
           <article class="card span-6">
             <h3>I need a machine-readable index of everything (v4.6)</h3>
             <p>Open the manifest to discover classes, properties, vocabulary schemes, and terms.</p>
@@ -541,12 +549,12 @@
             <p><strong>DataCite 4.6</strong> (current staged set)</p>
             <p class="muted">
               This staged namespace currently exposes a DataCite 4.6 linked-data set with JSON-LD class, property,
-              vocabulary, context, and manifest resources.
+              vocabulary, context, manifest, and distribution resources.
             </p>
             <p><a href="/linked-data/manifest/datacite-4.6.json">Open the DataCite 4.6 manifest</a></p>
           </div>
           <aside class="callout" aria-label="Versioning note">
-            Add future versions here (for example, <code>4.7</code>) and keep manifests as the primary machine-readable entry points.
+            Add future versions here (for example, <code>4.7</code>) and keep manifests as the resource index while distributions provide the single-file import path.
           </aside>
         </div>
       </section>
@@ -627,8 +635,8 @@
       <section id="usage" aria-labelledby="usage-title">
         <h2 id="usage-title">How To Use These Files</h2>
         <ul>
-          <li><strong>For people:</strong> browse the categories above, then open the JSON-LD files directly or use the manifest as an index.</li>
-          <li><strong>For software:</strong> start from the manifest and dereference the listed URLs/files as needed.</li>
+          <li><strong>For people:</strong> browse the categories above, then open the JSON-LD files directly, use the bundle for single-file import, or use the manifest as an index.</li>
+          <li><strong>For software:</strong> start from the manifest if you need a versioned resource inventory, or use the distribution bundle if you need one integrated graph.</li>
           <li><strong>For JSON-LD processing:</strong> use the context files to interpret compact JSON keys and values.</li>
           <li><strong>For schema exploration:</strong> compare a class file, a property file, and a vocabulary term file to understand the modeling pattern.</li>
         </ul>
@@ -669,6 +677,7 @@
           <li>Vocabulary schemes: <code>/linked-data/vocab/{scheme}/{scheme}.jsonld</code></li>
           <li>Vocabulary terms: <code>/linked-data/vocab/{scheme}/{Term}.jsonld</code></li>
           <li>Contexts: <code>/linked-data/context/{file}.jsonld</code></li>
+          <li>Distributions: <code>/linked-data/dist/datacite-{version}.{jsonld|ttl|rdf}</code></li>
           <li>Manifests: <code>/linked-data/manifest/datacite-{version}.json</code></li>
         </ul>
       </section>
