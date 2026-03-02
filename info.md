@@ -1067,7 +1067,7 @@ For a beginner:
 
 
 
-## If you are trying to understand this repository for the first time
+## If you are trying to understand thiws repository for the first time
 
 This is the easiest reading order for a beginner:
 
