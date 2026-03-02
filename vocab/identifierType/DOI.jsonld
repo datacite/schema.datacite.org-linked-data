@@ -1,0 +1,10 @@
+{
+  "@context": "./context.jsonld",
+  "id": "https://schema.stage.datacite.org/linked-data/vocab/identifierType/DOI",
+  "type": "Concept",
+  "prefLabel": "DOI",
+  "notation": "DOI",
+  "definition": "Digital Object Identifier.",
+  "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/identifierType",
+  "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/identifierType"
+}

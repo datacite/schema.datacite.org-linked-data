@@ -1,0 +1,10 @@
+{
+  "@context": "./context.jsonld",
+  "id": "https://schema.stage.datacite.org/linked-data/vocab/titleType/TranslatedTitle",
+  "type": "Concept",
+  "prefLabel": "TranslatedTitle",
+  "notation": "TranslatedTitle",
+  "definition": "A translated title for the resource.",
+  "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
+  "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/titleType"
+}

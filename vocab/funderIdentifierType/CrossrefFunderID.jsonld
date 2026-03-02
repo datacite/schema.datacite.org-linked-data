@@ -1,0 +1,10 @@
+{
+  "@context": "./context.jsonld",
+  "id": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/CrossrefFunderID",
+  "type": "Concept",
+  "prefLabel": "Crossref Funder ID",
+  "notation": "Crossref Funder ID",
+  "definition": "A funder identifier from the Crossref Funder Registry.",
+  "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
+  "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType"
+}

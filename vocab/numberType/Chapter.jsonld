@@ -1,0 +1,10 @@
+{
+  "@context": "./context.jsonld",
+  "id": "https://schema.stage.datacite.org/linked-data/vocab/numberType/Chapter",
+  "type": "Concept",
+  "prefLabel": "Chapter",
+  "notation": "Chapter",
+  "definition": "A chapter number associated with the related item.",
+  "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
+  "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/numberType"
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "./context.jsonld",
+  "id": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/ISNI",
+  "type": "Concept",
+  "prefLabel": "ISNI",
+  "notation": "ISNI",
+  "definition": "A funder identifier from the International Standard Name Identifier system.",
+  "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
+  "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType"
+}

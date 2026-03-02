@@ -1,0 +1,10 @@
+{
+  "@context": "./context.jsonld",
+  "id": "https://schema.stage.datacite.org/linked-data/vocab/titleType/AlternativeTitle",
+  "type": "Concept",
+  "prefLabel": "AlternativeTitle",
+  "notation": "AlternativeTitle",
+  "definition": "An alternative title for the resource.",
+  "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
+  "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/titleType"
+}

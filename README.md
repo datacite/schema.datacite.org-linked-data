@@ -101,7 +101,7 @@ This allows metadata fields like `identifier`, `creator`, or `resourceTypeGenera
 
 - `class/`: 21 JSON-LD files
 - `property/`: 78 JSON-LD files
-- `vocab/`: 148 JSON-LD files
+- `vocab/`: 170 JSON-LD files
 
 ## Example: What a Vocabulary Term File Looks Like
 

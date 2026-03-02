@@ -108,10 +108,7 @@
     },
     "subjectScheme": {
       "@id": "property:subjectScheme",
-      "@type": "@vocab",
-      "@context": {
-        "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/subjectScheme/"
-      }
+      "@type": "xsd:string"
     },
     "classificationCode": {
       "@id": "property:classificationCode",
@@ -134,7 +131,7 @@
       "@id": "property:contributorType",
       "@type": "@vocab",
       "@context": {
-        "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/contributionType/"
+        "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/contributorType/"
       }
     },
     "dates": {"@id": "@nest"},
@@ -169,10 +166,7 @@
     },
     "alternateIdentifierType": {
       "@id": "property:alternateIdentifierType",
-      "@type": "@vocab",
-      "@context": {
-        "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/alternateIdentifierType/"
-      }
+      "@type": "xsd:string"
     },
     "relatedIdentifiers": {"@id": "@nest"},
     "relatedIdentifier": {
@@ -339,7 +333,7 @@
       "@id": "property:relatedItemType",
       "@type": "@vocab",
       "@context": {
-        "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/relatedItemType/"
+        "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral/"
       }
     },
     "relatedItemIdentifier": {
@@ -350,7 +344,7 @@
       "@id": "property:relatedItemIdentifierType",
       "@type": "@vocab",
       "@context": {
-        "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/relatedItemIdentifierType/"
+        "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType/"
       }
     },
     "volume": {

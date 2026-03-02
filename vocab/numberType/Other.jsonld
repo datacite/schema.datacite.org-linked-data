@@ -1,0 +1,11 @@
+{
+  "@context": "./context.jsonld",
+  "id": "https://schema.stage.datacite.org/linked-data/vocab/numberType/Other",
+  "type": "Concept",
+  "prefLabel": "Other",
+  "notation": "Other",
+  "definition": "Another related-item number type not covered by the named values.",
+  "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
+  "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
+  "scopeNote": "Typically used with relationType IsPublishedIn when a more specific number type is unavailable."
+}
