@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /*
- * Rebuilds and validates manifest/datacite-4.6.json from the repository file layout.
+ * Rebuilds and validates a selected manifest from the repository file layout.
  *
  * Usage:
  *   node scripts/manifest-sync.js --check
@@ -14,9 +14,9 @@
 
 const fs = require("fs");
 const path = require("path");
+const { resolveManifestPath } = require("./lib/versioning");
 
 const repoRoot = process.cwd();
-const manifestPath = path.join(repoRoot, "manifest", "datacite-4.6.json");
 
 function die(message, code = 1) {
   console.error(message);
@@ -84,6 +84,7 @@ function buildManifest(existingManifest) {
 
   const contextFiles = [];
   for (const f of listJsonldFiles(contextDir)) {
+    if (f === "runner.jsonld") continue;
     contextFiles.push(path.join("context", f));
   }
   const vocabTopContext = path.join("vocab", "context.jsonld");
@@ -122,6 +123,7 @@ function buildManifest(existingManifest) {
   vocabularies.sort((a, b) => a.scheme.localeCompare(b.scheme));
 
   return {
+    ...existingManifest,
     namespace,
     version,
     context,
@@ -191,7 +193,9 @@ function diffCounts(current, generated) {
 }
 
 function main() {
-  const args = new Set(process.argv.slice(2));
+  const argv = process.argv.slice(2);
+  const args = new Set(argv);
+  const manifestPath = resolveManifestPath(repoRoot, argv);
   const wantsHelp = args.has("-h") || args.has("--help");
   const wantsWrite = args.has("--write");
   const wantsCheck = args.has("--check");
@@ -201,11 +205,16 @@ function main() {
   if (wantsHelp) {
     console.log(
       [
-        "Usage: node scripts/manifest-sync.js [--check] [--write] [--validate]",
+        "Usage: node scripts/manifest-sync.js [--check] [--write] [--validate] [--version <x.y>] [--manifest <path>]",
         "",
-        "  --check     Compare generated manifest to manifest/datacite-4.6.json",
-        "  --write     Rewrite manifest/datacite-4.6.json from files on disk",
-        "  --validate  Verify every manifest URL resolves to an existing file",
+        "  --check             Compare generated manifest to the selected manifest file",
+        "  --write             Rewrite the selected manifest from files on disk",
+        "  --validate          Verify every manifest URL resolves to an existing file",
+        "  --version <x.y>     Select manifest/datacite-<x.y>.json",
+        "  --manifest <path>   Select an explicit manifest file path",
+        "",
+        "Note: Historical frozen manifests are expected to drift from current source files.",
+        "Use --validate on frozen versions, and use --check for the active version.",
       ].join("\n"),
     );
     process.exit(0);

@@ -187,6 +187,10 @@
         "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/relationType/"
       }
     },
+    "relationTypeInformation": {
+      "@id": "property:relationTypeInformation",
+      "@type": "xsd:string"
+    },
     "sizes": {"@id": "@nest"},
     "size": {
       "@id": "property:size",

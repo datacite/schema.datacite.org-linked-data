@@ -2,10 +2,12 @@
 
 const fs = require("fs");
 const path = require("path");
+const { compareVersions, resolveCurrentVersion } = require("./lib/versioning");
 
 const root = process.cwd();
 const basePath = "/linked-data";
-const manifestFile = path.join(root, "manifest", "datacite-4.6.json");
+const currentVersion = resolveCurrentVersion(root);
+const manifestFile = path.join(root, "manifest", `datacite-${currentVersion}.json`);
 
 function readJson(file) {
   return JSON.parse(fs.readFileSync(file, "utf8"));
@@ -562,7 +564,38 @@ function buildDistIndex() {
 }
 
 function buildManifestIndex() {
-  const files = readDirFiles(path.join(root, "manifest")).filter((f) => f.endsWith(".json"));
+  const files = readDirFiles(path.join(root, "manifest"))
+    .filter((f) => /^datacite-.+\.json$/i.test(f))
+    .filter((f) => f !== "datacite-current.json")
+    .sort((a, b) => {
+      const av = a.replace(/^datacite-/, "").replace(/\.json$/i, "");
+      const bv = b.replace(/^datacite-/, "").replace(/\.json$/i, "");
+      return compareVersions(bv, av);
+    });
+
+  const currentPointerPath = path.join(root, "manifest", "datacite-current.json");
+  let currentPointerCard = "";
+  if (fs.existsSync(currentPointerPath)) {
+    try {
+      const pointer = readJson(currentPointerPath);
+      const links = pointer.links || {};
+      currentPointerCard = `<article class="card span-6">
+        <h3>datacite-current.json</h3>
+        <p class="muted">Current version pointer · current <span class="code">${escapeHtml(pointer.currentVersion || "")}</span></p>
+        <p>
+          <a href="${relUrl("manifest", "datacite-current.json")}">Open current pointer</a>
+        </p>
+        <p class="small muted">
+          ${escapeHtml(
+            `manifest: ${links.manifest || "n/a"} · dist: ${links.distJsonld || "n/a"}`,
+          )}
+        </p>
+        <p class="small muted">Updated ${escapeHtml(fileMtimeLabel(currentPointerPath))}</p>
+      </article>`;
+    } catch {
+      currentPointerCard = "";
+    }
+  }
 
   const cards = files
     .map((file) => {
@@ -594,7 +627,7 @@ function buildManifestIndex() {
   const body = `
     <section class="panel">
       <p class="muted">Manifest files are machine-readable inventories of linked-data resources by DataCite schema version.</p>
-      <div class="grid">${cards}</div>
+      <div class="grid">${currentPointerCard}${cards}</div>
     </section>
   `;
 

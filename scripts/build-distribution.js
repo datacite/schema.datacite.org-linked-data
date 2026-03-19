@@ -10,9 +10,9 @@
 const fs = require("fs");
 const path = require("path");
 const { spawnSync } = require("child_process");
+const { resolveManifestPath } = require("./lib/versioning");
 
 const repoRoot = process.cwd();
-const manifestPath = path.join(repoRoot, "manifest", "datacite-4.6.json");
 const distDir = path.join(repoRoot, "dist");
 const licenseUrl = "https://www.apache.org/licenses/LICENSE-2.0";
 
@@ -159,6 +159,7 @@ function buildContext() {
 
 function buildOntologyNode(manifest) {
   const version = manifest.version;
+  const created = manifest.releaseDate || manifest.created || new Date().toISOString().slice(0, 10);
   const distBase = `${manifest.namespace}dist/datacite-${version}`;
 
   return {
@@ -167,7 +168,7 @@ function buildOntologyNode(manifest) {
     title: `DataCite Linked Data ${version} Distribution`,
     identifier: `datacite-${version}`,
     versionInfo: version,
-    created: new Date().toISOString().slice(0, 10),
+    created,
     license: licenseUrl,
     source: `${manifest.namespace}manifest/datacite-${version}.json`,
     seeAlso: [`${distBase}.jsonld`, `${distBase}.ttl`, `${distBase}.rdf`],
@@ -224,6 +225,22 @@ function writeRdfFormat(inputFile, outputFile, format) {
 }
 
 function main() {
+  const argv = process.argv.slice(2);
+  const wantsHelp = argv.includes("-h") || argv.includes("--help");
+  const manifestPath = resolveManifestPath(repoRoot, argv);
+
+  if (wantsHelp) {
+    console.log(
+      [
+        "Usage: node scripts/build-distribution.js [--version <x.y>] [--manifest <path>]",
+        "",
+        "  --version <x.y>     Read manifest/datacite-<x.y>.json",
+        "  --manifest <path>   Read an explicit manifest file path",
+      ].join("\n"),
+    );
+    process.exit(0);
+  }
+
   if (!fs.existsSync(manifestPath)) {
     die(`Manifest file not found: ${manifestPath}`);
   }

@@ -477,9 +477,9 @@
         </p>
         <div class="meta" aria-label="Quick facts">
           <span class="chip">Audience: Developers, metadata engineers, tool builders</span>
-          <span class="chip">Current staged version: DataCite 4.6</span>
-          <span class="chip">Single-file import: <a href="/linked-data/dist/datacite-4.6.jsonld">bundle</a></span>
-          <span class="chip">Machine entry point: <a href="/linked-data/manifest/datacite-4.6.json">manifest</a></span>
+          <span class="chip">Current staged version: DataCite 4.7</span>
+          <span class="chip">Single-file import: <a href="/linked-data/dist/datacite-current.jsonld">current pointer</a></span>
+          <span class="chip">Machine entry point: <a href="/linked-data/manifest/datacite-current.json">current manifest pointer</a></span>
         </div>
       </div>
     </section>
@@ -498,16 +498,23 @@
         <p class="muted">Choose the entry point that matches what you need.</p>
         <div class="grid">
           <article class="card span-6">
-            <h3>I need a single importable bundle (v4.6)</h3>
+            <h3>I need a single importable bundle (v4.7)</h3>
             <p>Open the integrated distribution if you want one file with classes, properties, vocabularies, and metadata together.</p>
-            <a href="/linked-data/dist/datacite-4.6.jsonld">Open v4.6 bundle</a>
-            <div class="path"><code>/linked-data/dist/datacite-4.6.jsonld</code></div>
+            <a href="/linked-data/dist/datacite-4.7.jsonld">Open v4.7 bundle</a>
+            <div class="path"><code>/linked-data/dist/datacite-4.7.jsonld</code></div>
           </article>
           <article class="card span-6">
-            <h3>I need a machine-readable index of everything (v4.6)</h3>
+            <h3>I need a machine-readable index of everything (v4.7)</h3>
             <p>Open the manifest to discover classes, properties, vocabulary schemes, and terms.</p>
-            <a href="/linked-data/manifest/datacite-4.6.json">Open v4.6 manifest</a>
-            <div class="path"><code>/linked-data/manifest/datacite-4.6.json</code></div>
+            <a href="/linked-data/manifest/datacite-4.7.json">Open v4.7 manifest</a>
+            <div class="path"><code>/linked-data/manifest/datacite-4.7.json</code></div>
+          </article>
+          <article class="card span-12">
+            <h3>Version Quick Links</h3>
+            <p>Use current pointers for default behavior, or open a frozen version directly.</p>
+            <p><a href="/linked-data/manifest/datacite-current.json">Current manifest pointer</a> · <a href="/linked-data/dist/datacite-current.jsonld">Current distribution pointer</a></p>
+            <p><a href="/linked-data/manifest/datacite-4.7.json">4.7 manifest</a> · <a href="/linked-data/dist/datacite-4.7.jsonld">4.7 bundle</a></p>
+            <p><a href="/linked-data/manifest/datacite-4.6.json">4.6 manifest</a> · <a href="/linked-data/dist/datacite-4.6.jsonld">4.6 bundle</a></p>
           </article>
           <article class="card span-6">
             <h3>I need field/property definitions</h3>
@@ -546,15 +553,22 @@
         <h2 id="versions-title">Available Versions</h2>
         <div class="split">
           <div>
-            <p><strong>DataCite 4.6</strong> (current staged set)</p>
+            <p><strong>DataCite 4.7</strong> (current staged set)</p>
             <p class="muted">
-              This staged namespace currently exposes a DataCite 4.6 linked-data set with JSON-LD class, property,
+              This staged namespace currently exposes a DataCite 4.7 linked-data set with JSON-LD class, property,
               vocabulary, context, manifest, and distribution resources.
             </p>
+            <p><a href="/linked-data/manifest/datacite-4.7.json">Open the DataCite 4.7 manifest</a></p>
+            <p><a href="/linked-data/dist/datacite-4.7.jsonld">Open the DataCite 4.7 bundle</a></p>
+            <p><strong>DataCite 4.6</strong> (frozen previous version)</p>
+            <p class="muted">
+              DataCite 4.6 remains available as a versioned snapshot for compatibility and historical reference.
+            </p>
             <p><a href="/linked-data/manifest/datacite-4.6.json">Open the DataCite 4.6 manifest</a></p>
+            <p><a href="/linked-data/dist/datacite-4.6.jsonld">Open the DataCite 4.6 bundle</a></p>
           </div>
           <aside class="callout" aria-label="Versioning note">
-            Add future versions here (for example, <code>4.7</code>) and keep manifests as the resource index while distributions provide the single-file import path.
+            Keep `datacite-current` pointer files updated when changing default targets, while leaving versioned `datacite-x.y` artifacts frozen.
           </aside>
         </div>
       </section>
@@ -591,7 +605,7 @@
             <h3>Manifests</h3>
             <p>Versioned inventory files listing available classes, properties, vocabulary schemes, and terms.</p>
             <p><a href="/linked-data/manifest/">Browse manifests</a></p>
-            <p><a href="/linked-data/manifest/datacite-4.6.json">Open <code>datacite-4.6.json</code></a></p>
+            <p><a href="/linked-data/manifest/datacite-current.json">Open <code>datacite-current.json</code></a></p>
           </article>
           <article class="card span-6">
             <h3>Examples / Inputs (repo-only)</h3>
@@ -605,9 +619,9 @@
         <h2 id="featured-title">Featured Resources (Good Starting Points)</h2>
         <div class="grid">
           <article class="card span-6">
-            <h3>Manifest (v4.6)</h3>
+            <h3>Manifest (Current Pointer)</h3>
             <p>Complete machine-readable index of staged resources.</p>
-            <p><a href="/linked-data/manifest/datacite-4.6.json">/linked-data/manifest/datacite-4.6.json</a></p>
+            <p><a href="/linked-data/manifest/datacite-current.json">/linked-data/manifest/datacite-current.json</a></p>
           </article>
           <article class="card span-6">
             <h3>Full JSON-LD Context</h3>
