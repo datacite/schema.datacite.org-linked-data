@@ -39,6 +39,7 @@ jobs:
           name: datacite-snapshot-${{ inputs.version }}
           path: |
             manifest/datacite-*.json
+            manifest/release-matrix-*.json
             dist/datacite-*.jsonld
             dist/datacite-*.ttl
             dist/datacite-*.rdf

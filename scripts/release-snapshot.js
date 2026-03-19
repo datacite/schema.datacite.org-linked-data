@@ -40,7 +40,7 @@ function runNodeScript(scriptRelPath, args) {
   }
 }
 
-function ensureManifestExists(version, releaseDate) {
+function ensureManifestExists(version, releaseDate, allowReleaseDateUpdate = false) {
   const targetPath = path.join(repoRoot, "manifest", `datacite-${version}.json`);
   if (fs.existsSync(targetPath)) {
     const json = readJson(targetPath);
@@ -48,6 +48,10 @@ function ensureManifestExists(version, releaseDate) {
       json.releaseDate = releaseDate;
       writeJson(targetPath, json);
       console.log(`Updated releaseDate in manifest/datacite-${version}.json`);
+    } else if (allowReleaseDateUpdate && json.releaseDate !== releaseDate) {
+      json.releaseDate = releaseDate;
+      writeJson(targetPath, json);
+      console.log(`Corrected releaseDate in manifest/datacite-${version}.json`);
     }
     return;
   }
@@ -77,7 +81,8 @@ function main() {
   const argv = process.argv.slice(2);
   const wantsHelp = argv.includes("-h") || argv.includes("--help");
   const version = getArgValue(argv, "--version");
-  const releaseDate = getArgValue(argv, "--release-date") || new Date().toISOString().slice(0, 10);
+  const requestedReleaseDate = getArgValue(argv, "--release-date");
+  const releaseDate = requestedReleaseDate || new Date().toISOString().slice(0, 10);
   const shouldSetCurrent = !argv.includes("--no-set-current");
 
   if (wantsHelp) {
@@ -97,7 +102,7 @@ function main() {
     die("Missing required argument: --version <x.y>");
   }
 
-  ensureManifestExists(version, releaseDate);
+  ensureManifestExists(version, releaseDate, Boolean(requestedReleaseDate));
 
   runNodeScript("scripts/manifest-sync.js", ["--write", "--validate", "--version", version]);
   runNodeScript("scripts/build-distribution.js", ["--version", version]);
