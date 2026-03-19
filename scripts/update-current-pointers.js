@@ -1,0 +1,127 @@
+#!/usr/bin/env node
+
+const fs = require("fs");
+const path = require("path");
+const { getArgValue, listManifestVersions, resolveCurrentVersion } = require("./lib/versioning");
+
+const repoRoot = process.cwd();
+
+function die(message, code = 1) {
+  console.error(message);
+  process.exit(code);
+}
+
+function readJson(file) {
+  try {
+    return JSON.parse(fs.readFileSync(file, "utf8"));
+  } catch (err) {
+    die(`Failed to read JSON: ${file}\n${err.message}`);
+  }
+}
+
+function writeJson(file, value) {
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, JSON.stringify(value, null, 2) + "\n");
+}
+
+function buildVersionLinks(namespace, version) {
+  return {
+    version,
+    manifest: `${namespace}manifest/datacite-${version}.json`,
+    distJsonld: `${namespace}dist/datacite-${version}.jsonld`,
+    distTtl: `${namespace}dist/datacite-${version}.ttl`,
+    distRdf: `${namespace}dist/datacite-${version}.rdf`,
+  };
+}
+
+function buildDistCurrentPointer(namespace, currentLinks) {
+  const today = new Date().toISOString().slice(0, 10);
+
+  return {
+    "@context": {
+      id: "@id",
+      type: "@type",
+      owl: "http://www.w3.org/2002/07/owl#",
+      rdfs: "http://www.w3.org/2000/01/rdf-schema#",
+      dcterms: "http://purl.org/dc/terms/",
+      xsd: "http://www.w3.org/2001/XMLSchema#",
+      title: { "@id": "dcterms:title", "@language": "en" },
+      identifier: "dcterms:identifier",
+      modified: { "@id": "dcterms:modified", "@type": "xsd:date" },
+      source: { "@id": "dcterms:source", "@type": "@id" },
+      seeAlso: { "@id": "rdfs:seeAlso", "@type": "@id", "@container": "@set" },
+      versionInfo: "owl:versionInfo",
+      comment: { "@id": "rdfs:comment", "@language": "en" },
+    },
+    "@graph": [
+      {
+        id: `${namespace}dist/datacite-current`,
+        type: "owl:Ontology",
+        title: "DataCite Linked Data Current Distribution Pointer",
+        identifier: "datacite-current",
+        versionInfo: currentLinks.version,
+        modified: today,
+        source: currentLinks.manifest,
+        seeAlso: [currentLinks.distJsonld, currentLinks.distTtl, currentLinks.distRdf],
+        comment: "Pointer to the current default DataCite linked-data distribution.",
+      },
+    ],
+  };
+}
+
+function main() {
+  const argv = process.argv.slice(2);
+  const wantsHelp = argv.includes("-h") || argv.includes("--help");
+  if (wantsHelp) {
+    console.log(
+      [
+        "Usage: node scripts/update-current-pointers.js [--version <x.y>]",
+        "",
+        "  --version <x.y>     Version to mark as current (default: datacite-current.json value or latest manifest version)",
+      ].join("\n"),
+    );
+    process.exit(0);
+  }
+
+  const requestedVersion = getArgValue(argv, "--version");
+  const currentVersion = requestedVersion || resolveCurrentVersion(repoRoot);
+  const manifestPath = path.join(repoRoot, "manifest", `datacite-${currentVersion}.json`);
+
+  if (!fs.existsSync(manifestPath)) {
+    die(`Manifest file not found for current version ${currentVersion}: ${manifestPath}`);
+  }
+
+  const manifest = readJson(manifestPath);
+  const namespace = manifest.namespace;
+  const versions = listManifestVersions(repoRoot);
+  const availableVersions = versions.map((v) => buildVersionLinks(namespace, v));
+
+  let currentLinks = availableVersions.find((v) => v.version === currentVersion);
+  if (!currentLinks) {
+    currentLinks = buildVersionLinks(namespace, currentVersion);
+    availableVersions.push(currentLinks);
+  }
+
+  const manifestCurrent = {
+    namespace,
+    currentVersion,
+    updated: new Date().toISOString().slice(0, 10),
+    links: {
+      manifest: currentLinks.manifest,
+      distJsonld: currentLinks.distJsonld,
+      distTtl: currentLinks.distTtl,
+      distRdf: currentLinks.distRdf,
+    },
+    availableVersions,
+  };
+
+  const manifestCurrentPath = path.join(repoRoot, "manifest", "datacite-current.json");
+  writeJson(manifestCurrentPath, manifestCurrent);
+  console.log(`Wrote ${path.relative(repoRoot, manifestCurrentPath)}`);
+
+  const distCurrentPath = path.join(repoRoot, "dist", "datacite-current.jsonld");
+  writeJson(distCurrentPath, buildDistCurrentPointer(namespace, currentLinks));
+  console.log(`Wrote ${path.relative(repoRoot, distCurrentPath)}`);
+}
+
+main();
