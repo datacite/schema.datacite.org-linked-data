@@ -1,0 +1,51 @@
+name: Build Versioned Snapshot
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'DataCite schema version (for example: 4.7)'
+        required: true
+        type: string
+      release_date:
+        description: 'Release date (YYYY-MM-DD). Leave blank to use today.'
+        required: false
+        type: string
+
+jobs:
+  build-snapshot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build snapshot
+        run: |
+          if [ -n "${{ inputs.release_date }}" ]; then
+            node scripts/release-snapshot.js --version "${{ inputs.version }}" --release-date "${{ inputs.release_date }}"
+          else
+            node scripts/release-snapshot.js --version "${{ inputs.version }}"
+          fi
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: datacite-snapshot-${{ inputs.version }}
+          path: |
+            manifest/datacite-*.json
+            manifest/release-matrix-*.json
+            dist/datacite-*.jsonld
+            dist/datacite-*.ttl
+            dist/datacite-*.rdf
+            class/index.html
+            property/index.html
+            vocab/index.html
+            context/index.html
+            dist/index.html
+            manifest/index.html
