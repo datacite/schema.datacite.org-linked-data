@@ -73,6 +73,10 @@ If your changes affect schema artifacts, manifests, or directory indexes, these 
 
 - `node scripts/manifest-sync.js --check`
 - `node scripts/manifest-sync.js --write --validate`
+- `node scripts/manifest-sync.js --write --validate --version 4.7`
+- `node scripts/build-distribution.js --version 4.7`
+- `node scripts/update-current-pointers.js --version 4.7`
+- `node scripts/release-snapshot.js --version 4.7 --release-date 2026-03-03`
 - `node scripts/generate-index-pages.js`
 
 ## Community Expectations

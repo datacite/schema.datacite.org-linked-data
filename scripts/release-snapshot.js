@@ -112,6 +112,7 @@ function main() {
   }
 
   runNodeScript("scripts/generate-index-pages.js", []);
+  runNodeScript("scripts/update-root-index.js", []);
 }
 
 main();

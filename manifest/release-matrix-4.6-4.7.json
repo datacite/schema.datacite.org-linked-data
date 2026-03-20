@@ -1,0 +1,42 @@
+{
+  "fromVersion": "4.6",
+  "toVersion": "4.7",
+  "releaseDate": "2026-03-03",
+  "changes": [
+    {
+      "kind": "controlled-term-added",
+      "target": "resourceTypeGeneral",
+      "values": ["Poster", "Presentation"]
+    },
+    {
+      "kind": "controlled-term-added",
+      "target": "relatedIdentifierType",
+      "values": ["RAiD", "SWHID"]
+    },
+    {
+      "kind": "controlled-term-added",
+      "target": "relationType",
+      "values": ["Other"]
+    },
+    {
+      "kind": "sub-property-added",
+      "target": "relatedIdentifier",
+      "property": "relationTypeInformation",
+      "occurrences": "0-1"
+    },
+    {
+      "kind": "sub-property-added",
+      "target": "relatedItem",
+      "property": "relationTypeInformation",
+      "occurrences": "0-1"
+    }
+  ],
+  "sources": [
+    "https://schema.datacite.org/meta/kernel-4.7/",
+    "https://schema.datacite.org/meta/kernel-4.7/metadata.xsd",
+    "https://schema.datacite.org/meta/kernel-4.7/include/datacite-resourceType-v4.xsd",
+    "https://schema.datacite.org/meta/kernel-4.7/include/datacite-relatedIdentifierType-v4.xsd",
+    "https://schema.datacite.org/meta/kernel-4.7/include/datacite-relationType-v4.xsd",
+    "https://datacite-metadata-schema.readthedocs.io/en/4.7/introduction/version-update/"
+  ]
+}
