@@ -1,225 +1,194 @@
 # DataCite Linked Data Repository Guide
 
-This file explains this repository in plain English for someone who is new to linked data, new to JSON-LD, and new to the DataCite metadata world.
+This document explains what is in this repository right now, what each major folder is for, what is source material versus generated output, and how the versioned `4.6` and `4.7` artifacts fit together.
 
-It is intentionally detailed. The goal is that you should be able to open this file first, then explore the rest of the repository without feeling lost.
+It is written for a beginner. You do not need previous linked-data experience to use it.
 
 ## Short version
 
-This repository turns pieces of the DataCite metadata schema (version `4.6`) into linked-data files.
+This repository publishes parts of the DataCite metadata schema as linked data.
 
-In simple terms, that means:
+In plain English, that means:
 
-- important DataCite concepts are given stable web identifiers
-- those concepts are described in machine-readable JSON-LD files
-- controlled lists of allowed values are modeled as vocabularies
-- a manifest lists all of the important files
-- a generated distribution bundles the whole model into one file for easier reuse
+- DataCite concepts such as `Resource`, `Creator`, and `identifier` are given stable web identifiers.
+- controlled values such as `Dataset`, `DOI`, and `Cites` are modeled as vocabulary terms
+- JSON-LD contexts explain how compact JSON keys map to those linked-data identifiers
+- manifests list the versioned schema inventory
+- generated distribution files package the whole schema as reusable bundles
 
-If you only remember one sentence, remember this:
+The current staged version in this repository is `4.7`.
 
-This repository is a linked-data description of the DataCite schema, not a DOI registration service and not a complete validation engine.
+This repository also keeps the previous `4.6` release snapshot and exposes "current" pointer files that resolve to the latest staged version.
 
-## What exists in this repository right now
+## What is in the repository now
 
-As the repository currently stands, it contains:
+As of the current repository contents:
 
-- a versioned linked-data namespace rooted at `https://schema.stage.datacite.org/linked-data/`
-- `21` class definition files in `class/`
-- `78` property definition files in `property/`
-- `11` controlled vocabularies in `vocab/`
-- `147` individual controlled vocabulary term files across those vocabularies
-- `14` context-related JSON-LD files listed in the manifest
-- `1` manifest file in `manifest/`
-- `3` generated distribution files in `dist/`
-- maintenance scripts in `scripts/`
-- experimental XML/JSON conversion and validation materials in `Input files/`
-- browser-friendly HTML index pages for people who want to browse the files on the web
+- `class/` contains `21` JSON-LD class files
+- `property/` contains `79` JSON-LD property files
+- `vocab/` contains `175` JSON-LD files in total
+- `context/` contains `2` JSON-LD files
+- `manifest/` contains `4` JSON files
+- `dist/` contains `12` non-HTML files
 
-In other words, the repository already does more than store isolated JSON files. It contains:
+Those numbers mix together both source files and generated release artifacts, so it helps to split them further.
 
-1. source schema definitions
-2. source vocabulary definitions
-3. context files that explain how to read compact JSON as linked data
-4. an inventory file that ties everything together
-5. generated bundle files for downstream use
-6. generated HTML pages for human browsing
-7. experiment files used to test XML-to-JSON and round-trip ideas
+### Current versioned schema counts
 
-## What "linked data" means here
+The `4.7` manifest currently describes:
 
-If you have never worked with linked data before, the phrase can sound more complicated than it really is.
+- `21` classes
+- `79` properties
+- `11` vocabularies
+- `152` vocabulary term files
+- `13` context files in the versioned manifest inventory
 
-Here is the simplest way to think about it:
+The older `4.6` manifest describes:
 
-- ordinary JSON uses keys like `"identifier"` or `"creatorName"`
-- linked data gives those keys precise meanings by connecting them to full web identifiers
-- those web identifiers are usually URLs or IRIs that act as globally unique names
+- `21` classes
+- `78` properties
+- `11` vocabularies
+- `147` vocabulary term files
+- `13` context files in the versioned manifest inventory
 
-So instead of saying only:
+### What changed from `4.6` to `4.7`
 
-- `"identifier"`
+The repository includes an explicit change summary in `manifest/release-matrix-4.6-4.7.json`.
 
-linked data says:
+The `4.7` release added:
 
-- this key means the property identified by `https://schema.stage.datacite.org/linked-data/property/identifier`
+- `relationTypeInformation` as a property
+- `Poster` and `Presentation` in `resourceTypeGeneral`
+- `RAiD` and `SWHID` in `relatedIdentifierType`
+- `Other` in `relationType`
 
-That is useful because different systems can agree on the meaning of the same field, even if they were built by different teams.
+That is why the `4.7` manifest has:
 
-### The basic building blocks
+- `1` more property than `4.6`
+- `5` more vocabulary terms than `4.6`
+- `264` graph nodes in the `4.7` bundle instead of `258`
 
-There are four beginner-level ideas that explain almost everything in this repository:
+## The most important idea: this repo is versioned now
 
-1. **Class**: a type of thing  
-   Example: a `Resource`, `Creator`, or `Publisher`
+This repository is no longer just "the DataCite linked-data schema."
 
-2. **Property**: a field or relationship  
-   Example: `identifier`, `creatorName`, or `publicationYear`
+It is now a small versioned release system with:
 
-3. **Vocabulary term**: one allowed value from a controlled list  
-   Example: `Dataset`, `DOI`, `Personal`, `Cites`
+- frozen version-specific manifests and bundles
+- a current-version pointer
+- moving alias files for the latest full distribution
+- release automation scripts and release documentation
 
-4. **Context**: a translation map that tells JSON-LD how to interpret short keys  
-   Example: it can map `"identifier"` to the full property IRI
+That is the biggest structural change compared with the older `4.6`-only shape.
 
-If you know those four ideas, the rest of the repository becomes much easier to follow.
+## How to think about the versions
 
-### Why JSON-LD is used
+There are now three different ways the repository exposes schema data.
 
-JSON-LD is useful here because it lets the files stay readable as JSON while still carrying RDF-style meaning.
+### 1. Frozen versioned files
 
-That means the same data can be:
+These are the release snapshots:
 
-- easy for developers to inspect as JSON
-- precise enough for linked-data tools to understand
-- convertible into RDF serializations like Turtle or RDF/XML
+- `manifest/datacite-4.6.json`
+- `manifest/datacite-4.7.json`
+- `dist/datacite-4.6.jsonld`
+- `dist/datacite-4.6.ttl`
+- `dist/datacite-4.6.rdf`
+- `dist/datacite-4.7.jsonld`
+- `dist/datacite-4.7.ttl`
+- `dist/datacite-4.7.rdf`
 
-## What this project is actually modeling
+These files are what you use when you need a specific schema version and you do not want moving targets.
 
-This project is modeling the **meaning of DataCite metadata fields**, not just their spelling.
+### 2. Current-version pointers
 
-DataCite metadata includes fields such as:
+These are the files that say which version is currently considered the default:
 
-- identifier
-- creators
-- titles
-- publisher
-- publication year
-- resource type
-- related identifiers
-- contributors
-- descriptions
-- rights
-- geolocations
+- `manifest/datacite-current.json`
+- `dist/datacite-current.jsonld`
 
-This repository gives those fields a linked-data shape.
+These do not contain the full schema bundle.
 
-That means it defines:
+Instead:
 
-- what major entities exist
-- what properties can describe those entities
-- what controlled values some properties can use
-- how compact JSON keys map to those linked-data identifiers
-
-## What we have built in practical terms
-
-Looking at the current files, the repository now supports these main jobs:
-
-1. It defines DataCite concepts as standalone JSON-LD resources.
-2. It organizes DataCite controlled values as SKOS vocabularies.
-3. It provides a reusable JSON-LD context for interpreting DataCite-like JSON.
-4. It keeps a machine-readable manifest of the schema inventory.
-5. It generates an integrated distribution bundle in multiple RDF-friendly formats.
-6. It generates section index pages so humans can browse the namespace in a browser.
-7. It keeps experiment files that document XML-to-JSON and round-trip testing.
-
-That is the most complete plain-English summary of "what we have done" based on the current repository contents.
-
-## Repository structure, folder by folder
-
-### `class/`
-
-This folder contains the main entity types in the model.
-
-Each file is one class definition. Examples include:
-
-- `class/Resource.jsonld`
-- `class/Creator.jsonld`
-- `class/Title.jsonld`
-- `class/Publisher.jsonld`
-
-These files are very lightweight on purpose. A typical class file contains:
-
-- `@id`: the permanent identifier for the class
-- `@type`: usually `rdfs:Class`
-- `rdfs:label`: a human-readable name
-- `rdfs:comment`: a plain-language description
-
-For example, `class/Resource.jsonld` says that `Resource` is a class and gives it a short label and comment.
+- `manifest/datacite-current.json` points to the current manifest and distribution links
+- `dist/datacite-current.jsonld` is a one-node JSON-LD pointer document
 
 Important detail:
 
-The class files currently describe the existence and meaning of the class, but they do **not** define rich logical constraints such as inheritance trees, cardinality rules, or formal validation rules.
+`dist/datacite-current.jsonld` is not a full bundle. It currently has only `1` graph node and acts as a pointer to the `4.7` bundle.
 
-So think of `class/` as:
+### 3. Moving latest aliases
 
-- a semantic naming layer
-- a documentation layer
+These are convenience copies of the latest full release artifacts:
 
-not as:
+- `dist/datacite.jsonld`
+- `dist/datacite.ttl`
+- `dist/datacite.rdf`
 
-- a full ontology with deep logic
+Right now they point to the current `4.7` release outputs.
+
+If `4.8` is staged later and current pointers are updated, these alias files will move.
+
+## Repository layout, folder by folder
+
+### `class/`
+
+This folder contains the main classes in the semantic model.
+
+Examples:
+
+- `class/Resource.jsonld`
+- `class/Creator.jsonld`
+- `class/Contributor.jsonld`
+- `class/Title.jsonld`
+- `class/Publisher.jsonld`
+
+Each class file is lightweight. A typical file contains:
+
+- `@id`: the class IRI
+- `@type`: usually `rdfs:Class`
+- `rdfs:label`: a human-readable label
+- `rdfs:comment`: a short plain-English description
+
+These files identify the major kinds of things the schema talks about.
+
+They are descriptive. They are not a full validation layer.
 
 ### `property/`
 
-This folder contains field definitions.
+This folder contains one JSON-LD file per DataCite property.
 
-Each file is one property. Examples include:
+Examples:
 
 - `property/identifier.jsonld`
 - `property/creator.jsonld`
 - `property/creatorName.jsonld`
 - `property/publicationYear.jsonld`
+- `property/relationTypeInformation.jsonld`
 
-Each property file is also lightweight. A typical file contains:
+Each property file usually contains:
 
 - `@id`: the property IRI
 - `@type`: usually `rdf:Property`
 - `rdfs:label`: the field name
-- `rdfs:comment`: a beginner-readable description
+- `rdfs:comment`: a short description
 
-For example, `property/identifier.jsonld` explains the `identifier` property as the unique string that identifies a resource.
+The important current change here is:
 
-Important detail:
+- `property/relationTypeInformation.jsonld` exists in `4.7` and did not exist in `4.6`
 
-The property files currently identify and describe properties, but they do **not** currently declare things like:
-
-- `rdfs:domain`
-- `rdfs:range`
-- `owl:ObjectProperty`
-- `owl:DatatypeProperty`
-
-That means the current property layer is descriptive rather than fully constrained.
-
-This is a key point for beginners:
-
-The repository tells you what a property means, but it is not trying to be a strict rule engine by itself.
+Like the class files, these property files are mostly descriptive at the moment. They do not yet encode a full domain/range or SHACL-style constraint system.
 
 ### `vocab/`
 
-This folder contains controlled vocabularies.
+This folder contains controlled vocabularies and their term files.
 
-Controlled vocabularies are lists of allowed values. They matter because some metadata fields should not accept arbitrary text.
+This is one of the most important parts of the repository because many DataCite fields rely on known controlled values.
 
-For example:
+The repository currently contains these vocabulary families in the `4.7` manifest:
 
-- `resourceTypeGeneral` should use terms like `Dataset` or `Software`
-- `relationType` should use terms like `Cites` or `IsPartOf`
-- `nameType` should use terms like `Personal` or `Organizational`
-
-The current repository contains these vocabulary families:
-
-| Vocabulary | What it controls | Term count |
+| Vocabulary | What it controls | Current term count |
 | --- | --- | ---: |
 | `contributorType` | kinds of contributors | 22 |
 | `dateType` | kinds of dates | 12 |
@@ -228,12 +197,12 @@ The current repository contains these vocabulary families:
 | `identifierType` | kinds of primary identifiers | 1 |
 | `nameType` | kinds of names | 2 |
 | `numberType` | kinds of numbers | 4 |
-| `relatedIdentifierType` | kinds of related IDs | 21 |
-| `relationType` | kinds of relationships | 38 |
-| `resourceTypeGeneral` | broad resource categories | 32 |
+| `relatedIdentifierType` | kinds of related identifiers | 23 |
+| `relationType` | kinds of relationships | 39 |
+| `resourceTypeGeneral` | broad resource categories | 34 |
 | `titleType` | kinds of titles | 4 |
 
-Each vocabulary folder usually contains three kinds of files:
+Each vocabulary directory usually contains:
 
 1. a scheme file  
    Example: `vocab/resourceTypeGeneral/resourceTypeGeneral.jsonld`
@@ -246,258 +215,248 @@ Each vocabulary folder usually contains three kinds of files:
 
 #### Vocabulary scheme files
 
-The scheme file represents the whole vocabulary as a `ConceptScheme`.
+Scheme files represent the whole vocabulary as a `ConceptScheme`.
 
-For example, `vocab/resourceTypeGeneral/resourceTypeGeneral.jsonld`:
+They usually contain:
 
-- identifies the scheme
-- gives it a title
-- gives it a short identifier
-- records a creation date
-- lists its top concepts using `hasTopConcept`
-
-That means the scheme file is the "container" for the vocabulary.
+- `title`
+- `identifier`
+- `created`
+- `hasTopConcept`
 
 #### Vocabulary term files
 
-Each term file represents one allowed value as a `Concept`.
+Term files represent one allowed value as a `Concept`.
 
-For example, `vocab/resourceTypeGeneral/Dataset.jsonld` contains:
+They usually contain:
 
-- `id`: the term IRI
-- `type`: `Concept`
-- `prefLabel`: the preferred human name
-- `notation`: the code-like value
-- `definition`: the meaning
-- `inScheme`: which vocabulary it belongs to
-- `topConceptOf`: the top-level scheme it belongs to
-- optional helpful extras like `scopeNote`, `example`, and `closeMatch`
-
-That means a term file is not just a string. It is a small semantic record about the string.
+- `id`
+- `type`
+- `prefLabel`
+- `notation`
+- `definition`
+- `inScheme`
+- `topConceptOf`
+- sometimes `scopeNote`, `example`, and `closeMatch`
 
 #### Why SKOS is used
 
-The vocabularies use SKOS (Simple Knowledge Organization System).
+The vocabularies use SKOS because SKOS is a standard RDF vocabulary for controlled terms and concept schemes.
 
-For a beginner, that means:
+That makes it a good fit for:
 
-- SKOS is a standard way to model term lists, taxonomies, and concept schemes
-- it is a good fit for controlled values
-- it gives useful fields like label, definition, and membership in a scheme
-
-This is why the vocabulary side of the repository is more structured than the simple class and property files.
+- enumerated values
+- human-readable labels
+- definitions
+- scheme membership
 
 ### `context/`
 
-This folder is about interpretation.
+This folder contains the main JSON-LD interpretation files and example instance material.
 
-The most important file here is:
+Important files:
 
 - `context/fullcontext.jsonld`
+- `context/runner.jsonld`
+- `context/runner.nq`
+- `context/runner.err`
 
-This file tells JSON-LD how to interpret compact DataCite-style keys.
+#### `context/fullcontext.jsonld`
 
-For example, it maps short names like:
+This is the main JSON-LD context used to interpret compact DataCite-like JSON.
+
+It maps keys such as:
 
 - `identifier`
 - `creator`
 - `title`
 - `resourceTypeGeneral`
+- `relationTypeInformation`
 
-to their full linked-data identifiers.
+to their linked-data property IRIs.
 
-It also tells JSON-LD what kind of value a field is. For example:
+It also indicates whether a value should be treated as:
 
-- some fields are plain strings
-- some fields are IRIs
-- some fields should be interpreted as vocabulary terms
-- some fields are sets rather than single values
+- a string
+- an IRI
+- a controlled vocabulary term
+- or a set of values
 
-#### A beginner-friendly way to think about `fullcontext.jsonld`
-
-You can think of `context/fullcontext.jsonld` as a bilingual dictionary:
-
-- on one side is compact JSON that looks familiar to developers
-- on the other side is the full linked-data meaning
-
-Without a context, `"identifierType": "DOI"` is just text.
-
-With the context, it can mean:
-
-- the `identifierType` property
-- whose value should be interpreted from the `identifierType` vocabulary
-- where `"DOI"` resolves to the linked-data term for DOI
-
-#### The special `attrs` and `value` pattern
-
-One of the most important design choices in this repository is the use of:
-
-- `attrs`
-- `value`
-
-This mirrors the XML-shaped JSON approach used in the experiment files.
-
-In plain English:
-
-- `attrs` holds XML-like attributes
-- `value` holds the text content of an element
-
-So this JSON:
-
-```json
-"identifier": {
-  "attrs": {
-    "identifierType": "DOI"
-  },
-  "value": "10.82433/B09Z-4K37"
-}
-```
-
-means the same idea as:
-
-```xml
-<identifier identifierType="DOI">10.82433/B09Z-4K37</identifier>
-```
-
-That is a very important bridge for beginners, because it explains how the project connects XML-shaped data and linked-data semantics.
+This file is one of the core semantic source files in the repository.
 
 #### `context/runner.jsonld`
 
-This file is an example instance document that uses `fullcontext.jsonld`.
+This file is a worked example instance document that uses `context/fullcontext.jsonld`.
 
-It is not just another context. It is an example of actual metadata written in the style the context expects.
+It shows what actual DataCite-like metadata looks like when written in the compact JSON-LD style used by the repository.
 
-It shows:
+It is useful for learning, but it is not part of the versioned manifest inventory.
 
-- a DOI
-- creators
-- titles
-- a publisher
-- a publication year
-- subjects
-- contributors
+#### `context/runner.nq` and `context/runner.err`
 
-and many other DataCite fields.
+These are experiment outputs related to processing the runner example.
 
-This file is useful because it answers the practical question:
+Right now:
 
-"What does a real JSON-LD record look like when it uses this model?"
+- `context/runner.nq` contains an error trace from a failed attempt to resolve `./fullcontext.jsonld`
+- `context/runner.err` is empty
 
-#### Important detail about the manifest's `context` list
-
-The manifest field is named `context`, but it includes more than pure context definitions.
-
-It includes:
-
-- actual context documents such as `context/fullcontext.jsonld`
-- vocabulary context files
-- and also the example instance file `context/runner.jsonld`
-
-So when you see the word `context` in the manifest, read it as:
-
-"context-related JSON-LD files"
-
-not as:
-
-"only files that are literally JSON-LD contexts"
+So do not treat `context/runner.nq` as a trusted final RDF export in its current state.
 
 ### `manifest/`
 
-This folder contains the machine-readable inventory of the repository.
+This folder contains the machine-readable inventory files for released schema versions and the current pointer state.
 
-The key file is:
+Current files:
 
 - `manifest/datacite-4.6.json`
+- `manifest/datacite-4.7.json`
+- `manifest/datacite-current.json`
+- `manifest/release-matrix-4.6-4.7.json`
 
-This file is extremely important because it is the source of truth for what belongs in the versioned schema set.
+What each file does:
 
-It tells you:
+- `datacite-4.6.json`: frozen schema inventory for `4.6`
+- `datacite-4.7.json`: frozen schema inventory for `4.7`
+- `datacite-current.json`: pointer file that says `4.7` is current and lists current links
+- `release-matrix-4.6-4.7.json`: human-readable and machine-readable summary of the upgrade delta
+
+The versioned manifests are the main machine-readable release inventories.
+
+They tell you:
 
 - the namespace
-- the schema version
-- which context-related files exist
-- which class files exist
-- which property files exist
-- which vocabulary schemes exist
-- which term files belong to each vocabulary
-
-If a downstream tool wants to discover the whole repository programmatically, the manifest is the best starting point.
+- the version
+- which context files are part of the release inventory
+- which class files are in the release
+- which property files are in the release
+- which vocabulary schemes and terms are in the release
 
 ### `dist/`
 
-This folder contains bundled distribution artifacts.
+This folder contains generated distribution outputs and distribution pointers.
 
-These are generated files, not hand-authored source definitions.
-
-The current distribution files are:
+The current non-HTML files are:
 
 - `dist/datacite-4.6.jsonld`
 - `dist/datacite-4.6.ttl`
 - `dist/datacite-4.6.rdf`
+- `dist/datacite-4.7.jsonld`
+- `dist/datacite-4.7.ttl`
+- `dist/datacite-4.7.rdf`
+- `dist/datacite-current.jsonld`
+- `dist/datacite.jsonld`
+- `dist/datacite.ttl`
+- `dist/datacite.rdf`
+- `dist/datacite-4.7-owl-properties.ttl`
+- `dist/datacite-4.7-owl-properties.properties`
 
-These are explained in detail later in this document because they are one of the most important outputs of the repository.
+The most important ones are the versioned `.jsonld`, `.ttl`, and `.rdf` bundles plus the current pointer and moving alias files.
+
+#### The main `4.7` bundle
+
+The current staged release bundle is:
+
+- `dist/datacite-4.7.jsonld`
+
+This is the integrated JSON-LD graph for the `4.7` release.
+
+It currently contains `264` graph nodes:
+
+- `1` generated ontology node
+- `21` class nodes
+- `79` property nodes
+- `11` vocabulary scheme nodes
+- `152` vocabulary term nodes
+
+The matching serializations are:
+
+- `dist/datacite-4.7.ttl`
+- `dist/datacite-4.7.rdf`
+
+#### Current pointer vs moving aliases
+
+These are not the same thing:
+
+- `dist/datacite-current.jsonld` is a pointer document
+- `dist/datacite.jsonld` is a full copy of the latest versioned bundle
+
+That distinction matters because a beginner might reasonably expect both to contain the full schema graph. Only the alias file does.
+
+#### The extra OWL export files
+
+There are also two extra `4.7` files:
+
+- `dist/datacite-4.7-owl-properties.ttl`
+- `dist/datacite-4.7-owl-properties.properties`
+
+These appear to come from a separate OWL-oriented export step rather than from the main `build-distribution.js` flow.
+
+The `.ttl` file contains OWL object/datatype property declarations and extra domain/range-style material. The `.properties` file is a Java-style properties file with JDBC placeholders.
+
+Treat these as supplementary outputs, not as the primary distribution format for the repository.
 
 ### `scripts/`
 
-This folder contains the maintenance scripts that keep the repository synchronized.
+This folder now contains both maintenance scripts and release-management scripts.
 
-The main scripts are:
+The main ones are:
 
 - `scripts/manifest-sync.js`
 - `scripts/build-distribution.js`
 - `scripts/generate-index-pages.js`
+- `scripts/update-current-pointers.js`
+- `scripts/release-snapshot.js`
+- `scripts/update-root-index.js`
+- `scripts/detect-datacite-release.js`
+- `scripts/apply-datacite-release-plan.js`
 
-These scripts are the operational backbone of the repository. They are how the source files become reliable generated outputs.
+There is also a `scripts/lib/` directory with shared versioning and release-import logic.
 
 ### `Input files/`
 
-This folder contains experiments, examples, and validation materials related to XML and JSON transformation work.
+This folder contains XML, JSON, RDF, XSD, and notes used during transformation and round-trip experiments.
 
-It includes:
+Important files include:
 
-- example DataCite XML
-- DataCite XSD files
-- XML-shaped JSON
-- round-trip XML outputs
-- Turtle experiment outputs
-- notes about conversion steps
-- a validation helper script
+- `Input files/datacite-example-full-v4.xml`
+- `Input files/XML-Shaped-JSON.json`
+- `Input files/roundtrip.xml`
+- `Input files/original.c14n.xml`
+- `Input files/roundtrip.c14n.xml`
+- `Input files/metadata-4.6.xsd`
+- `Input files/runner.ttl`
+- `Input files/runner-pretty.ttl`
+- `Input files/codes&steps.md`
+- `Input files/validate_xml.rb`
 
-These files are useful for learning and experimentation, but they are **not** the primary canonical schema definitions.
+These are useful for understanding XML conversion and round-tripping, but they are not the main versioned linked-data source layer.
 
-For canonical schema definitions, prefer:
+### Documentation files
 
-- `class/`
-- `property/`
-- `vocab/`
-- `context/`
-- `manifest/`
-- `dist/`
+There are also important documentation files at the repository root:
 
-### HTML files
+- `README.md`
+- `DATACITE-RELEASE-RUNBOOK.md`
+- `UPGRADING-4.6-TO-4.7.md`
+- `CONTRIBUTING.md`
 
-The repository also contains browser-facing HTML pages:
+These explain:
 
-- the root `index.html`
-- section pages such as `class/index.html`, `property/index.html`, `vocab/index.html`, `context/index.html`, `dist/index.html`, and `manifest/index.html`
-
-These pages exist to make the namespace easier to browse in a web browser.
-
-They are documentation and navigation aids.
-
-They are not the canonical semantic source files.
+- what the repository is for
+- how the release-import flow works
+- what changed from `4.6` to `4.7`
+- how contributors should work with the repo
 
 ## The semantic model in plain English
 
-This is the most important conceptual section in the whole document.
+This is the conceptual core of the repository.
 
-The semantic model answers the question:
+The model has four beginner-friendly layers.
 
-"What kinds of things does the repository say exist, and how do they relate to each other?"
+### 1. Classes
 
-### Level 1: Classes (the "things")
-
-The class files describe the kinds of things the model talks about.
+Classes describe the kinds of things the schema talks about.
 
 Examples:
 
@@ -508,637 +467,319 @@ Examples:
 - `Publisher`
 - `Identifier`
 - `RelatedIdentifier`
+- `RelatedItem`
 - `FundingReference`
-- `GeoLocation`
 
-These tell us the model is trying to talk about:
+These are the "things" in the model.
 
-- a citable thing
-- the people or organizations connected to it
-- the names and identifiers attached to it
-- supporting descriptive details
+### 2. Properties
 
-### Level 2: Properties (the "fields" and "links")
-
-The property files describe the fields that carry information.
+Properties describe fields and relationships.
 
 Examples:
 
 - `identifier`
 - `creator`
 - `creatorName`
-- `title`
 - `publicationYear`
 - `resourceTypeGeneral`
 - `relationType`
-- `rights`
+- `relationTypeInformation`
 
-Some properties hold simple text.
+Some properties behave like plain text fields.
 
-Examples:
+Some properties point to nested objects.
 
-- a publication year
-- a free-text title
-- a format string
+Some properties point to controlled vocabulary values.
 
-Some properties point to identifiers or controlled values.
+### 3. Controlled terms
 
-Examples:
-
-- `identifierType`
-- `nameType`
-- `resourceTypeGeneral`
-- `relationType`
-
-Some properties connect one nested structure to another.
+Controlled terms are the allowed values used by some properties.
 
 Examples:
 
-- `creator`
-- `contributor`
-- `relatedIdentifier`
-- `fundingReference`
+- `DOI` in `identifierType`
+- `Dataset`, `Poster`, and `Presentation` in `resourceTypeGeneral`
+- `RAiD` and `SWHID` in `relatedIdentifierType`
+- `Cites` and `Other` in `relationType`
 
-### Level 3: Controlled terms (the "allowed values")
+Instead of storing those as anonymous strings, the repository gives each one a stable linked-data identifier.
 
-Some fields should use known values from a fixed or semi-fixed list.
+### 4. Context rules
 
-For example:
+The context layer tells JSON-LD how to interpret compact JSON keys and values.
 
-- `resourceTypeGeneral` should point to a term like `Dataset`
-- `nameType` should point to `Personal` or `Organizational`
-- `relationType` should point to a relationship term like `Cites`
+This is how a compact JSON record can still carry machine-readable RDF meaning.
 
-This is why the repository models those terms as separate linked-data resources.
-
-Instead of just storing `"Dataset"` as an unstructured string, the model can point to:
-
-- `https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral/Dataset`
-
-That gives the value a stable identity and lets tools know exactly which concept is meant.
-
-### Level 4: Context rules (the "how to read the JSON")
-
-The context files explain how the JSON should be interpreted.
-
-This is the layer that says things like:
-
-- this key maps to this property IRI
-- this value is an IRI
-- this value comes from a controlled vocabulary
-- this array should be treated as a set
-- this `lang` value becomes a JSON-LD language tag
-
-Without the context, the JSON is just structured text.
-
-With the context, the JSON becomes linked data.
-
-### A simple end-to-end example
-
-Take this idea:
-
-- a resource has an identifier
-- the identifier value is `10.82433/B09Z-4K37`
-- the identifier type is `DOI`
-
-In this repository, that idea spans multiple layers:
-
-1. The field name `identifier` is defined as a property in `property/identifier.jsonld`.
-2. The type field `identifierType` is defined as a property in `property/identifierType.jsonld`.
-3. The allowed value `DOI` is defined as a term in `vocab/identifierType/DOI.jsonld`.
-4. The JSON-LD context says `identifierType` should be interpreted using the `identifierType` vocabulary.
-5. The example file `context/runner.jsonld` shows how the value appears in instance data.
-
-This is the core pattern used throughout the repository.
-
-### What the model does well
+## What the semantic model is good at
 
 The current model is strong at:
 
-- naming things consistently
-- giving important concepts stable identifiers
-- documenting meanings in human-readable comments and definitions
-- modeling controlled values cleanly with SKOS
-- making compact JSON interpretable as linked data
-- packaging the whole set into a reusable distribution
+- naming DataCite concepts consistently
+- publishing stable IRIs
+- packaging controlled vocabularies cleanly with SKOS
+- mapping compact JSON keys to linked-data identifiers
+- producing reusable distribution bundles
+- keeping explicit versioned release snapshots
 
-### What the model does not try to do yet
+## What the semantic model does not do by itself
 
-The current model is not a full formal constraint system.
+The repository is not yet a full validation system.
 
-In practical terms, it does not currently encode rich validation rules such as:
+It does not, by itself, fully encode:
 
-- exactly which class a property must belong to
-- strict required/optional rules
-- minimum and maximum cardinality
-- complete domain/range logic
-- complex OWL reasoning rules
+- all DataCite business rules
+- full cardinality constraints
+- complete domain/range logic across every property
+- SHACL validation rules
+- end-to-end DOI registration behavior
 
-So if you are a beginner, do not expect this repository alone to answer:
+So this repo is best understood as:
 
-"Is this metadata record fully valid according to every DataCite rule?"
+- a semantic publication layer
+- a release packaging layer
 
-That question usually needs:
+not as:
 
-- schema validation
-- business rule validation
-- or application-level checks
+- the whole validation or registration system
 
-This repository is primarily a semantic description and packaging layer.
+## The distribution build, explained plainly
 
-## The distribution files: what they are and why they matter
+The main bundle is generated by:
 
-This is another key section because the distribution files are the easiest entry point for downstream reuse.
+- `node scripts/build-distribution.js --version 4.7`
 
-### The three distribution files
+That script:
 
-The `dist/` folder contains three related files:
+1. reads the selected versioned manifest
+2. loads all classes listed in it
+3. loads all properties listed in it
+4. loads all vocabulary schemes and terms listed in it
+5. normalizes them into one JSON-LD graph
+6. adds one ontology header node
+7. writes the versioned `.jsonld` bundle
+8. tries to write matching Turtle and RDF/XML files
 
-1. `dist/datacite-4.6.jsonld`
-2. `dist/datacite-4.6.ttl`
-3. `dist/datacite-4.6.rdf`
+Important detail:
 
-All three represent the same overall bundled schema content, but in different formats.
+The build script does not bundle `context/fullcontext.jsonld` into the main graph. It bundles classes, properties, vocabulary schemes, and vocabulary terms.
 
-### `dist/datacite-4.6.jsonld`
+The output uses a generated bundle context instead.
 
-This is the main integrated bundle.
+## Why the RDF bundle uses `dcterms`
 
-It packages the repository's linked-data definitions into a single JSON-LD graph.
+The versioned bundle context maps generic metadata keys like:
 
-That means instead of reading:
+- `title`
+- `identifier`
+- `created`
+- `modified`
+- `license`
+- `source`
 
-- every class file separately
-- every property file separately
-- every vocabulary scheme file separately
-- every vocabulary term file separately
+to Dublin Core Terms.
 
-you can read one bundled file.
+That is why the RDF/XML distribution contains:
 
-This is especially useful for:
+- `dcterms:title`
+- `dcterms:identifier`
+- `dcterms:created`
+- `dcterms:license`
+- `dcterms:source`
 
-- loading the whole schema into a tool
-- shipping one file to downstream users
-- reducing file-by-file fetches
-- archiving a versioned snapshot
+Those `dcterms` properties describe:
 
-### `dist/datacite-4.6.ttl`
+- the generated ontology bundle
+- the vocabulary scheme records
 
-This is the same bundled information serialized as Turtle.
+They do not replace the DataCite field IRIs used in `context/fullcontext.jsonld`.
 
-Turtle is a compact RDF text format. It is often easier to read than RDF/XML and is widely used by RDF tools.
+## How the current pointer files are built
 
-If a downstream RDF tool prefers Turtle, this is the best file to use.
+The current pointer state is refreshed by:
 
-### `dist/datacite-4.6.rdf`
+- `node scripts/update-current-pointers.js --version 4.7`
 
-This is the same bundled information serialized as RDF/XML.
+That script:
 
-RDF/XML is older and more verbose, but some RDF systems still expect it.
+1. writes `manifest/datacite-current.json`
+2. writes `dist/datacite-current.jsonld`
+3. copies the latest versioned bundle to the moving alias files:
+   `dist/datacite.jsonld`, `dist/datacite.ttl`, and `dist/datacite.rdf`
 
-If a downstream system needs RDF/XML specifically, this file is the compatibility option.
+That is why the repo now has both pointer files and alias copies.
 
-### Exactly what is inside the current distribution
+## The release snapshot script
 
-The current bundled JSON-LD distribution contains `258` graph nodes.
+The highest-level maintenance script is:
 
-That total comes from:
+- `node scripts/release-snapshot.js --version 4.7 --release-date 2026-03-03`
 
-- `1` synthetic ontology node created by the build script
-- `21` class nodes
-- `78` property nodes
-- `11` vocabulary scheme nodes
-- `147` vocabulary term nodes
+That script chains together the normal release-output steps:
 
-This is an important detail:
+1. ensure the versioned manifest exists
+2. sync and validate it
+3. build the versioned distribution
+4. update current pointers and moving aliases
+5. regenerate section index pages
+6. refresh the root index
 
-The distribution bundle is not just a zip-like copy of files. It is a **normalized graph** assembled from the manifest.
+This is the shortest practical explanation of how a new version snapshot is produced.
 
-### How the distribution is built
+## Release-management automation
 
-The distribution is generated by:
+The repository now also includes scripts for detecting and applying new DataCite releases.
 
-- `scripts/build-distribution.js`
+Main scripts:
 
-This script:
+- `scripts/detect-datacite-release.js`
+- `scripts/apply-datacite-release-plan.js`
 
-1. reads `manifest/datacite-4.6.json`
-2. collects the class URLs listed in the manifest
-3. collects the property URLs listed in the manifest
-4. collects every vocabulary scheme and term URL listed in the manifest
-5. loads those source files from disk
-6. normalizes them into one consistent bundled shape
-7. writes the JSON-LD bundle
-8. tries to write Turtle and RDF/XML versions
+Supporting documentation:
 
-### Important detail: what the distribution does **not** include
+- `DATACITE-RELEASE-RUNBOOK.md`
+- `UPGRADING-4.6-TO-4.7.md`
 
-Even though the manifest also lists context-related files, the distribution build script does **not** bundle those context files into the graph payload.
+In plain English, this means the repository is prepared not only to hold schema files, but also to help detect future DataCite `4.x` changes and stage them in a controlled way.
 
-Instead, the script bundles:
+## Source files vs generated files vs experimental files
 
-- classes
-- properties
-- vocabulary schemes
-- vocabulary terms
+This distinction matters a lot.
 
-and it gives the final bundle its own generated `@context`.
+### Main semantic source files
 
-This matters because beginners often assume the distribution is a byte-for-byte merge of every JSON-LD file in the repository. It is not.
+Treat these as the core hand-maintained semantic definitions:
 
-It is a curated bundle of the semantic resource nodes, plus one added ontology node.
+- `class/*.jsonld`
+- `property/*.jsonld`
+- `vocab/**/**/*.jsonld`
+- `context/fullcontext.jsonld`
 
-### How the script normalizes the source files
+### Example and experiment files
 
-When building the bundle, the script makes the data more consistent.
+Treat these as learning or transformation material:
 
-For example, it:
+- `context/runner.jsonld`
+- `context/runner.nq`
+- `context/runner.err`
+- most of `Input files/`
 
-- removes per-file `@context` values from the nodes it loads
-- renames `@id` to `id` when needed
-- renames `@type` to `type` when needed
-- renames `rdfs:label` to `label` when needed
-- renames `rdfs:comment` to `comment` when needed
-- adds `seeAlso` links back to the original source file URL
-- skips duplicate nodes if the same node IRI appears more than once
+### Generated release artifacts
 
-This is helpful because source files do not all share exactly the same internal shape:
+Treat these as outputs:
 
-- class and property files use raw RDF terms like `@id` and `rdfs:label`
-- many vocabulary files use shorter keys like `id`, `type`, and `prefLabel`
-
-The distribution smooths those differences into one easier-to-consume bundle.
-
-### The ontology node added by the build script
-
-The first node in the distribution is an `owl:Ontology` node created by the build script.
-
-This node gives the bundle:
-
-- a bundle-level identifier
-- a human-readable title
-- a version value
-- a creation date
-- a license link
-- a source link back to the manifest
-- `seeAlso` links to the `.jsonld`, `.ttl`, and `.rdf` outputs
-
-This is useful metadata about the bundle itself, not about a single DataCite field.
-
-### External tool dependency for `.ttl` and `.rdf`
-
-The build script uses the `riot` command-line tool to create the Turtle and RDF/XML files.
-
-That means:
-
-- the JSON-LD bundle can always be written by the Node script itself
-- the `.ttl` and `.rdf` files depend on `riot` being available on the machine
-
-If `riot` is missing, the script is designed to warn and skip those files rather than crash immediately.
-
-For a beginner, the practical takeaway is:
-
-If you only see the `.jsonld` file after a build, check whether `riot` is installed.
-
-## The scripts, explained simply
-
-### `scripts/manifest-sync.js`
-
-This script keeps the manifest aligned with the files that actually exist on disk.
-
-It supports these main modes:
-
-- `--check`: compare the generated manifest to the current saved manifest
-- `--write`: rewrite the manifest from the current file layout
-- `--validate`: make sure every manifest URL points to a real file
-
-This script scans:
-
-- `class/`
-- `property/`
-- `context/`
-- `vocab/`
-
-and rebuilds the manifest structure from what it finds.
-
-Why this matters:
-
-If someone adds or removes schema files but forgets to update the manifest, the manifest can become stale. This script prevents that drift.
-
-At the moment, the manifest is synchronized and its file links resolve correctly.
-
-### `scripts/build-distribution.js`
-
-This is the bundling script.
-
-Use it when you want to regenerate:
-
-- `dist/datacite-4.6.jsonld`
-- `dist/datacite-4.6.ttl`
-- `dist/datacite-4.6.rdf`
-
-This is the script that turns many small source files into one integrated bundle.
-
-### `scripts/generate-index-pages.js`
-
-This script creates human-readable section index pages for the repository.
-
-It writes:
-
+- `manifest/datacite-4.6.json`
+- `manifest/datacite-4.7.json`
+- `manifest/datacite-current.json`
+- `manifest/release-matrix-4.6-4.7.json`
+- `dist/datacite-4.6.*`
+- `dist/datacite-4.7.*`
+- `dist/datacite-current.jsonld`
+- `dist/datacite.*`
 - `class/index.html`
 - `property/index.html`
 - `vocab/index.html`
 - `context/index.html`
 - `dist/index.html`
 - `manifest/index.html`
+- `index.html`
 
-These pages are helpful for web browsing because they:
+### Supplementary OWL-oriented output
 
-- list files
-- show counts
-- show labels and descriptions
-- make it easier to click through the namespace
+Treat these separately from the main distribution flow:
 
-This script is documentation-focused. It does not change the semantic meaning of the JSON-LD resources.
+- `dist/datacite-4.7-owl-properties.ttl`
+- `dist/datacite-4.7-owl-properties.properties`
 
-### Typical maintenance command sequence
+## The XML and round-trip experiment layer
 
-If you are maintaining the repository, the most useful command sequence is:
+The repository still contains the earlier XML conversion work.
 
-```bash
-node scripts/manifest-sync.js --check
-node scripts/manifest-sync.js --write --validate
-node scripts/build-distribution.js
-node scripts/generate-index-pages.js
-```
-
-In plain English, that sequence means:
-
-1. check whether the manifest is still in sync
-2. rewrite and validate the manifest if needed
-3. rebuild the distribution bundle
-4. refresh the human-readable section index pages
-
-This is the shortest practical summary of the repository's maintenance workflow.
-
-## How the source files and generated files relate to each other
-
-This relationship is central to understanding the repository.
-
-### Source files
-
-These are the files you treat as hand-maintained semantic inputs:
-
-- `class/*.jsonld`
-- `property/*.jsonld`
-- `vocab/**/**/*.jsonld`
-- `context/*.jsonld`
-- `vocab/context.jsonld`
-- `vocab/*/context.jsonld`
-- `manifest/datacite-4.6.json`
-
-### Generated files
-
-These are files produced from source files or from supporting workflows:
-
-- `dist/datacite-4.6.jsonld`
-- `dist/datacite-4.6.ttl`
-- `dist/datacite-4.6.rdf`
-- section HTML index pages such as `class/index.html` and `dist/index.html`
-
-### Experimental files
-
-These are useful, but they are not the main canonical schema layer:
-
-- most files in `Input files/`
-- `context/runner.jsonld` as an example instance
-- `context/runner.nq` and `context/runner.err` as experiment outputs
-
-The cleanest beginner rule is:
-
-If you want the authoritative semantic definition, start with the source files and the manifest.  
-If you want one easy bundle, use `dist/`.  
-If you want experiments and learning material, inspect `Input files/` and the runner files.
-
-## The XML and round-trip experiment files
-
-This repository does not only contain schema definitions. It also contains evidence of transformation experiments.
-
-The most useful guide to those experiments is:
+The key guide for that material is:
 
 - `Input files/codes&steps.md`
 
-That file documents a workflow that:
+That experiment workflow does this:
 
-1. starts from example DataCite XML
-2. converts it into XML-shaped JSON using `xml-js`
-3. converts that JSON back into XML
-4. canonicalizes both XML documents
-5. compares the canonicalized versions
-6. validates the round-tripped XML against the DataCite schema
+1. start from a DataCite XML example
+2. convert XML into XML-shaped JSON
+3. convert JSON back into XML
+4. canonicalize both XML files
+5. compare them
+6. validate the result against the XSD
 
-### Why these files matter
+This solves a different problem from the versioned linked-data manifests and distributions.
 
-These experiment files answer a different question from the main schema folders.
+The linked-data side is about semantic publication.  
+The XML experiment side is about structure preservation and round-tripping.
 
-The main schema folders ask:
+## Important caveats
 
-"How do we model DataCite semantics as linked data?"
+### 1. The namespace is still a staging namespace
 
-The experiment files ask:
-
-"Can we preserve XML structure well enough to round-trip XML into JSON and back?"
-
-Those are related goals, but they are not the same goal.
-
-### Key experiment files
-
-Important files in `Input files/` include:
-
-- `Input files/datacite-example-full-v4.xml`: example source XML
-- `Input files/XML-Shaped-JSON.json`: XML-like JSON version
-- `Input files/roundtrip.xml`: XML recreated from that JSON
-- `Input files/original.c14n.xml`: canonicalized original XML
-- `Input files/roundtrip.c14n.xml`: canonicalized round-tripped XML
-- `Input files/metadata-4.6.xsd` and related `include/` XSDs: validation schema files
-- `Input files/runner.ttl` and `Input files/runner-pretty.ttl`: RDF/Turtle experiment outputs
-- `Input files/diff.json`: comparison output
-- `Input files/validate_xml.rb`: validation helper
-
-### Why the XML-shaped JSON format looks unusual
-
-`Input files/XML-Shaped-JSON.json` is intentionally shaped to preserve XML structure.
-
-That is why it uses:
-
-- `attrs` for XML attributes
-- `value` for text nodes
-- nested objects that mirror XML elements
-
-This format is good for round-tripping because it keeps the XML shape.
-
-It is less convenient than ordinary application JSON, but much better for faithful XML reconstruction.
-
-### Important beginner distinction: semantic JSON vs XML-shaped JSON
-
-There are two different "JSON ideas" in this repository:
-
-1. **XML-shaped JSON**  
-   This tries to preserve XML structure exactly enough to convert back to equivalent XML.
-
-2. **JSON-LD / semantic JSON**  
-   This tries to preserve machine-readable meaning through linked-data mappings.
-
-These two goals overlap, but they are not identical.
-
-This distinction matters because a beginner might assume there is only one JSON format in the repository. There is not.
-
-### Caveat about `Input files/validate_xml.rb`
-
-The validation helper script references:
-
-- `require_relative 'lib/bolognese'`
-
-but that local file is not present in the current repository snapshot.
-
-So the script is best understood as:
-
-- a record of the intended validation approach
-
-not necessarily:
-
-- a ready-to-run script in a clean checkout without extra setup
-
-## Important caveats and beginner warnings
-
-This section is here to prevent common misunderstandings.
-
-### 1. The namespace is a staging namespace
-
-The files use:
+The repo uses:
 
 - `https://schema.stage.datacite.org/linked-data/`
 
-The word `stage` strongly suggests this is a staging namespace rather than a final production namespace.
+So treat these identifiers as current staged identifiers, not automatically as permanent production ones.
 
-For a beginner, that means:
+### 2. `context/runner.nq` is currently an error trace
 
-- treat the identifiers as current repository identifiers
-- do not assume this exact hostname is the final permanent production location unless project owners confirm it
+At the moment, `context/runner.nq` contains a failed JSON-LD CLI error trace about resolving `./fullcontext.jsonld`.
 
-### 2. The model is descriptive, not a full validator
+So it is not a clean N-Quads export right now.
 
-This repository gives semantic descriptions and packaging.
+### 3. `manifest/datacite-current.json` is not the same shape as a versioned manifest
 
-It does not by itself replace:
+It is a pointer document with:
 
-- XSD validation
-- JSON Schema validation
-- full business-rule validation
-- DOI registration service behavior
+- `currentVersion`
+- `updated`
+- `links`
+- `availableVersions`
 
-### 3. Some experiment outputs are not polished canonical outputs
+It does not contain the full `classes`, `properties`, `context`, and `vocabularies` arrays of a versioned manifest.
 
-The experiment files are valuable, but they are not always the cleanest source of truth.
+### 4. `dist/datacite-current.jsonld` is not the same shape as `dist/datacite-4.7.jsonld`
 
-That is normal in a working repository.
+It is a pointer ontology with one graph node, not a full schema bundle.
 
-For example, experimental outputs can reflect:
+### 5. The OWL export files are extra artifacts
 
-- work in progress
-- tool-specific output
-- test runs
-- partial transformations
+The main distribution flow is centered on:
 
-So if you see a mismatch between an experiment file and a canonical schema file, trust the canonical schema layer first.
+- `.jsonld`
+- `.ttl`
+- `.rdf`
 
-### 4. `context/runner.nq` is currently not clean N-Quads output
+The `-owl-properties` files are additional outputs and should be treated separately.
 
-At the moment, `context/runner.nq` contains an error trace caused by a failed attempt to dereference the relative context path `./fullcontext.jsonld`, rather than containing clean N-Quads data.
+## The easiest reading order for a beginner
 
-`context/runner.err` is currently empty.
+If you are trying to understand this repository from scratch, use this order:
 
-This matters because the filename `runner.nq` suggests "RDF quads output", but the current content behaves more like captured error output.
+1. Read this `info.md`.
+2. Read `README.md`.
+3. Open `manifest/datacite-current.json` to see what is currently staged.
+4. Open `manifest/datacite-4.7.json` to see the full current release inventory.
+5. Open `dist/datacite.jsonld` if you want the latest full bundle, or `dist/datacite-4.7.jsonld` if you want the fixed versioned bundle.
+6. Open `context/fullcontext.jsonld` to see how compact keys are interpreted.
+7. Compare one file from each of `class/`, `property/`, and `vocab/`.
+8. Open `UPGRADING-4.6-TO-4.7.md` if you want to understand what changed in the current release.
+9. Open `DATACITE-RELEASE-RUNBOOK.md` if you want to understand how future upgrades are supposed to work.
+10. Open `Input files/codes&steps.md` if you want the older XML experiment workflow.
 
-For a beginner:
+## One simple mental map
 
-- treat `context/runner.jsonld` as the useful example
-- do not assume `context/runner.nq` is a trusted final RDF export in its current state
-
-
-
-## If you are trying to understand thiws repository for the first time
-
-This is the easiest reading order for a beginner:
-
-1. Read this `info.md` file.
-2. Open `README.md` for the shorter overview.
-3. Open `manifest/datacite-4.6.json` to see the inventory.
-4. Open `dist/datacite-4.6.jsonld` if you want one bundled machine-readable file.
-5. Compare one file from each of these folders:
-   `class/`, `property/`, and `vocab/`.
-6. Open `context/fullcontext.jsonld` to see how the compact keys are interpreted.
-7. Open `context/runner.jsonld` to see what instance data looks like.
-8. Open `Input files/codes&steps.md` if you want to understand the XML round-trip experiments.
-
-If you follow that order, the repository is much easier to understand.
-
-## A simple "mental map" of the whole project
-
-If you prefer to keep one simple picture in your head, use this:
+If you want one short mental model, use this:
 
 - `class/` says what kinds of things exist
-- `property/` says what fields describe those things
-- `vocab/` says what controlled values some fields can use
-- `context/` says how to read compact JSON as linked data
-- `manifest/` says which files belong to the versioned schema set
-- `dist/` gives you one bundled export of the semantic resources
-- `scripts/` keep the above synchronized and generate outputs
-- `Input files/` show transformation experiments and validation work
+- `property/` says what fields and links describe them
+- `vocab/` says which controlled values are allowed
+- `context/` says how compact JSON maps to linked data
+- `manifest/` records versioned release inventories and current pointers
+- `dist/` packages the released schema bundles and aliases
+- `scripts/` keeps the versioned outputs synchronized
+- `Input files/` records XML conversion and round-trip experiments
 
-That is the repository in one map.
-
-## What this repository is good for
-
-This repository is especially useful when you want to:
-
-- publish DataCite schema concepts as linked-data resources
-- give DataCite metadata fields stable IRIs
-- describe controlled vocabularies in a standard way
-- build browser-browsable schema pages
-- create a reusable machine-readable schema bundle
-- help developers understand how DataCite-like JSON can map into linked data
-
-## What this repository is not trying to be
-
-It is not, by itself:
-
-- a full application for minting or registering DOIs
-- a complete business-rule validator
-- a replacement for all DataCite XML or JSON processing tools
-- a guarantee that every experiment file is production-ready
-
-Thinking about the repository this way will save you a lot of confusion.
-
-## Final takeaway
-
-The best way to understand this repository is to see it as a **semantic packaging layer** for the DataCite metadata schema.
-
-It gives DataCite concepts:
-
-- names
-- identifiers
-- definitions
-- controlled values
-- JSON-LD interpretation rules
-- a manifest
-- a bundled distribution
-
-That is the core achievement of the project.
-
-The source folders define the model.  
-The scripts keep it synchronized.  
-The distribution files package it for reuse.  
-The experiment files show how it connects to XML transformation work.
-
-If you keep those four sentences in mind, the whole repository stays understandable.
+That is the current repository in one picture.
