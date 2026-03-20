@@ -19,6 +19,13 @@ This repository organizes DataCite metadata concepts into resolvable JSON-LD fil
 - `dist/` contains integrated distribution artifacts that bundle the schema as a single JSON-LD graph plus alternate RDF serializations
 - `Input files/` contains example XML, transformed JSON outputs, validation helpers, and notes used during transformation experiments
 
+## Release Upgrade Guides
+
+If you need to handle a new DataCite schema release, start here:
+
+- [DATACITE-RELEASE-RUNBOOK.md](/Users/selgebali/Documents/VSCode/schema.datacite.org-linked-data/DATACITE-RELEASE-RUNBOOK.md): step-by-step guide for detecting, reviewing, applying, and merging a new DataCite release
+- [UPGRADING-4.6-TO-4.7.md](/Users/selgebali/Documents/VSCode/schema.datacite.org-linked-data/UPGRADING-4.6-TO-4.7.md): detailed worked example of the `4.6 -> 4.7` upgrade
+
 ## Repository Layout (Plain-English Guide)
 
 ### `class/`
@@ -79,6 +86,13 @@ Important files:
 - `manifest/release-matrix-4.6-4.7.json` captures the schema-level change matrix between these two versions
 
 This is a useful entry point if you want to programmatically discover what is defined for a given schema version.
+
+Release-import automation:
+
+- `node scripts/detect-datacite-release.js` builds a review plan for the next official DataCite `4.x` release or for an explicitly requested version
+- `node scripts/apply-datacite-release-plan.js --plan reports/release-import-plan-<version>.json` applies approved plan items and regenerates outputs
+
+The `Detect DataCite Release` GitHub workflow can now commit the generated plan files back to the selected branch, so the JSON plan can be reviewed and edited directly on GitHub before running the apply workflow.
 
 ### `dist/`
 
