@@ -57,6 +57,9 @@ jobs:
             dist/datacite-*.jsonld \
             dist/datacite-*.ttl \
             dist/datacite-*.rdf \
+            dist/datacite.jsonld \
+            dist/datacite.ttl \
+            dist/datacite.rdf \
             class/index.html \
             property/index.html \
             vocab/index.html \
@@ -83,6 +86,9 @@ jobs:
             dist/datacite-*.jsonld
             dist/datacite-*.ttl
             dist/datacite-*.rdf
+            dist/datacite.jsonld
+            dist/datacite.ttl
+            dist/datacite.rdf
             class/index.html
             property/index.html
             vocab/index.html

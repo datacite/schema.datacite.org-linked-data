@@ -24,6 +24,43 @@ function writeJson(file, value) {
   fs.writeFileSync(file, JSON.stringify(value, null, 2) + "\n");
 }
 
+function copyLatestDistributionAliases(repoRoot, version) {
+  const aliases = [
+    {
+      source: path.join("dist", `datacite-${version}.jsonld`),
+      target: path.join("dist", "datacite.jsonld"),
+      required: true,
+    },
+    {
+      source: path.join("dist", `datacite-${version}.ttl`),
+      target: path.join("dist", "datacite.ttl"),
+      required: false,
+    },
+    {
+      source: path.join("dist", `datacite-${version}.rdf`),
+      target: path.join("dist", "datacite.rdf"),
+      required: false,
+    },
+  ];
+
+  for (const alias of aliases) {
+    const sourceAbs = path.join(repoRoot, alias.source);
+    const targetAbs = path.join(repoRoot, alias.target);
+
+    if (!fs.existsSync(sourceAbs)) {
+      if (alias.required) {
+        die(`Latest distribution source is missing: ${alias.source}`);
+      }
+      console.warn(`Skipped ${alias.target}: source file not found (${alias.source})`);
+      continue;
+    }
+
+    fs.mkdirSync(path.dirname(targetAbs), { recursive: true });
+    fs.copyFileSync(sourceAbs, targetAbs);
+    console.log(`Wrote ${path.relative(repoRoot, targetAbs)}`);
+  }
+}
+
 function buildVersionLinks(namespace, version) {
   return {
     version,
@@ -78,6 +115,8 @@ function main() {
         "Usage: node scripts/update-current-pointers.js [--version <x.y>]",
         "",
         "  --version <x.y>     Version to mark as current (default: datacite-current.json value or latest manifest version)",
+        "",
+        "Also refreshes moving dist/datacite.{jsonld,ttl,rdf} aliases to the selected current version.",
       ].join("\n"),
     );
     process.exit(0);
@@ -122,6 +161,8 @@ function main() {
   const distCurrentPath = path.join(repoRoot, "dist", "datacite-current.jsonld");
   writeJson(distCurrentPath, buildDistCurrentPointer(namespace, currentLinks));
   console.log(`Wrote ${path.relative(repoRoot, distCurrentPath)}`);
+
+  copyLatestDistributionAliases(repoRoot, currentVersion);
 }
 
 main();

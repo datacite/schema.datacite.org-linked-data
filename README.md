@@ -99,14 +99,17 @@ The `Detect DataCite Release` GitHub workflow can now commit the generated plan 
 - `dist/datacite-4.7.jsonld` is the integrated JSON-LD bundle for the current staged schema version
 - `dist/datacite-4.7.ttl` is the Turtle serialization of that bundle
 - `dist/datacite-4.7.rdf` is the RDF/XML serialization of that bundle
+- `dist/datacite.jsonld` is the moving latest full JSON-LD bundle alias
+- `dist/datacite.ttl` is the moving latest full Turtle alias
+- `dist/datacite.rdf` is the moving latest full RDF/XML alias
 - `dist/datacite-current.jsonld` is the canonical pointer to the current default distribution targets
 
-These files are generated from the manifest-backed source files by `node scripts/build-distribution.js --version 4.7`.
+Versioned bundles are generated from the manifest-backed source files by `node scripts/build-distribution.js --version 4.7`. The moving `dist/datacite.*` aliases are refreshed when you update the current version pointers.
 
 Release snapshot automation:
 
-- `node scripts/release-snapshot.js --version 4.7 --release-date 2026-03-03` creates/updates the versioned manifest, distribution bundle, current pointers, and section index pages.
-- `node scripts/update-current-pointers.js --version 4.7` refreshes only canonical current pointers.
+- `node scripts/release-snapshot.js --version 4.7 --release-date 2026-03-03` creates/updates the versioned manifest, distribution bundle, current pointers, latest full distribution aliases, and section index pages.
+- `node scripts/update-current-pointers.js --version 4.7` refreshes canonical current pointers and the moving `dist/datacite.*` aliases.
 
 ### `Input files/`
 
@@ -183,7 +186,7 @@ The key difference is whether you want semantic convenience or exact XML structu
 
 If you are exploring this repo for the first time:
 
-1. Open `dist/datacite-current.jsonld` for the canonical pointer, or `dist/datacite-4.7.jsonld` for the current integrated bundle.
+1. Open `dist/datacite.jsonld` for the moving latest full bundle, or `dist/datacite-current.jsonld` for the canonical pointer.
 2. Read `manifest/datacite-current.json` for current-version pointers, or `manifest/datacite-4.7.json` for the current full inventory.
 3. Open `context/fullcontext.jsonld` to understand how DataCite-like JSON keys are mapped.
 4. Compare one file each from `class/`, `property/`, and `vocab/` to see the modeling pattern.

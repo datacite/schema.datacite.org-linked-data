@@ -127,6 +127,9 @@ jobs:
             dist/datacite-*.jsonld \
             dist/datacite-*.ttl \
             dist/datacite-*.rdf \
+            dist/datacite.jsonld \
+            dist/datacite.ttl \
+            dist/datacite.rdf \
             context/fullcontext.jsonld \
             property/*.jsonld \
             class/*.jsonld \
@@ -160,6 +163,9 @@ jobs:
             dist/datacite-*.jsonld
             dist/datacite-*.ttl
             dist/datacite-*.rdf
+            dist/datacite.jsonld
+            dist/datacite.ttl
+            dist/datacite.rdf
             context/fullcontext.jsonld
             property/*.jsonld
             class/*.jsonld

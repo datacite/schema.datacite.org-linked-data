@@ -87,7 +87,7 @@ function buildCurrentMeta(currentVersion) {
   return [
     '          <span class="chip">Audience: Developers, metadata engineers, tool builders</span>',
     `          <span class="chip">Current staged version: DataCite ${currentVersion}</span>`,
-    '          <span class="chip">Single-file import: <a href="/linked-data/dist/datacite-current.jsonld">current pointer</a></span>',
+    '          <span class="chip">Single-file import: <a href="/linked-data/dist/datacite.jsonld">latest full bundle</a></span>',
     '          <span class="chip">Machine entry point: <a href="/linked-data/manifest/datacite-current.json">current manifest pointer</a></span>',
   ].join("\n");
 }
@@ -103,10 +103,10 @@ function buildStartLinks(currentVersion, versions) {
 
   return [
     '          <article class="card span-6">',
-    `            <h3>I need a single importable bundle (v${currentVersion})</h3>`,
-    "            <p>Open the integrated distribution if you want one file with classes, properties, vocabularies, and metadata together.</p>",
-    `            <a href="${currentLinks.dist}">Open v${currentVersion} bundle</a>`,
-    `            <div class="path"><code>${currentLinks.dist}</code></div>`,
+    "            <h3>I need the latest single importable bundle</h3>",
+    "            <p>Open the moving latest distribution if you want one file with classes, properties, vocabularies, and metadata together.</p>",
+    '            <a href="/linked-data/dist/datacite.jsonld">Open latest bundle</a>',
+    '            <div class="path"><code>/linked-data/dist/datacite.jsonld</code></div>',
     "          </article>",
     '          <article class="card span-6">',
     `            <h3>I need a machine-readable index of everything (v${currentVersion})</h3>`,
@@ -116,8 +116,8 @@ function buildStartLinks(currentVersion, versions) {
     "          </article>",
     '          <article class="card span-12">',
     "            <h3>Version Quick Links</h3>",
-    "            <p>Use current pointers for default behavior, or open a frozen version directly.</p>",
-    '            <p><a href="/linked-data/manifest/datacite-current.json">Current manifest pointer</a> · <a href="/linked-data/dist/datacite-current.jsonld">Current distribution pointer</a></p>',
+    "            <p>Use the moving latest bundle for full imports, current pointers for machine discovery, or open a frozen version directly.</p>",
+    '            <p><a href="/linked-data/dist/datacite.jsonld">Latest full bundle</a> · <a href="/linked-data/manifest/datacite-current.json">Current manifest pointer</a> · <a href="/linked-data/dist/datacite-current.jsonld">Current distribution pointer</a></p>',
     quickLinks,
     "          </article>",
   ].join("\n");
@@ -134,6 +134,7 @@ function buildVersionList(currentVersion, versions) {
           `              This staged namespace currently exposes a DataCite ${version} linked-data set with JSON-LD class, property,`,
           "              vocabulary, context, manifest, and distribution resources.",
           "            </p>",
+          '            <p><a href="/linked-data/dist/datacite.jsonld">Open the moving latest full bundle</a></p>',
           `            <p><a href="${links.manifest}">Open the DataCite ${version} manifest</a></p>`,
           `            <p><a href="${links.dist}">Open the DataCite ${version} bundle</a></p>`,
         ].join("\n");
