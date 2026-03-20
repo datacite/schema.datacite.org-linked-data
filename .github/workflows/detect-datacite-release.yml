@@ -1,0 +1,88 @@
+name: Detect DataCite Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Optional target DataCite schema version. Leave blank to detect the next official 4.x release from schema.datacite.org/versions.html.'
+        required: false
+        type: string
+      release_date:
+        description: 'Optional official release date (YYYY-MM-DD). Leave blank to use the date published on schema.datacite.org/versions.html.'
+        required: false
+        type: string
+      commit_plan_files:
+        description: 'Commit the generated plan files back to the selected branch so they can be reviewed and edited on GitHub.'
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  detect-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - name: Detect release plan
+        run: |
+          args=()
+
+          if [ -n "${{ inputs.version }}" ]; then
+            args+=(--version "${{ inputs.version }}")
+          fi
+
+          if [ -n "${{ inputs.release_date }}" ]; then
+            args+=(--release-date "${{ inputs.release_date }}")
+          fi
+
+          node scripts/detect-datacite-release.js "${args[@]}"
+
+      - name: Resolve artifact paths
+        run: |
+          PLAN_PATH=$(ls reports/release-import-plan-*.json | head -n 1)
+          REPORT_PATH=$(ls reports/release-import-plan-*.md | head -n 1)
+          RESOLVED_VERSION=$(basename "$PLAN_PATH" .json | sed 's/^release-import-plan-//')
+          echo "PLAN_PATH=$PLAN_PATH" >> "$GITHUB_ENV"
+          echo "REPORT_PATH=$REPORT_PATH" >> "$GITHUB_ENV"
+          echo "RESOLVED_VERSION=$RESOLVED_VERSION" >> "$GITHUB_ENV"
+
+      - name: Add detection report to workflow summary
+        run: |
+          cat "$REPORT_PATH" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit plan files
+        if: ${{ inputs.commit_plan_files }}
+        env:
+          VERSION: ${{ env.RESOLVED_VERSION }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$PLAN_PATH" "$REPORT_PATH"
+
+          if git diff --cached --quiet; then
+            echo "No plan changes to commit."
+            exit 0
+          fi
+
+          git commit -m "chore: detect DataCite release plan ${VERSION}"
+          git push origin HEAD:${GITHUB_REF_NAME}
+
+      - name: Upload detection artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: datacite-release-plan-${{ env.RESOLVED_VERSION }}
+          path: |
+            ${{ env.PLAN_PATH }}
+            ${{ env.REPORT_PATH }}

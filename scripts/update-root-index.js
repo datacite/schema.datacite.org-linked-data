@@ -37,11 +37,24 @@ function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function versionLink(version) {
   return {
     manifest: `/linked-data/manifest/datacite-${version}.json`,
     dist: `/linked-data/dist/datacite-${version}.jsonld`,
   };
+}
+
+function releaseMatrixLink(fromVersion, toVersion) {
+  return `/linked-data/manifest/release-matrix-${fromVersion}-${toVersion}.json`;
 }
 
 function orderedVersions(pointer) {
@@ -139,6 +152,84 @@ function buildVersionList(currentVersion, versions) {
     .join("\n");
 }
 
+function summarizeChange(change) {
+  if (!change || typeof change !== "object") {
+    return null;
+  }
+
+  if (change.kind === "controlled-term-added") {
+    const values = Array.isArray(change.values) ? change.values.join(", ") : "";
+    return `Added ${escapeHtml(change.target)} terms: ${escapeHtml(values)}`;
+  }
+
+  if (change.kind === "sub-property-added") {
+    return `Added ${escapeHtml(change.property)} under ${escapeHtml(change.target)}`;
+  }
+
+  if (change.kind === "property-group-added") {
+    const properties = Array.isArray(change.properties) ? change.properties.join(", ") : "";
+    return `Added ${escapeHtml(change.target)} subproperties: ${escapeHtml(properties)}`;
+  }
+
+  if (change.kind === "complex-structure-added") {
+    return `Added ${escapeHtml(change.target)} structure`;
+  }
+
+  return null;
+}
+
+function buildVersionNotes(repoRoot, versions) {
+  const transitions = [];
+
+  for (let index = 0; index < versions.length - 1; index += 1) {
+    const toVersion = versions[index];
+    const fromVersion = versions[index + 1];
+    const matrixPath = path.join(repoRoot, "manifest", `release-matrix-${fromVersion}-${toVersion}.json`);
+
+    if (!fs.existsSync(matrixPath)) {
+      continue;
+    }
+
+    const matrix = readJson(matrixPath);
+    const summarized = (Array.isArray(matrix.changes) ? matrix.changes : [])
+      .map(summarizeChange)
+      .filter(Boolean);
+
+    transitions.push({
+      fromVersion,
+      link: releaseMatrixLink(fromVersion, toVersion),
+      releaseDate: matrix.releaseDate || null,
+      summarized,
+      toVersion,
+    });
+  }
+
+  if (!transitions.length) {
+    return [
+      '            <strong>Version changes</strong>',
+      "            <p>No release-matrix summaries are available yet.</p>",
+    ].join("\n");
+  }
+
+  const lines = ['            <strong>What Changed Between Versions</strong>'];
+
+  for (const transition of transitions) {
+    const label = `${transition.fromVersion} -> ${transition.toVersion}`;
+    const dateSuffix = transition.releaseDate ? ` (${transition.releaseDate})` : "";
+    lines.push(`            <p><strong>DataCite ${escapeHtml(label)}</strong>${escapeHtml(dateSuffix)}</p>`);
+
+    if (transition.summarized.length) {
+      lines.push(`            <p class="muted">${transition.summarized.map((entry) => `${entry}.`).join(" ")}</p>`);
+    } else {
+      lines.push('            <p class="muted">A release matrix exists for this transition, but no summarized change items were found.</p>');
+    }
+
+    lines.push(`            <p><a href="${transition.link}">Open release matrix</a></p>`);
+  }
+
+  return lines.join("\n");
+}
+
 function main() {
   const pointer = readJson(currentManifestPath);
   const currentVersion = String(pointer.currentVersion || "");
@@ -154,6 +245,7 @@ function main() {
   next = replaceAutoBlock(next, "current-meta", buildCurrentMeta(currentVersion), "          ");
   next = replaceAutoBlock(next, "start-links", buildStartLinks(currentVersion, versions), "          ");
   next = replaceAutoBlock(next, "versions-list", buildVersionList(currentVersion, versions), "            ");
+  next = replaceAutoBlock(next, "version-notes", buildVersionNotes(repoRoot, versions), "          ");
 
   if (next !== original) {
     writeText(indexPath, next);
