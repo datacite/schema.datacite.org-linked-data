@@ -71,7 +71,9 @@ function resolveManifestPath(repoRoot, argv) {
     return path.join(repoRoot, "manifest", `datacite-${latest}.json`);
   }
 
-  return path.join(repoRoot, "manifest", "datacite-4.6.json");
+  throw new Error(
+    "No DataCite manifest found. Specify --version or ensure the manifest/ directory contains a datacite-X.Y.json file."
+  );
 }
 
 function resolveCurrentVersion(repoRoot) {

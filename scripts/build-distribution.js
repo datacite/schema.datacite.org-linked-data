@@ -261,6 +261,13 @@ function main() {
 
   const wroteRdf = writeRdfFormat(jsonldPath, rdfPath, "rdfxml");
   if (wroteRdf) console.log(`Wrote ${path.relative(repoRoot, rdfPath)}`);
+
+  if (!wroteTtl || !wroteRdf) {
+    die(
+      "Distribution build incomplete: one or more RDF serializations failed. " +
+        "Ensure the 'riot' tool is installed and on PATH.",
+    );
+  }
 }
 
 main();

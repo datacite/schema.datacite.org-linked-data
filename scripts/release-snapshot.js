@@ -29,14 +29,16 @@ function runNodeScript(scriptRelPath, args) {
   const scriptAbsPath = path.join(repoRoot, scriptRelPath);
   const result = spawnSync(process.execPath, [scriptAbsPath, ...args], {
     cwd: repoRoot,
-    stdio: "inherit",
+    stdio: ["inherit", "inherit", "pipe"],
   });
 
   if (result.error) {
     die(`Failed to run ${scriptRelPath}: ${result.error.message}`);
   }
   if (result.status !== 0) {
-    die(`${scriptRelPath} exited with status ${result.status}`);
+    const stderrOutput = result.stderr ? result.stderr.toString().trim() : "";
+    const detail = stderrOutput ? `\n${stderrOutput}` : "";
+    die(`${scriptRelPath} exited with status ${result.status}${detail}`);
   }
 }
 

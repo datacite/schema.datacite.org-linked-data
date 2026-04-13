@@ -136,7 +136,7 @@ This allows metadata fields like `identifier`, `creator`, or `resourceTypeGenera
 
 - `class/`: 21 JSON-LD files
 - `property/`: 79 JSON-LD files
-- `vocab/`: 174 JSON-LD files
+- `vocab/`: 175 JSON-LD files
 - `context/`: 2 JSON-LD files
 - `manifest/`: 4 JSON files (`datacite-4.6.json`, `datacite-4.7.json`, `datacite-current.json`, `release-matrix-4.6-4.7.json`)
 - `dist/`: 7 distribution/pointer files (`.jsonld`, `.ttl`, `.rdf`)

@@ -4,3 +4,5 @@
 .idea/
 # MacOS junk
 .DS_Store
+# Claude Code
+.claude/

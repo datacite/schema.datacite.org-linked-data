@@ -57,14 +57,20 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      - name: Install Apache Jena (riot)
+        run: |
+          wget -q https://archive.apache.org/dist/jena/binaries/apache-jena-5.2.0-bin.tar.gz
+          tar -xzf apache-jena-5.2.0-bin.tar.gz
+          echo "$PWD/apache-jena-5.2.0/bin" >> $GITHUB_PATH
 
       - name: Apply approved release plan
         run: |
@@ -142,6 +148,10 @@ jobs:
             vocab/index.html \
             index.html
 
+          if [ "${{ inputs.set_current }}" = "true" ]; then
+            git add manifest/datacite-current.json dist/datacite-current.jsonld
+          fi
+
           if git diff --cached --quiet; then
             echo "No generated changes to commit."
             exit 0
@@ -151,7 +161,7 @@ jobs:
           git push origin HEAD:${GITHUB_REF_NAME}
 
       - name: Upload apply artifacts
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: datacite-release-apply-${{ env.RESOLVED_VERSION }}
           path: |

@@ -195,7 +195,7 @@ function commonStyles() {
 
 function pageShell({ title, sectionLabel, lead, bodyHtml, navCurrent }) {
   const nav = [
-    ["Home", relUrl("") + "/"],
+    ["Home", relUrl("")],
     ["Classes", relUrl("class") + "/"],
     ["Properties", relUrl("property") + "/"],
     ["Controlled Terms", relUrl("vocab") + "/"],
@@ -221,7 +221,7 @@ function pageShell({ title, sectionLabel, lead, bodyHtml, navCurrent }) {
 <body>
   <header class="topbar">
     <div class="wrap">
-      <a class="brand" href="${relUrl("")}/">DataCite Linked Data</a>
+      <a class="brand" href="${relUrl("")}">DataCite Linked Data</a>
       <nav class="nav" aria-label="Section navigation">${nav}</nav>
     </div>
   </header>
@@ -235,7 +235,7 @@ function pageShell({ title, sectionLabel, lead, bodyHtml, navCurrent }) {
       ${bodyHtml}
     </main>
     <div class="footer">
-      <a href="${relUrl("")}/">Back to /linked-data/</a>
+      <a href="${relUrl("")}">Back to /linked-data/</a>
     </div>
   </div>
 </body>
@@ -518,7 +518,15 @@ function buildDistIndex() {
             try {
               const json = readJson(abs);
               const nodeCount = Array.isArray(json["@graph"]) ? json["@graph"].length : 0;
-              note = `${note} with ${nodeCount} graph node${nodeCount === 1 ? "" : "s"}`;
+              const isPointer =
+                file.includes("-current") ||
+                file.includes("-latest") ||
+                nodeCount === 1;
+              if (isPointer) {
+                note = "Pointer to the current versioned distribution";
+              } else {
+                note = `${note} with ${nodeCount} graph node${nodeCount === 1 ? "" : "s"}`;
+              }
             } catch {
               note = labels[ext] || note;
             }

@@ -26,12 +26,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
 
@@ -51,9 +51,22 @@ jobs:
 
       - name: Resolve artifact paths
         run: |
-          PLAN_PATH=$(ls reports/release-import-plan-*.json | head -n 1)
-          REPORT_PATH=$(ls reports/release-import-plan-*.md | head -n 1)
+          mapfile -t PLAN_FILES < <(ls reports/release-import-plan-*.json 2>/dev/null)
+          if [ "${#PLAN_FILES[@]}" -eq 0 ]; then
+            echo "::error::No release plan file generated in reports/"
+            exit 1
+          fi
+          if [ "${#PLAN_FILES[@]}" -gt 1 ]; then
+            echo "::error::Multiple release plan JSON files found in reports/ — cannot determine which one was just generated: ${PLAN_FILES[*]}"
+            exit 1
+          fi
+          PLAN_PATH="${PLAN_FILES[0]}"
           RESOLVED_VERSION=$(basename "$PLAN_PATH" .json | sed 's/^release-import-plan-//')
+          REPORT_PATH="reports/release-import-plan-${RESOLVED_VERSION}.md"
+          if [ -z "$REPORT_PATH" ] || [ ! -f "$REPORT_PATH" ]; then
+            echo "::error::No release plan report file found at ${REPORT_PATH}"
+            exit 1
+          fi
           echo "PLAN_PATH=$PLAN_PATH" >> "$GITHUB_ENV"
           echo "REPORT_PATH=$REPORT_PATH" >> "$GITHUB_ENV"
           echo "RESOLVED_VERSION=$RESOLVED_VERSION" >> "$GITHUB_ENV"
@@ -80,7 +93,7 @@ jobs:
           git push origin HEAD:${GITHUB_REF_NAME}
 
       - name: Upload detection artifacts
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: datacite-release-plan-${{ env.RESOLVED_VERSION }}
           path: |

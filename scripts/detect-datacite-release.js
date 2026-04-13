@@ -16,6 +16,10 @@ async function main() {
   const requestedVersion = getArgValue(argv, "--version");
   const requestedReleaseDate = getArgValue(argv, "--release-date");
 
+  if (requestedVersion && !/^\d+\.\d+$/.test(requestedVersion)) {
+    die(`Invalid version format '${requestedVersion}'. Expected X.Y (e.g. 4.7)`);
+  }
+
   if (wantsHelp) {
     console.log(
       [
