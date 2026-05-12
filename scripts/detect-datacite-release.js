@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const fs = require("fs");
 const path = require("path");
 const { getArgValue } = require("./lib/versioning");
 const { createEvidenceLoader } = require("./lib/release-import/evidence");
@@ -9,6 +10,20 @@ const { releaseHistoryUrl, resolveTargetRelease } = require("./lib/release-impor
 const { die } = require("./lib/release-import/shared");
 
 const repoRoot = process.cwd();
+
+function publishArtifactEnv(artifactPaths, targetVersion) {
+  const envFile = process.env.GITHUB_ENV;
+  if (!envFile) {
+    return;
+  }
+
+  const lines = [
+    `PLAN_PATH=${path.relative(repoRoot, artifactPaths.planPath)}`,
+    `REPORT_PATH=${path.relative(repoRoot, artifactPaths.reportPath)}`,
+    `RESOLVED_VERSION=${targetVersion}`,
+  ];
+  fs.appendFileSync(envFile, `${lines.join("\n")}\n`);
+}
 
 async function main() {
   const argv = process.argv.slice(2);
@@ -60,6 +75,7 @@ async function main() {
       noNewerRelease: true,
     });
     const artifactPaths = writePlanArtifacts(repoRoot, releaseResolution.targetVersion, plan, markdown);
+    publishArtifactEnv(artifactPaths, releaseResolution.targetVersion);
 
     console.log(`No newer official DataCite 4.x release detected after local version ${releaseResolution.localLatestVersion || "none"}.`);
     console.log(`Wrote ${path.relative(repoRoot, artifactPaths.planPath)}`);
@@ -101,6 +117,7 @@ async function main() {
     noNewerRelease: false,
   });
   const artifactPaths = writePlanArtifacts(repoRoot, releaseResolution.targetVersion, plan, markdown);
+  publishArtifactEnv(artifactPaths, releaseResolution.targetVersion);
 
   console.log(`Wrote ${path.relative(repoRoot, artifactPaths.planPath)}`);
   console.log(`Wrote ${path.relative(repoRoot, artifactPaths.reportPath)}`);

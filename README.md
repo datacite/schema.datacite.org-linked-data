@@ -139,7 +139,7 @@ This allows metadata fields like `identifier`, `creator`, or `resourceTypeGenera
 - `vocab/`: 175 JSON-LD files
 - `context/`: 2 JSON-LD files
 - `manifest/`: 4 JSON files (`datacite-4.6.json`, `datacite-4.7.json`, `datacite-current.json`, `release-matrix-4.6-4.7.json`)
-- `dist/`: 7 distribution/pointer files (`.jsonld`, `.ttl`, `.rdf`)
+- `dist/`: 12 generated distribution/pointer/support files plus `index.html` (`.jsonld`, `.ttl`, `.rdf`, `.properties`)
 
 ## Example: What a Vocabulary Term File Looks Like
 

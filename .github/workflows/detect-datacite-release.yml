@@ -49,27 +49,20 @@ jobs:
 
           node scripts/detect-datacite-release.js "${args[@]}"
 
-      - name: Resolve artifact paths
+      - name: Verify detection artifacts
         run: |
-          mapfile -t PLAN_FILES < <(ls reports/release-import-plan-*.json 2>/dev/null)
-          if [ "${#PLAN_FILES[@]}" -eq 0 ]; then
-            echo "::error::No release plan file generated in reports/"
+          if [ -z "${PLAN_PATH}" ] || [ ! -f "${PLAN_PATH}" ]; then
+            echo "::error::No release plan file found at ${PLAN_PATH:-<unset>}"
             exit 1
           fi
-          if [ "${#PLAN_FILES[@]}" -gt 1 ]; then
-            echo "::error::Multiple release plan JSON files found in reports/ — cannot determine which one was just generated: ${PLAN_FILES[*]}"
+          if [ -z "${REPORT_PATH}" ] || [ ! -f "${REPORT_PATH}" ]; then
+            echo "::error::No release plan report file found at ${REPORT_PATH:-<unset>}"
             exit 1
           fi
-          PLAN_PATH="${PLAN_FILES[0]}"
-          RESOLVED_VERSION=$(basename "$PLAN_PATH" .json | sed 's/^release-import-plan-//')
-          REPORT_PATH="reports/release-import-plan-${RESOLVED_VERSION}.md"
-          if [ -z "$REPORT_PATH" ] || [ ! -f "$REPORT_PATH" ]; then
-            echo "::error::No release plan report file found at ${REPORT_PATH}"
+          if [ -z "${RESOLVED_VERSION}" ]; then
+            echo "::error::RESOLVED_VERSION was not set by the detection script."
             exit 1
           fi
-          echo "PLAN_PATH=$PLAN_PATH" >> "$GITHUB_ENV"
-          echo "REPORT_PATH=$REPORT_PATH" >> "$GITHUB_ENV"
-          echo "RESOLVED_VERSION=$RESOLVED_VERSION" >> "$GITHUB_ENV"
 
       - name: Add detection report to workflow summary
         run: |

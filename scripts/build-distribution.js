@@ -227,7 +227,6 @@ function writeRdfFormat(inputFile, outputFile, format) {
 function main() {
   const argv = process.argv.slice(2);
   const wantsHelp = argv.includes("-h") || argv.includes("--help");
-  const manifestPath = resolveManifestPath(repoRoot, argv);
 
   if (wantsHelp) {
     console.log(
@@ -240,6 +239,8 @@ function main() {
     );
     process.exit(0);
   }
+
+  const manifestPath = resolveManifestPath(repoRoot, argv);
 
   if (!fs.existsSync(manifestPath)) {
     die(`Manifest file not found: ${manifestPath}`);

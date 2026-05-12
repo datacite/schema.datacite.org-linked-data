@@ -195,7 +195,6 @@ function diffCounts(current, generated) {
 function main() {
   const argv = process.argv.slice(2);
   const args = new Set(argv);
-  const manifestPath = resolveManifestPath(repoRoot, argv);
   const wantsHelp = args.has("-h") || args.has("--help");
   const wantsWrite = args.has("--write");
   const wantsCheck = args.has("--check");
@@ -219,6 +218,8 @@ function main() {
     );
     process.exit(0);
   }
+
+  const manifestPath = resolveManifestPath(repoRoot, argv);
 
   if (!isFile(manifestPath)) {
     die(`Manifest file not found: ${manifestPath}`);
