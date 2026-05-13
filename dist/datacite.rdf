@@ -71,7 +71,7 @@
   <rdfs:Class rdf:about="https://schema.stage.datacite.org/linked-data/class/Resource">
     <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/class/Resource.jsonld"/>
     <rdfs:label xml:lang="en">Resource</rdfs:label>
-    <rdfs:comment xml:lang="en">A resource that can be cited and identified...</rdfs:comment>
+    <rdfs:comment xml:lang="en">Any object (data, software, instrument, document, sample, etc.) that can be cited via a DataCite-assigned persistent identifier (DOI). This is the root class of the DataCite Metadata Schema; every DataCite record describes exactly one Resource.</rdfs:comment>
   </rdfs:Class>
   <rdfs:Class rdf:about="https://schema.stage.datacite.org/linked-data/class/Publisher">
     <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/class/Publisher.jsonld"/>
@@ -248,6 +248,11 @@
     <rdfs:label xml:lang="en">dateInformation</rdfs:label>
     <rdfs:comment xml:lang="en">Specific information about the date, if appropriate.</rdfs:comment>
   </rdf:Property>
+  <rdf:Property rdf:about="https://schema.stage.datacite.org/linked-data/property/affiliationIdentifier">
+    <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/property/affiliationIdentifier.jsonld"/>
+    <rdfs:label xml:lang="en">affiliationIdentifier</rdfs:label>
+    <rdfs:comment xml:lang="en">Uniquely identifies the organizational affiliation of the creator.</rdfs:comment>
+  </rdf:Property>
   <rdf:Property rdf:about="https://schema.stage.datacite.org/linked-data/property/relatedItem">
     <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/property/relatedItem.jsonld"/>
     <rdfs:label xml:lang="en">relatedItem</rdfs:label>
@@ -383,11 +388,6 @@
     <rdfs:label xml:lang="en">eastBoundLongitude</rdfs:label>
     <rdfs:comment xml:lang="en">Eastern longitudinal dimension of box.</rdfs:comment>
   </rdf:Property>
-  <rdf:Property rdf:about="https://schema.datacite.org/linked-data/property/affiliationIdentifier">
-    <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/property/affiliationIdentifier.jsonld"/>
-    <rdfs:label xml:lang="en">affiliationIdentifier</rdfs:label>
-    <rdfs:comment xml:lang="en">Uniquely identifies the organizational affiliation of the creator.</rdfs:comment>
-  </rdf:Property>
   <rdf:Property rdf:about="https://schema.stage.datacite.org/linked-data/property/firstPage">
     <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/property/firstPage.jsonld"/>
     <rdfs:label xml:lang="en">firstPage</rdfs:label>
@@ -522,10 +522,11 @@
     <skos:hasTopConcept>
       <skos:Concept rdf:about="https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/Other">
         <skos:topConceptOf rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType"/>
+        <skos:scopeNote xml:lang="en">Use Other for funder identifier schemes that are not represented by a named value in this vocabulary. If a particular scheme is in common use, consider proposing it as a named value in a future DataCite release.</skos:scopeNote>
         <skos:prefLabel xml:lang="en">Other</skos:prefLabel>
         <skos:notation>Other</skos:notation>
         <skos:inScheme rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType"/>
-        <skos:definition xml:lang="en">Another funder identifier type not covered by the named values.</skos:definition>
+        <skos:definition xml:lang="en">Any funder identifier type not covered by the other values in the funderIdentifierType controlled list.</skos:definition>
         <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/Other.jsonld"/>
       </skos:Concept>
     </skos:hasTopConcept>
@@ -535,7 +536,8 @@
         <skos:prefLabel xml:lang="en">ROR</skos:prefLabel>
         <skos:notation>ROR</skos:notation>
         <skos:inScheme rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType"/>
-        <skos:definition xml:lang="en">A funder identifier from the Research Organization Registry.</skos:definition>
+        <skos:definition xml:lang="en">A persistent identifier for a research organization from the Research Organization Registry (ROR), a community-led, open registry of unique identifiers for every organization that performs, funds, or otherwise contributes to research.</skos:definition>
+        <skos:altLabel xml:lang="en">Research Organization Registry</skos:altLabel>
         <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/ROR.jsonld"/>
       </skos:Concept>
     </skos:hasTopConcept>
@@ -545,17 +547,20 @@
         <skos:prefLabel xml:lang="en">ISNI</skos:prefLabel>
         <skos:notation>ISNI</skos:notation>
         <skos:inScheme rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType"/>
-        <skos:definition xml:lang="en">A funder identifier from the International Standard Name Identifier system.</skos:definition>
+        <skos:definition xml:lang="en">A 16-character identifier for the public identity of a person or organization, defined by ISO 27729 and assigned by the ISNI International Agency. When used as a funder identifier, the ISNI uniquely identifies the funding organization.</skos:definition>
+        <skos:altLabel xml:lang="en">International Standard Name Identifier</skos:altLabel>
         <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/ISNI.jsonld"/>
       </skos:Concept>
     </skos:hasTopConcept>
     <skos:hasTopConcept>
       <skos:Concept rdf:about="https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/GRID">
         <skos:topConceptOf rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType"/>
+        <skos:scopeNote xml:lang="en">GRID identifiers were succeeded by ROR identifiers in 2021; new records SHOULD prefer ROR where an equivalent ROR identifier exists.</skos:scopeNote>
         <skos:prefLabel xml:lang="en">GRID</skos:prefLabel>
         <skos:notation>GRID</skos:notation>
         <skos:inScheme rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType"/>
-        <skos:definition xml:lang="en">A funder identifier from the Global Research Identifier Database.</skos:definition>
+        <skos:definition xml:lang="en">A persistent identifier for a research organization issued by the Global Research Identifier Database (GRID), a free database of research-related institution identifiers maintained by Digital Science.</skos:definition>
+        <skos:altLabel xml:lang="en">Global Research Identifier Database</skos:altLabel>
         <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/GRID.jsonld"/>
       </skos:Concept>
     </skos:hasTopConcept>
@@ -565,15 +570,16 @@
         <skos:prefLabel xml:lang="en">Crossref Funder ID</skos:prefLabel>
         <skos:notation>Crossref Funder ID</skos:notation>
         <skos:inScheme rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType"/>
-        <skos:definition xml:lang="en">A funder identifier from the Crossref Funder Registry.</skos:definition>
+        <skos:definition xml:lang="en">A persistent identifier for a funding body assigned by the Crossref Funder Registry, a curated, openly licensed registry of funder names and identifiers used to disambiguate funding organizations in scholarly metadata.</skos:definition>
+        <skos:altLabel xml:lang="en">Crossref Funder Registry ID</skos:altLabel>
         <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/CrossrefFunderID.jsonld"/>
       </skos:Concept>
     </skos:hasTopConcept>
     <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/funderIdentifierType.jsonld"/>
-    <dcterms:title xml:lang="en">DataCite funderIdentifierType</dcterms:title>
+    <dcterms:title xml:lang="en">DataCite 4.6 funderIdentifierType</dcterms:title>
     <dcterms:identifier>funderIdentifierType</dcterms:identifier>
     <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
-    >2026-03-02</dcterms:created>
+    >2026-05-12</dcterms:created>
   </skos:ConceptScheme>
   <skos:ConceptScheme rdf:about="https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral">
     <skos:hasTopConcept>
@@ -862,7 +868,7 @@
     <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
     >2026-02-20</dcterms:created>
     <dcterms:identifier>resourceTypeGeneral</dcterms:identifier>
-    <dcterms:title xml:lang="en">DataCite resourceTypeGeneral</dcterms:title>
+    <dcterms:title xml:lang="en">DataCite 4.6 resourceTypeGeneral</dcterms:title>
     <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral/resourceTypeGeneral.jsonld"/>
     <skos:hasTopConcept>
       <skos:Concept rdf:about="https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral/Audiovisual">
@@ -1054,12 +1060,12 @@
     <skos:hasTopConcept>
       <skos:Concept rdf:about="https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType/SWHID">
         <skos:topConceptOf rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType"/>
-        <skos:scopeNote xml:lang="en">A SWHID includes a mandatory core identifier and optional qualifiers to express context and subparts.</skos:scopeNote>
+        <skos:scopeNote xml:lang="en">A SWHID consists of two separate parts, a mandatory core identifier that can point to any software artifact (or "object") available in the Software Heritage archive, and an optional list of qualifiers that allows to specify the context where the object is meant to be seen and point to a subpart of the object itself.</skos:scopeNote>
         <skos:prefLabel xml:lang="en">SWHID</skos:prefLabel>
         <skos:notation>SWHID</skos:notation>
         <skos:inScheme rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType"/>
         <skos:example>&lt;relatedIdentifier relatedIdentifierType="SWHID" relationType="Cites"&gt;swh:1:cnt:94a9ed024d3859793618152ea559a168bbcbb5e2&lt;/relatedIdentifier&gt;</skos:example>
-        <skos:definition xml:lang="en">SWHIDs are persistent, intrinsic identifiers for software source code artifacts such as source code files, source trees, commits, and other objects typically found in version control systems.</skos:definition>
+        <skos:definition xml:lang="en">SWHIDs (from "SoftWare Hash IDentifiers") are persistent, intrinsic identifiers for software source code artifacts such as source code files, source trees, commits, and other objects typically found in version control systems.</skos:definition>
         <skos:altLabel xml:lang="en">SoftWare Hash Identifier</skos:altLabel>
         <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType/SWHID.jsonld"/>
       </skos:Concept>
@@ -1083,7 +1089,7 @@
         <skos:notation>RAiD</skos:notation>
         <skos:inScheme rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType"/>
         <skos:example>&lt;relatedIdentifier relatedIdentifierType="RAiD" relationType="IsPartOf" resourceTypeGeneral="Project"&gt;https://raid.org/10.26259/5c43ca8f&lt;/relatedIdentifier&gt;</skos:example>
-        <skos:definition xml:lang="en">The Research Activity Identifier (RAiD) is a persistent identifier (PID) and global registry dedicated to research projects. RAiD provides a system to store, update, share, and link project information across the research community.</skos:definition>
+        <skos:definition xml:lang="en">The Research Activity Identifier (RAiD) is a persistent identifier (PID) and global registry dedicated to research projects. RAiD is governed by ISO standard 23527:2022, with the Australian Research Data Commons (ARDC) as the Registration Authority and lead developer of the system. RAiD provides a system to store, update, share, and link project information across the research community.</skos:definition>
         <skos:altLabel xml:lang="en">Research Activity Identifier</skos:altLabel>
         <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType/RAiD.jsonld"/>
       </skos:Concept>
@@ -1151,7 +1157,7 @@
     <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
     >2026-02-20</dcterms:created>
     <dcterms:identifier>relatedIdentifierType</dcterms:identifier>
-    <dcterms:title xml:lang="en">DataCite relatedIdentifierType</dcterms:title>
+    <dcterms:title xml:lang="en">DataCite 4.6 relatedIdentifierType</dcterms:title>
     <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType/relatedIdentifierType.jsonld"/>
     <skos:hasTopConcept>
       <skos:Concept rdf:about="https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType/ARK">
@@ -1410,7 +1416,7 @@
     <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
     >2026-01-18</dcterms:created>
     <dcterms:identifier>contributorType</dcterms:identifier>
-    <dcterms:title xml:lang="en">DataCite contributorType</dcterms:title>
+    <dcterms:title xml:lang="en">DataCite 4.6 contributorType</dcterms:title>
     <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/contributorType/contributorType.jsonld"/>
     <skos:hasTopConcept>
       <skos:Concept rdf:about="https://schema.stage.datacite.org/linked-data/vocab/contributorType/ContactPerson">
@@ -1544,17 +1550,18 @@
         <skos:prefLabel xml:lang="en">Other</skos:prefLabel>
         <skos:notation>Other</skos:notation>
         <skos:inScheme rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/titleType"/>
-        <skos:definition xml:lang="en">Another title type not covered by the named values.</skos:definition>
+        <skos:definition xml:lang="en">Any title type not covered by the other values in the titleType controlled list.</skos:definition>
         <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/titleType/Other.jsonld"/>
       </skos:Concept>
     </skos:hasTopConcept>
     <skos:hasTopConcept>
       <skos:Concept rdf:about="https://schema.stage.datacite.org/linked-data/vocab/titleType/TranslatedTitle">
         <skos:topConceptOf rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/titleType"/>
+        <skos:scopeNote xml:lang="en">Use the xml:lang attribute to indicate the language of the translated title.</skos:scopeNote>
         <skos:prefLabel xml:lang="en">TranslatedTitle</skos:prefLabel>
         <skos:notation>TranslatedTitle</skos:notation>
         <skos:inScheme rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/titleType"/>
-        <skos:definition xml:lang="en">A translated title for the resource.</skos:definition>
+        <skos:definition xml:lang="en">A title that is a translation of the primary title into another language.</skos:definition>
         <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/titleType/TranslatedTitle.jsonld"/>
       </skos:Concept>
     </skos:hasTopConcept>
@@ -1564,25 +1571,26 @@
         <skos:prefLabel xml:lang="en">Subtitle</skos:prefLabel>
         <skos:notation>Subtitle</skos:notation>
         <skos:inScheme rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/titleType"/>
-        <skos:definition xml:lang="en">A subtitle or secondary title for the resource.</skos:definition>
+        <skos:definition xml:lang="en">A secondary title that follows the main title and provides additional information about the resource.</skos:definition>
         <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/titleType/Subtitle.jsonld"/>
       </skos:Concept>
     </skos:hasTopConcept>
     <skos:hasTopConcept>
       <skos:Concept rdf:about="https://schema.stage.datacite.org/linked-data/vocab/titleType/AlternativeTitle">
         <skos:topConceptOf rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/titleType"/>
+        <skos:scopeNote xml:lang="en">Use for formally recognized alternate titles. For translated titles use TranslatedTitle; for secondary titles use Subtitle.</skos:scopeNote>
         <skos:prefLabel xml:lang="en">AlternativeTitle</skos:prefLabel>
         <skos:notation>AlternativeTitle</skos:notation>
         <skos:inScheme rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/titleType"/>
-        <skos:definition xml:lang="en">An alternative title for the resource.</skos:definition>
+        <skos:definition xml:lang="en">A title by which the resource is also known, used as an alternative to the primary title.</skos:definition>
         <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/titleType/AlternativeTitle.jsonld"/>
       </skos:Concept>
     </skos:hasTopConcept>
     <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/titleType/titleType.jsonld"/>
-    <dcterms:title xml:lang="en">DataCite titleType</dcterms:title>
+    <dcterms:title xml:lang="en">DataCite 4.6 titleType</dcterms:title>
     <dcterms:identifier>titleType</dcterms:identifier>
     <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
-    >2026-03-02</dcterms:created>
+    >2026-05-12</dcterms:created>
   </skos:ConceptScheme>
   <skos:ConceptScheme rdf:about="https://schema.stage.datacite.org/linked-data/vocab/nameType">
     <skos:hasTopConcept>
@@ -1606,7 +1614,7 @@
       </skos:Concept>
     </skos:hasTopConcept>
     <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/nameType/nameType.jsonld"/>
-    <dcterms:title xml:lang="en">DataCite nameType</dcterms:title>
+    <dcterms:title xml:lang="en">DataCite 4.6 nameType</dcterms:title>
     <dcterms:identifier>nameType</dcterms:identifier>
     <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
     >2026-02-20</dcterms:created>
@@ -1682,7 +1690,7 @@
       </skos:Concept>
     </skos:hasTopConcept>
     <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/descriptionType/descriptionType.jsonld"/>
-    <dcterms:title xml:lang="en">DataCite descriptionType</dcterms:title>
+    <dcterms:title xml:lang="en">DataCite 4.6 descriptionType</dcterms:title>
     <dcterms:identifier>descriptionType</dcterms:identifier>
     <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
     >2026-02-20</dcterms:created>
@@ -1691,7 +1699,7 @@
     <skos:hasTopConcept>
       <skos:Concept rdf:about="https://schema.stage.datacite.org/linked-data/vocab/relationType/Other">
         <skos:topConceptOf rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/relationType"/>
-        <skos:scopeNote xml:lang="en">If selected, supply a value for relationTypeInformation (or relatedItem relationTypeInformation).</skos:scopeNote>
+        <skos:scopeNote xml:lang="en">If selected, supply a value for relationTypeInformation (or relationTypeInformation for RelatedItem).</skos:scopeNote>
         <skos:prefLabel xml:lang="en">Other</skos:prefLabel>
         <skos:notation>Other</skos:notation>
         <skos:inScheme rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/relationType"/>
@@ -2020,7 +2028,7 @@
     <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
     >2026-02-20</dcterms:created>
     <dcterms:identifier>relationType</dcterms:identifier>
-    <dcterms:title xml:lang="en">DataCite relationType</dcterms:title>
+    <dcterms:title xml:lang="en">DataCite 4.6 relationType</dcterms:title>
     <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/relationType/relationType.jsonld"/>
     <skos:hasTopConcept>
       <skos:Concept rdf:about="https://schema.stage.datacite.org/linked-data/vocab/relationType/IsCitedBy">
@@ -2153,28 +2161,29 @@
     <skos:hasTopConcept>
       <skos:Concept rdf:about="https://schema.stage.datacite.org/linked-data/vocab/identifierType/DOI">
         <skos:topConceptOf rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/identifierType"/>
+        <skos:scopeNote xml:lang="en">The DOI is the required identifier type for resources registered with DataCite; every DataCite record MUST carry exactly one DOI as its primary identifier.</skos:scopeNote>
         <skos:prefLabel xml:lang="en">DOI</skos:prefLabel>
         <skos:notation>DOI</skos:notation>
         <skos:inScheme rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/identifierType"/>
-        <skos:definition xml:lang="en">Digital Object Identifier.</skos:definition>
+        <skos:definition xml:lang="en">A character string used to uniquely and persistently identify a citable resource, registered with a DOI Registration Agency such as DataCite. A DOI name consists of a prefix (assigned to the registrant) and a suffix (assigned by the registrant to the resource), separated by a slash.</skos:definition>
+        <skos:altLabel xml:lang="en">Digital Object Identifier</skos:altLabel>
         <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/identifierType/DOI.jsonld"/>
       </skos:Concept>
     </skos:hasTopConcept>
     <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/identifierType/identifierType.jsonld"/>
-    <dcterms:title xml:lang="en">DataCite identifierType</dcterms:title>
+    <dcterms:title xml:lang="en">DataCite 4.6 identifierType</dcterms:title>
     <dcterms:identifier>identifierType</dcterms:identifier>
     <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
-    >2026-03-02</dcterms:created>
+    >2026-05-12</dcterms:created>
   </skos:ConceptScheme>
   <skos:ConceptScheme rdf:about="https://schema.stage.datacite.org/linked-data/vocab/numberType">
     <skos:hasTopConcept>
       <skos:Concept rdf:about="https://schema.stage.datacite.org/linked-data/vocab/numberType/Other">
         <skos:topConceptOf rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/numberType"/>
-        <skos:scopeNote xml:lang="en">Typically used with relationType IsPublishedIn when a more specific number type is unavailable.</skos:scopeNote>
         <skos:prefLabel xml:lang="en">Other</skos:prefLabel>
         <skos:notation>Other</skos:notation>
         <skos:inScheme rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/numberType"/>
-        <skos:definition xml:lang="en">Another related-item number type not covered by the named values.</skos:definition>
+        <skos:definition xml:lang="en">Any number type not covered by the other values in the numberType controlled list.</skos:definition>
         <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/numberType/Other.jsonld"/>
       </skos:Concept>
     </skos:hasTopConcept>
@@ -2184,7 +2193,7 @@
         <skos:prefLabel xml:lang="en">Report</skos:prefLabel>
         <skos:notation>Report</skos:notation>
         <skos:inScheme rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/numberType"/>
-        <skos:definition xml:lang="en">A report number associated with the related item.</skos:definition>
+        <skos:definition xml:lang="en">A number identifying a report within a report series.</skos:definition>
         <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/numberType/Report.jsonld"/>
       </skos:Concept>
     </skos:hasTopConcept>
@@ -2194,7 +2203,7 @@
         <skos:prefLabel xml:lang="en">Chapter</skos:prefLabel>
         <skos:notation>Chapter</skos:notation>
         <skos:inScheme rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/numberType"/>
-        <skos:definition xml:lang="en">A chapter number associated with the related item.</skos:definition>
+        <skos:definition xml:lang="en">A number identifying a chapter within a book or monograph.</skos:definition>
         <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/numberType/Chapter.jsonld"/>
       </skos:Concept>
     </skos:hasTopConcept>
@@ -2204,15 +2213,15 @@
         <skos:prefLabel xml:lang="en">Article</skos:prefLabel>
         <skos:notation>Article</skos:notation>
         <skos:inScheme rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/numberType"/>
-        <skos:definition xml:lang="en">An article number associated with the related item.</skos:definition>
+        <skos:definition xml:lang="en">A number identifying an article within a journal issue or proceedings volume.</skos:definition>
         <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/numberType/Article.jsonld"/>
       </skos:Concept>
     </skos:hasTopConcept>
     <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/numberType/numberType.jsonld"/>
-    <dcterms:title xml:lang="en">DataCite numberType</dcterms:title>
+    <dcterms:title xml:lang="en">DataCite 4.6 numberType</dcterms:title>
     <dcterms:identifier>numberType</dcterms:identifier>
     <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
-    >2026-03-02</dcterms:created>
+    >2026-05-12</dcterms:created>
   </skos:ConceptScheme>
   <skos:ConceptScheme rdf:about="https://schema.stage.datacite.org/linked-data/vocab/dateType">
     <skos:hasTopConcept>
@@ -2228,7 +2237,7 @@
     <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
     >2026-02-20</dcterms:created>
     <dcterms:identifier>dateType</dcterms:identifier>
-    <dcterms:title xml:lang="en">DataCite dateType</dcterms:title>
+    <dcterms:title xml:lang="en">DataCite 4.6 dateType</dcterms:title>
     <rdfs:seeAlso rdf:resource="https://schema.stage.datacite.org/linked-data/vocab/dateType/dateType.jsonld"/>
     <skos:hasTopConcept>
       <skos:Concept rdf:about="https://schema.stage.datacite.org/linked-data/vocab/dateType/Accepted">

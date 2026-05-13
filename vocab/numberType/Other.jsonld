@@ -4,8 +4,7 @@
   "type": "Concept",
   "prefLabel": "Other",
   "notation": "Other",
-  "definition": "Another related-item number type not covered by the named values.",
+  "definition": "Any number type not covered by the other values in the numberType controlled list.",
   "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
-  "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
-  "scopeNote": "Typically used with relationType IsPublishedIn when a more specific number type is unavailable."
+  "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/numberType"
 }

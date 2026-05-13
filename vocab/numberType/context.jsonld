@@ -33,11 +33,6 @@
     "example": {
       "@id": "skos:example",
       "@container": "@set"
-    },
-    "closeMatch": {
-      "@id": "skos:closeMatch",
-      "@type": "@id",
-      "@container": "@set"
     }
   }
 }

@@ -8,6 +8,7 @@
     "Concept": "skos:Concept",
     "ConceptScheme": "skos:ConceptScheme",
     "prefLabel": "skos:prefLabel",
+    "altLabel": "skos:altLabel",
     "definition": "skos:definition",
     "scopeNote": "skos:scopeNote",
     "notation": "skos:notation",
@@ -32,11 +33,6 @@
     },
     "example": {
       "@id": "skos:example",
-      "@container": "@set"
-    },
-    "closeMatch": {
-      "@id": "skos:closeMatch",
-      "@type": "@id",
       "@container": "@set"
     }
   }

@@ -92,7 +92,7 @@
       "title": "DataCite Linked Data 4.6 Distribution",
       "identifier": "datacite-4.6",
       "versionInfo": "4.6",
-      "created": "2026-03-02",
+      "created": "2026-05-12",
       "license": "https://www.apache.org/licenses/LICENSE-2.0",
       "source": "https://schema.stage.datacite.org/linked-data/manifest/datacite-4.6.json",
       "seeAlso": [
@@ -232,7 +232,7 @@
       "id": "https://schema.stage.datacite.org/linked-data/class/Resource",
       "type": "rdfs:Class",
       "label": "Resource",
-      "comment": "A resource that can be cited and identified...",
+      "comment": "Any object (data, software, instrument, document, sample, etc.) that can be cited via a DataCite-assigned persistent identifier (DOI). This is the root class of the DataCite Metadata Schema; every DataCite record describes exactly one Resource.",
       "seeAlso": [
         "https://schema.stage.datacite.org/linked-data/class/Resource.jsonld"
       ]
@@ -301,7 +301,7 @@
       ]
     },
     {
-      "id": "https://schema.datacite.org/linked-data/property/affiliationIdentifier",
+      "id": "https://schema.stage.datacite.org/linked-data/property/affiliationIdentifier",
       "type": "rdf:Property",
       "label": "affiliationIdentifier",
       "comment": "Uniquely identifies the organizational affiliation of the creator.",
@@ -996,7 +996,7 @@
     {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/contributorType",
       "type": "ConceptScheme",
-      "title": "DataCite contributorType",
+      "title": "DataCite 4.6 contributorType",
       "identifier": "contributorType",
       "created": "2026-01-18",
       "hasTopConcept": [
@@ -1326,7 +1326,7 @@
     {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/dateType",
       "type": "ConceptScheme",
-      "title": "DataCite dateType",
+      "title": "DataCite 4.6 dateType",
       "identifier": "dateType",
       "created": "2026-02-20",
       "hasTopConcept": [
@@ -1501,7 +1501,7 @@
     {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/descriptionType",
       "type": "ConceptScheme",
-      "title": "DataCite descriptionType",
+      "title": "DataCite 4.6 descriptionType",
       "identifier": "descriptionType",
       "created": "2026-02-20",
       "hasTopConcept": [
@@ -1604,111 +1604,9 @@
       ]
     },
     {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
-      "type": "ConceptScheme",
-      "title": "DataCite funderIdentifierType",
-      "identifier": "funderIdentifierType",
-      "created": "2026-03-02",
-      "hasTopConcept": [
-        "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/CrossrefFunderID",
-        "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/GRID",
-        "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/ISNI",
-        "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/ROR",
-        "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/Other"
-      ],
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/funderIdentifierType.jsonld"
-      ]
-    },
-    {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/CrossrefFunderID",
-      "type": "Concept",
-      "prefLabel": "Crossref Funder ID",
-      "notation": "Crossref Funder ID",
-      "definition": "A funder identifier from the Crossref Funder Registry.",
-      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
-      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/CrossrefFunderID.jsonld"
-      ]
-    },
-    {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/GRID",
-      "type": "Concept",
-      "prefLabel": "GRID",
-      "notation": "GRID",
-      "definition": "A funder identifier from the Global Research Identifier Database.",
-      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
-      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/GRID.jsonld"
-      ]
-    },
-    {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/ISNI",
-      "type": "Concept",
-      "prefLabel": "ISNI",
-      "notation": "ISNI",
-      "definition": "A funder identifier from the International Standard Name Identifier system.",
-      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
-      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/ISNI.jsonld"
-      ]
-    },
-    {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/Other",
-      "type": "Concept",
-      "prefLabel": "Other",
-      "notation": "Other",
-      "definition": "Another funder identifier type not covered by the named values.",
-      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
-      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/Other.jsonld"
-      ]
-    },
-    {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/ROR",
-      "type": "Concept",
-      "prefLabel": "ROR",
-      "notation": "ROR",
-      "definition": "A funder identifier from the Research Organization Registry.",
-      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
-      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/ROR.jsonld"
-      ]
-    },
-    {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/identifierType",
-      "type": "ConceptScheme",
-      "title": "DataCite identifierType",
-      "identifier": "identifierType",
-      "created": "2026-03-02",
-      "hasTopConcept": [
-        "https://schema.stage.datacite.org/linked-data/vocab/identifierType/DOI"
-      ],
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/identifierType/identifierType.jsonld"
-      ]
-    },
-    {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/identifierType/DOI",
-      "type": "Concept",
-      "prefLabel": "DOI",
-      "notation": "DOI",
-      "definition": "Digital Object Identifier.",
-      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/identifierType",
-      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/identifierType",
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/identifierType/DOI.jsonld"
-      ]
-    },
-    {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/nameType",
       "type": "ConceptScheme",
-      "title": "DataCite nameType",
+      "title": "DataCite 4.6 nameType",
       "identifier": "nameType",
       "created": "2026-02-20",
       "hasTopConcept": [
@@ -1744,74 +1642,9 @@
       ]
     },
     {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
-      "type": "ConceptScheme",
-      "title": "DataCite numberType",
-      "identifier": "numberType",
-      "created": "2026-03-02",
-      "hasTopConcept": [
-        "https://schema.stage.datacite.org/linked-data/vocab/numberType/Article",
-        "https://schema.stage.datacite.org/linked-data/vocab/numberType/Chapter",
-        "https://schema.stage.datacite.org/linked-data/vocab/numberType/Report",
-        "https://schema.stage.datacite.org/linked-data/vocab/numberType/Other"
-      ],
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/numberType/numberType.jsonld"
-      ]
-    },
-    {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/numberType/Article",
-      "type": "Concept",
-      "prefLabel": "Article",
-      "notation": "Article",
-      "definition": "An article number associated with the related item.",
-      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
-      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/numberType/Article.jsonld"
-      ]
-    },
-    {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/numberType/Chapter",
-      "type": "Concept",
-      "prefLabel": "Chapter",
-      "notation": "Chapter",
-      "definition": "A chapter number associated with the related item.",
-      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
-      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/numberType/Chapter.jsonld"
-      ]
-    },
-    {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/numberType/Other",
-      "type": "Concept",
-      "prefLabel": "Other",
-      "notation": "Other",
-      "definition": "Another related-item number type not covered by the named values.",
-      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
-      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
-      "scopeNote": "Typically used with relationType IsPublishedIn when a more specific number type is unavailable.",
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/numberType/Other.jsonld"
-      ]
-    },
-    {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/numberType/Report",
-      "type": "Concept",
-      "prefLabel": "Report",
-      "notation": "Report",
-      "definition": "A report number associated with the related item.",
-      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
-      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/numberType/Report.jsonld"
-      ]
-    },
-    {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType",
       "type": "ConceptScheme",
-      "title": "DataCite relatedIdentifierType",
+      "title": "DataCite 4.6 relatedIdentifierType",
       "identifier": "relatedIdentifierType",
       "created": "2026-02-20",
       "hasTopConcept": [
@@ -1831,7 +1664,9 @@
         "https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType/LSID",
         "https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType/PMID",
         "https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType/PURL",
+        "https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType/RAiD",
         "https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType/RRID",
+        "https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType/SWHID",
         "https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType/UPC",
         "https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType/URL",
         "https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType/URN",
@@ -2180,7 +2015,7 @@
     {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
       "type": "ConceptScheme",
-      "title": "DataCite relationType",
+      "title": "DataCite 4.6 relationType",
       "identifier": "relationType",
       "created": "2026-02-20",
       "hasTopConcept": [
@@ -2221,7 +2056,8 @@
         "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsCollectedBy",
         "https://schema.stage.datacite.org/linked-data/vocab/relationType/Collects",
         "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsTranslationOf",
-        "https://schema.stage.datacite.org/linked-data/vocab/relationType/HasTranslation"
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/HasTranslation",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/Other"
       ],
       "seeAlso": [
         "https://schema.stage.datacite.org/linked-data/vocab/relationType/relationType.jsonld"
@@ -2825,7 +2661,7 @@
     {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral",
       "type": "ConceptScheme",
-      "title": "DataCite resourceTypeGeneral",
+      "title": "DataCite 4.6 resourceTypeGeneral",
       "identifier": "resourceTypeGeneral",
       "created": "2026-02-20",
       "hasTopConcept": [
@@ -2850,7 +2686,9 @@
         "https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral/OutputManagementPlan",
         "https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral/PeerReview",
         "https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral/PhysicalObject",
+        "https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral/Poster",
         "https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral/Preprint",
+        "https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral/Presentation",
         "https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral/Project",
         "https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral/Report",
         "https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral/Service",
@@ -3395,70 +3233,6 @@
       "scopeNote": "Computational workflows involving sequential operations made on data by wrapped software and may be specified in a format belonging to a workflow management system, such as Taverna (http://www.taverna.org.uk/).",
       "seeAlso": [
         "https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral/Workflow.jsonld"
-      ]
-    },
-    {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
-      "type": "ConceptScheme",
-      "title": "DataCite titleType",
-      "identifier": "titleType",
-      "created": "2026-03-02",
-      "hasTopConcept": [
-        "https://schema.stage.datacite.org/linked-data/vocab/titleType/AlternativeTitle",
-        "https://schema.stage.datacite.org/linked-data/vocab/titleType/Subtitle",
-        "https://schema.stage.datacite.org/linked-data/vocab/titleType/TranslatedTitle",
-        "https://schema.stage.datacite.org/linked-data/vocab/titleType/Other"
-      ],
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/titleType/titleType.jsonld"
-      ]
-    },
-    {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/titleType/AlternativeTitle",
-      "type": "Concept",
-      "prefLabel": "AlternativeTitle",
-      "notation": "AlternativeTitle",
-      "definition": "An alternative title for the resource.",
-      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
-      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/titleType/AlternativeTitle.jsonld"
-      ]
-    },
-    {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/titleType/Other",
-      "type": "Concept",
-      "prefLabel": "Other",
-      "notation": "Other",
-      "definition": "Another title type not covered by the named values.",
-      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
-      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/titleType/Other.jsonld"
-      ]
-    },
-    {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/titleType/Subtitle",
-      "type": "Concept",
-      "prefLabel": "Subtitle",
-      "notation": "Subtitle",
-      "definition": "A subtitle or secondary title for the resource.",
-      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
-      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/titleType/Subtitle.jsonld"
-      ]
-    },
-    {
-      "id": "https://schema.stage.datacite.org/linked-data/vocab/titleType/TranslatedTitle",
-      "type": "Concept",
-      "prefLabel": "TranslatedTitle",
-      "notation": "TranslatedTitle",
-      "definition": "A translated title for the resource.",
-      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
-      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
-      "seeAlso": [
-        "https://schema.stage.datacite.org/linked-data/vocab/titleType/TranslatedTitle.jsonld"
       ]
     }
   ]

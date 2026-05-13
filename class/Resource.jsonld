@@ -8,5 +8,5 @@
   "@id": "https://schema.stage.datacite.org/linked-data/class/Resource",
   "@type": "rdfs:Class",
   "rdfs:label": "Resource",
-  "rdfs:comment": "A resource that can be cited and identified..."
+  "rdfs:comment": "Any object (data, software, instrument, document, sample, etc.) that can be cited via a DataCite-assigned persistent identifier (DOI). This is the root class of the DataCite Metadata Schema; every DataCite record describes exactly one Resource."
 }
