@@ -108,10 +108,7 @@
     },
     "subjectScheme": {
       "@id": "property:subjectScheme",
-      "@type": "@vocab",
-      "@context": {
-        "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/subjectScheme/"
-      }
+      "@type": "xsd:string"
     },
     "classificationCode": {
       "@id": "property:classificationCode",
@@ -169,10 +166,7 @@
     },
     "alternateIdentifierType": {
       "@id": "property:alternateIdentifierType",
-      "@type": "@vocab",
-      "@context": {
-        "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/alternateIdentifierType/"
-      }
+      "@type": "xsd:string"
     },
     "relatedIdentifiers": {"@id": "@nest"},
     "relatedIdentifier": {
@@ -343,8 +337,9 @@
       "@id": "property:relatedItemType",
       "@type": "@vocab",
       "@context": {
-        "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/relatedItemType/"
-      }
+        "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral/"
+      },
+      "_note": "DataCite 4.7 spec property 20.a states: 'Use the controlled list values as stated in 10.a resourceTypeGeneral'. relatedItemType is NOT a parallel vocabulary; it reuses the resourceTypeGeneral concept IRIs. The contextual difference (type-of-related-item vs type-of-primary-resource) is carried by the predicate (property:relatedItemType vs property:resourceTypeGeneral), not by the object IRI."
     },
     "relatedItemIdentifier": {
       "@id": "property:relatedItemIdentifier",
@@ -354,8 +349,9 @@
       "@id": "property:relatedItemIdentifierType",
       "@type": "@vocab",
       "@context": {
-        "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/relatedItemIdentifierType/"
-      }
+        "@vocab": "https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType/"
+      },
+      "_note": "DataCite 4.7 spec property 20.1.a: relatedItemIdentifierType matches property 12.a relatedIdentifierType exactly. Concept IRIs are shared; the predicate (property:relatedItemIdentifierType vs property:relatedIdentifierType) carries the contextual semantics."
     },
     "volume": {
       "@id": "property:volume",
