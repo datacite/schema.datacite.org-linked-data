@@ -232,7 +232,7 @@
       "id": "https://schema.stage.datacite.org/linked-data/class/Resource",
       "type": "rdfs:Class",
       "label": "Resource",
-      "comment": "A resource that can be cited and identified...",
+      "comment": "Any object (data, software, instrument, document, sample, etc.) that can be cited via a DataCite-assigned persistent identifier (DOI). This is the root class of the DataCite Metadata Schema; every DataCite record describes exactly one Resource.",
       "seeAlso": [
         "https://schema.stage.datacite.org/linked-data/class/Resource.jsonld"
       ]
@@ -301,7 +301,7 @@
       ]
     },
     {
-      "id": "https://schema.datacite.org/linked-data/property/affiliationIdentifier",
+      "id": "https://schema.stage.datacite.org/linked-data/property/affiliationIdentifier",
       "type": "rdf:Property",
       "label": "affiliationIdentifier",
       "comment": "Uniquely identifies the organizational affiliation of the creator.",
@@ -316,6 +316,15 @@
       "comment": "The name of the affiliation identifier scheme",
       "seeAlso": [
         "https://schema.stage.datacite.org/linked-data/property/affiliationIdentifierScheme.jsonld"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/property/alternateIdentifier",
+      "type": "rdf:Property",
+      "label": "alternateIdentifier",
+      "comment": "An identifier or identifiers other than the primary Identifier applied to the resource being registered. This may be any alphanumeric string unique within its domain of issue, such as a local identifier, a serial number of an instrument, or an inventory number.",
+      "seeAlso": [
+        "https://schema.stage.datacite.org/linked-data/property/alternateIdentifier.jsonld"
       ]
     },
     {
@@ -1005,7 +1014,7 @@
     {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/contributorType",
       "type": "ConceptScheme",
-      "title": "DataCite contributorType",
+      "title": "DataCite 4.6 contributorType",
       "identifier": "contributorType",
       "created": "2026-01-18",
       "hasTopConcept": [
@@ -1335,7 +1344,7 @@
     {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/dateType",
       "type": "ConceptScheme",
-      "title": "DataCite dateType",
+      "title": "DataCite 4.6 dateType",
       "identifier": "dateType",
       "created": "2026-02-20",
       "hasTopConcept": [
@@ -1510,7 +1519,7 @@
     {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/descriptionType",
       "type": "ConceptScheme",
-      "title": "DataCite descriptionType",
+      "title": "DataCite 4.6 descriptionType",
       "identifier": "descriptionType",
       "created": "2026-02-20",
       "hasTopConcept": [
@@ -1615,9 +1624,9 @@
     {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
       "type": "ConceptScheme",
-      "title": "DataCite funderIdentifierType",
+      "title": "DataCite 4.6 funderIdentifierType",
       "identifier": "funderIdentifierType",
-      "created": "2026-03-02",
+      "created": "2026-05-12",
       "hasTopConcept": [
         "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/CrossrefFunderID",
         "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/GRID",
@@ -1633,8 +1642,9 @@
       "id": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/CrossrefFunderID",
       "type": "Concept",
       "prefLabel": "Crossref Funder ID",
+      "altLabel": "Crossref Funder Registry ID",
       "notation": "Crossref Funder ID",
-      "definition": "A funder identifier from the Crossref Funder Registry.",
+      "definition": "A persistent identifier for a funding body assigned by the Crossref Funder Registry, a curated, openly licensed registry of funder names and identifiers used to disambiguate funding organizations in scholarly metadata.",
       "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
       "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
       "seeAlso": [
@@ -1645,8 +1655,10 @@
       "id": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/GRID",
       "type": "Concept",
       "prefLabel": "GRID",
+      "altLabel": "Global Research Identifier Database",
       "notation": "GRID",
-      "definition": "A funder identifier from the Global Research Identifier Database.",
+      "definition": "A persistent identifier for a research organization issued by the Global Research Identifier Database (GRID), a free database of research-related institution identifiers maintained by Digital Science.",
+      "scopeNote": "GRID identifiers were succeeded by ROR identifiers in 2021; new records SHOULD prefer ROR where an equivalent ROR identifier exists.",
       "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
       "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
       "seeAlso": [
@@ -1657,8 +1669,9 @@
       "id": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/ISNI",
       "type": "Concept",
       "prefLabel": "ISNI",
+      "altLabel": "International Standard Name Identifier",
       "notation": "ISNI",
-      "definition": "A funder identifier from the International Standard Name Identifier system.",
+      "definition": "A 16-character identifier for the public identity of a person or organization, defined by ISO 27729 and assigned by the ISNI International Agency. When used as a funder identifier, the ISNI uniquely identifies the funding organization.",
       "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
       "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
       "seeAlso": [
@@ -1670,7 +1683,8 @@
       "type": "Concept",
       "prefLabel": "Other",
       "notation": "Other",
-      "definition": "Another funder identifier type not covered by the named values.",
+      "definition": "Any funder identifier type not covered by the other values in the funderIdentifierType controlled list.",
+      "scopeNote": "Use Other for funder identifier schemes that are not represented by a named value in this vocabulary. If a particular scheme is in common use, consider proposing it as a named value in a future DataCite release.",
       "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
       "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
       "seeAlso": [
@@ -1681,8 +1695,9 @@
       "id": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType/ROR",
       "type": "Concept",
       "prefLabel": "ROR",
+      "altLabel": "Research Organization Registry",
       "notation": "ROR",
-      "definition": "A funder identifier from the Research Organization Registry.",
+      "definition": "A persistent identifier for a research organization from the Research Organization Registry (ROR), a community-led, open registry of unique identifiers for every organization that performs, funds, or otherwise contributes to research.",
       "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
       "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/funderIdentifierType",
       "seeAlso": [
@@ -1692,9 +1707,9 @@
     {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/identifierType",
       "type": "ConceptScheme",
-      "title": "DataCite identifierType",
+      "title": "DataCite 4.6 identifierType",
       "identifier": "identifierType",
-      "created": "2026-03-02",
+      "created": "2026-05-12",
       "hasTopConcept": [
         "https://schema.stage.datacite.org/linked-data/vocab/identifierType/DOI"
       ],
@@ -1706,8 +1721,10 @@
       "id": "https://schema.stage.datacite.org/linked-data/vocab/identifierType/DOI",
       "type": "Concept",
       "prefLabel": "DOI",
+      "altLabel": "Digital Object Identifier",
       "notation": "DOI",
-      "definition": "Digital Object Identifier.",
+      "definition": "A character string used to uniquely and persistently identify a citable resource, registered with a DOI Registration Agency such as DataCite. A DOI name consists of a prefix (assigned to the registrant) and a suffix (assigned by the registrant to the resource), separated by a slash.",
+      "scopeNote": "The DOI is the required identifier type for resources registered with DataCite; every DataCite record MUST carry exactly one DOI as its primary identifier.",
       "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/identifierType",
       "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/identifierType",
       "seeAlso": [
@@ -1717,7 +1734,7 @@
     {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/nameType",
       "type": "ConceptScheme",
-      "title": "DataCite nameType",
+      "title": "DataCite 4.6 nameType",
       "identifier": "nameType",
       "created": "2026-02-20",
       "hasTopConcept": [
@@ -1755,9 +1772,9 @@
     {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
       "type": "ConceptScheme",
-      "title": "DataCite numberType",
+      "title": "DataCite 4.6 numberType",
       "identifier": "numberType",
-      "created": "2026-03-02",
+      "created": "2026-05-12",
       "hasTopConcept": [
         "https://schema.stage.datacite.org/linked-data/vocab/numberType/Article",
         "https://schema.stage.datacite.org/linked-data/vocab/numberType/Chapter",
@@ -1773,7 +1790,7 @@
       "type": "Concept",
       "prefLabel": "Article",
       "notation": "Article",
-      "definition": "An article number associated with the related item.",
+      "definition": "A number identifying an article within a journal issue or proceedings volume.",
       "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
       "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
       "seeAlso": [
@@ -1785,7 +1802,7 @@
       "type": "Concept",
       "prefLabel": "Chapter",
       "notation": "Chapter",
-      "definition": "A chapter number associated with the related item.",
+      "definition": "A number identifying a chapter within a book or monograph.",
       "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
       "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
       "seeAlso": [
@@ -1797,10 +1814,9 @@
       "type": "Concept",
       "prefLabel": "Other",
       "notation": "Other",
-      "definition": "Another related-item number type not covered by the named values.",
+      "definition": "Any number type not covered by the other values in the numberType controlled list.",
       "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
       "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
-      "scopeNote": "Typically used with relationType IsPublishedIn when a more specific number type is unavailable.",
       "seeAlso": [
         "https://schema.stage.datacite.org/linked-data/vocab/numberType/Other.jsonld"
       ]
@@ -1810,7 +1826,7 @@
       "type": "Concept",
       "prefLabel": "Report",
       "notation": "Report",
-      "definition": "A report number associated with the related item.",
+      "definition": "A number identifying a report within a report series.",
       "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
       "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
       "seeAlso": [
@@ -1820,7 +1836,7 @@
     {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/relatedIdentifierType",
       "type": "ConceptScheme",
-      "title": "DataCite relatedIdentifierType",
+      "title": "DataCite 4.6 relatedIdentifierType",
       "identifier": "relatedIdentifierType",
       "created": "2026-02-20",
       "hasTopConcept": [
@@ -2114,7 +2130,7 @@
       "prefLabel": "RAiD",
       "altLabel": "Research Activity Identifier",
       "notation": "RAiD",
-      "definition": "The Research Activity Identifier (RAiD) is a persistent identifier (PID) and global registry dedicated to research projects. RAiD provides a system to store, update, share, and link project information across the research community.",
+      "definition": "The Research Activity Identifier (RAiD) is a persistent identifier (PID) and global registry dedicated to research projects. RAiD is governed by ISO standard 23527:2022, with the Australian Research Data Commons (ARDC) as the Registration Authority and lead developer of the system. RAiD provides a system to store, update, share, and link project information across the research community.",
       "example": [
         "<relatedIdentifier relatedIdentifierType=\"RAiD\" relationType=\"IsPartOf\" resourceTypeGeneral=\"Project\">https://raid.org/10.26259/5c43ca8f</relatedIdentifier>"
       ],
@@ -2146,8 +2162,8 @@
       "prefLabel": "SWHID",
       "altLabel": "SoftWare Hash Identifier",
       "notation": "SWHID",
-      "definition": "SWHIDs are persistent, intrinsic identifiers for software source code artifacts such as source code files, source trees, commits, and other objects typically found in version control systems.",
-      "scopeNote": "A SWHID includes a mandatory core identifier and optional qualifiers to express context and subparts.",
+      "definition": "SWHIDs (from \"SoftWare Hash IDentifiers\") are persistent, intrinsic identifiers for software source code artifacts such as source code files, source trees, commits, and other objects typically found in version control systems.",
+      "scopeNote": "A SWHID consists of two separate parts, a mandatory core identifier that can point to any software artifact (or \"object\") available in the Software Heritage archive, and an optional list of qualifiers that allows to specify the context where the object is meant to be seen and point to a subpart of the object itself.",
       "example": [
         "<relatedIdentifier relatedIdentifierType=\"SWHID\" relationType=\"Cites\">swh:1:cnt:94a9ed024d3859793618152ea559a168bbcbb5e2</relatedIdentifier>"
       ],
@@ -2224,7 +2240,7 @@
     {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
       "type": "ConceptScheme",
-      "title": "DataCite relationType",
+      "title": "DataCite 4.6 relationType",
       "identifier": "relationType",
       "created": "2026-02-20",
       "hasTopConcept": [
@@ -2826,7 +2842,7 @@
       "prefLabel": "Other",
       "notation": "Other",
       "definition": "indicates that A is related to B and the relationship does not fit into an existing category",
-      "scopeNote": "If selected, supply a value for relationTypeInformation (or relatedItem relationTypeInformation).",
+      "scopeNote": "If selected, supply a value for relationTypeInformation describing the nature of the relationship; applies to both relatedIdentifier and relatedItem.",
       "example": [
         "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"Other\" relationTypeInformation=\"is output of\" resourceTypeGeneral=\"Project\">10.21384/p27z-6n52</relatedIdentifier>"
       ],
@@ -2886,7 +2902,7 @@
     {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/resourceTypeGeneral",
       "type": "ConceptScheme",
-      "title": "DataCite resourceTypeGeneral",
+      "title": "DataCite 4.6 resourceTypeGeneral",
       "identifier": "resourceTypeGeneral",
       "created": "2026-02-20",
       "hasTopConcept": [
@@ -3495,9 +3511,9 @@
     {
       "id": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
       "type": "ConceptScheme",
-      "title": "DataCite titleType",
+      "title": "DataCite 4.6 titleType",
       "identifier": "titleType",
-      "created": "2026-03-02",
+      "created": "2026-05-12",
       "hasTopConcept": [
         "https://schema.stage.datacite.org/linked-data/vocab/titleType/AlternativeTitle",
         "https://schema.stage.datacite.org/linked-data/vocab/titleType/Subtitle",
@@ -3513,7 +3529,8 @@
       "type": "Concept",
       "prefLabel": "AlternativeTitle",
       "notation": "AlternativeTitle",
-      "definition": "An alternative title for the resource.",
+      "definition": "A title by which the resource is also known, used as an alternative to the primary title.",
+      "scopeNote": "Use for formally recognized alternate titles. For translated titles use TranslatedTitle; for secondary titles use Subtitle.",
       "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
       "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
       "seeAlso": [
@@ -3525,7 +3542,7 @@
       "type": "Concept",
       "prefLabel": "Other",
       "notation": "Other",
-      "definition": "Another title type not covered by the named values.",
+      "definition": "Any title type not covered by the other values in the titleType controlled list.",
       "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
       "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
       "seeAlso": [
@@ -3537,7 +3554,7 @@
       "type": "Concept",
       "prefLabel": "Subtitle",
       "notation": "Subtitle",
-      "definition": "A subtitle or secondary title for the resource.",
+      "definition": "A secondary title that follows the main title and provides additional information about the resource.",
       "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
       "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
       "seeAlso": [
@@ -3549,7 +3566,8 @@
       "type": "Concept",
       "prefLabel": "TranslatedTitle",
       "notation": "TranslatedTitle",
-      "definition": "A translated title for the resource.",
+      "definition": "A title that is a translation of the primary title into another language.",
+      "scopeNote": "Use the xml:lang attribute to indicate the language of the translated title.",
       "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
       "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/titleType",
       "seeAlso": [

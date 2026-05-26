@@ -4,7 +4,7 @@
   "type": "Concept",
   "prefLabel": "Report",
   "notation": "Report",
-  "definition": "A report number associated with the related item.",
+  "definition": "A number identifying a report within a report series.",
   "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
   "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/numberType"
 }

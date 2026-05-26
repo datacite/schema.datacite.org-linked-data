@@ -4,7 +4,7 @@
   "type": "Concept",
   "prefLabel": "Chapter",
   "notation": "Chapter",
-  "definition": "A chapter number associated with the related item.",
+  "definition": "A number identifying a chapter within a book or monograph.",
   "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
   "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/numberType"
 }

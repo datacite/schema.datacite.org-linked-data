@@ -4,7 +4,7 @@
   "type": "Concept",
   "prefLabel": "Article",
   "notation": "Article",
-  "definition": "An article number associated with the related item.",
+  "definition": "A number identifying an article within a journal issue or proceedings volume.",
   "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/numberType",
   "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/numberType"
 }
